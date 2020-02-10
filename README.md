@@ -1,11 +1,11 @@
 # Handshake-Prototype
-This represents a working Handshake Prototype Web Application developed in First Lab Assignment of Enterprise Distributed Systems Course (CMPE 273-01) at San Jose State University. The Web Application is a modern 3-tier application built using Javascript and popular frameworks and libraries such as **Nodejs, Reactjs, Express** and the testing of backend servers have been performed using **JMeter and Mocha**. The application is containerized using **Docker** and deployed on Amazon Web Services using its **Elastic Container Service (ECS)**. 
+This represents a working Handshake Prototype Web Application developed in First Lab Assignment of Enterprise Distributed Systems Course (CMPE 273-01) at San Jose State University. The Web Application is a modern 3-tier application built using Javascript and popular frameworks and libraries such as **Nodejs, Reactjs, Express** and the testing of backend servers have been performed using **JMeter and Mocha**. The application is containerized using **Docker** and deployed on Amazon Web Services using its **Elastic Container Service (ECS)**. The application is supported by SQL Database.
 
 There are two personas using the application:
 
 # - Companies
 
-Companies Looking to recruit students can use the platform to signup and post some openings in their company and look out to recruit talent. Below is the summary of features available to the companies.
+Companies looking to recruit talent can use the platform to signup and post some openings/events in their company and connect with students. Below is the summary of all the features available to the companies in the platform.
 
   **1. Sign-Up and Profile Page**: Companies can sign up, provide their basic details such as Name, Location, Description, Upload Profile Picture etc and can later update these details using Profile Page. 
   
