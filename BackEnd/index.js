@@ -1,16 +1,23 @@
-//inbuilt package imports
-var express = require("express");
-var app = express();
-var bodyParser = require("body-parser");
-var session = require("express-session");
-var cookieParser = require("cookie-parser");
-
-//my api package imports
-var Database = require('./Database')
+// inbuilt package imports
+const express = require('express');
+const bodyParser = require('body-parser');
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
+const bcrypt = require('bcrypt');
 
 
+const saltRounds = 10;
+// my api package imports
+const Database = require('./Database');
+
+const databaseConnection = Database.connectToDatabase();
+const Signup = require('./apis/signup');
+const Login = require('./apis/login');
+
+
+const app = express();
 // setting view engine
-app.set("view engine", "ejs");
+app.set('view engine', 'ejs');
 // use body parser to parse JSON and urlencoded request bodies
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -18,11 +25,20 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 // use session to store user data between HTTP requests
 app.use(session({
-    secret: 'sarthak_handshake_secure_string',
-    resave: false,
-    saveUninitialized: true,
+  secret: 'sarthak_handshake_secure_string',
+  resave: false,
+  saveUninitialized: true,
 }));
 
-var server = app.listen(3001, () => {
-    console.log('Server listening on port 3001');
+
+app.post('/signup', (req, res) => {
+  Signup.signup(req, res, bcrypt, saltRounds, databaseConnection);
+});
+
+app.post('/login', (req, res) => {
+  Login.login(req, res, bcrypt, databaseConnection);
+});
+
+const server = app.listen(3001, () => {
+  console.log('Server listening on port 3001');
 });

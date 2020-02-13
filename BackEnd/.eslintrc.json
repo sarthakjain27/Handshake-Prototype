@@ -24,5 +24,6 @@
     "react"
   ],
   "rules": {
+    "no-console":"off"
   }
 }
