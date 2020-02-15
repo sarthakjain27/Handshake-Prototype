@@ -4,12 +4,13 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcrypt');
-
+const cors = require('cors');
 
 const saltRounds = 10;
+
 // my api package imports
 const Database = require('./Database');
-
+const Config = require('./config')
 const databaseConnection = Database.connectToDatabase();
 const Signup = require('./apis/signup');
 const Login = require('./apis/login');
@@ -29,7 +30,7 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
 }));
-
+app.use(cors({origin:Config['applicationAddress']+':'+Config['applicationPort'],credentials:true}));
 
 app.post('/signup', (req, res) => {
   Signup.signup(req, res, bcrypt, saltRounds, databaseConnection);
