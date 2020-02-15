@@ -1,12 +1,12 @@
 const createJobPost = (req, res, pool) => {
   console.log('Inside createJobPost module:');
   console.log(req.body);
-  const { title } = req.body;
+  const title = req.body.title.toLowerCase();
   const { postingDate } = req.body;
   const { deadline } = req.body;
-  const { city } = req.body;
-  const { state } = req.body;
-  const { country } = req.body;
+  const city = req.body.city.toLowerCase();
+  const state = req.body.cstate.toLowerCase();
+  const country = req.body.country.toLowerCase();
   const { salary } = req.body;
   const { description } = req.body;
   const { category } = req.body;

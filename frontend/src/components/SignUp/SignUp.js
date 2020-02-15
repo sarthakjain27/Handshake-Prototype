@@ -117,6 +117,11 @@ class SignUp extends React.Component{
   }
 
   render(){
+    if(localStorage.getItem('userRole') === 'company'){
+      window.location.href = '/listPostings';
+    } else if(localStorage.getItem('userRole') === 'student'){
+      window.location.href = '/viewPostedJobs'
+    }
     let differentDiv = 
     <div>
       <div className="form-group">

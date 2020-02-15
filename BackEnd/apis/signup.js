@@ -24,12 +24,12 @@ const signup = (req, res, bcrypt, saltRounds, pool) => {
         if (error) throw error;
         let insertSql = '';
         if (user === 'company') {
-          const { city } = req.body;
-          const { state } = req.body;
-          const { country } = req.body;
+          const city = req.body.city.toLowerCase();
+          const state = req.body.state.toLowerCase();
+          const country = req.body.country.toLowerCase();
           insertSql = `INSERT INTO ${tableName} (company_name,email_id,password,city,state,country) VALUES ('${name}', '${emailId}', '${hash}' ,'${city}', '${state}', '${country}')`;
         } else {
-          const { collegeName } = req.body;
+          const collegeName = req.body.collegeName.toLowerCase();
           insertSql = `INSERT INTO ${tableName} (student_name,email_id,password,college_name) VALUES ('${name}', '${emailId}', '${hash}', '${collegeName}')`;
         }
         pool.query(insertSql, (insertError, result) => {
