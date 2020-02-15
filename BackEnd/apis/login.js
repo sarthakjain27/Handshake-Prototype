@@ -1,4 +1,4 @@
-const login = (req, res, bcrypt, databaseConnection) => {
+const login = (req, res, bcrypt, pool) => {
   console.log(`Inside login module: ${JSON.stringify(req.body)}`);
   const { user } = req.body;
   const { emailId } = req.body;
@@ -9,8 +9,11 @@ const login = (req, res, bcrypt, databaseConnection) => {
     tableName = 'company_information';
   }
   const userPresentSql = `SELECT * FROM ${tableName} WHERE EMAIL_ID = '${emailId}'`;
-  databaseConnection.query(userPresentSql, (searchError, searchResult) => {
-    if (searchError) throw searchError;
+  pool.query(userPresentSql, (searchError, searchResult) => {
+    if (searchError) {
+      console.log(searchError);
+      res.send('Error');
+    }
     if (searchResult.length === 0) {
       console.log(`User with email: ${emailId} and role: ${user} is not present in table: ${tableName}`);
       res.send('User Not Present');
@@ -25,10 +28,9 @@ const login = (req, res, bcrypt, databaseConnection) => {
         } else {
           console.log('Correct password given');
           res.send(foundUser);
-        }
-      });
-    }
-  });
+        }});
+      }
+    });
 };
 
 exports.login = login;

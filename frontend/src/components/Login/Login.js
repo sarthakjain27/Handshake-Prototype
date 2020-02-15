@@ -56,6 +56,8 @@ class Login extends React.Component{
         window.alert('Given username not present.')
       } else if(response.data === 'Wrong Password') {
         window.alert('Wrong Password given')
+      } else if (response.data === 'Error'){
+        window.alert('Error in Connecting to Database');
       } else {
           localStorage.setItem('email_id',response.data['email_id']);
           localStorage.setItem('city',response.data['city']);

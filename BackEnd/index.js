@@ -9,9 +9,8 @@ const cors = require('cors');
 const saltRounds = 10;
 
 // my api package imports
-const Database = require('./Database');
+const pool = require('./Database');
 const Config = require('./config')
-const databaseConnection = Database.connectToDatabase();
 const Signup = require('./apis/signup');
 const Login = require('./apis/login');
 
@@ -33,11 +32,11 @@ app.use(session({
 app.use(cors({origin:Config['applicationAddress']+':'+Config['applicationPort'],credentials:true}));
 
 app.post('/signup', (req, res) => {
-  Signup.signup(req, res, bcrypt, saltRounds, databaseConnection);
+  Signup.signup(req, res, bcrypt, saltRounds, pool);
 });
 
 app.post('/login', (req, res) => {
-  Login.login(req, res, bcrypt, databaseConnection);
+  Login.login(req, res, bcrypt, pool);
 });
 
 const server = app.listen(3001, () => {

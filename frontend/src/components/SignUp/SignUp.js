@@ -102,6 +102,10 @@ class SignUp extends React.Component{
       console.log(response.data);
       if(response.data === 'Exists'){
         window.alert('User already exists in the database. Try another username');
+      } else if (response.data === 'Error in Connecting to Database'){
+        window.alert('Error in Connecting to Database');
+      } else if (response.data === 'SomeOtherError on querying the DB'){
+        window.alert('SomeOtherError on querying the DB');
       }else {
         window.alert('Successfully Registered');
         window.location.href = '/'
