@@ -4,7 +4,7 @@ import './NewJobPost.css';
 import DatePicker from 'react-datepicker';
 import Dropdown from 'react-dropdown';
 import axios from 'axios';
-import {serverIp, serverPort} from '../../../config'
+import {serverIp, serverPort} from '../../../config';
 import '../../../../node_modules/react-datepicker/dist/react-datepicker.css';
 import '../../../../node_modules/react-dropdown/style.css';
 
@@ -143,7 +143,7 @@ class NewJobPost extends React.Component {
                                     className="form-control" 
                                     name="jobTitle" 
                                     placeholder="Job Title"
-                                    pattern="^[a-zA-Z0-9]+([ ]{1}[a-zA-Z0-9]+)*$"
+                                    pattern="^[a-zA-Z0-9]+([ .]{1}[a-zA-Z0-9]+)*$"
                                     title="Book Title can only contain letters, digits and single space character. It must start with alphanumeric characters only."
                                     onChange={this.onChangeTitleHandler}
                                     required />
@@ -197,7 +197,7 @@ class NewJobPost extends React.Component {
                         <div className="form-group">
                           <input type="number" 
                                 className="form-control" 
-                                name="country" 
+                                name="salary" 
                                 placeholder="Annual Salary in USD"
                                 title="Please enter only digits."
                                 onChange={this.onChangeSalaryHandler}
