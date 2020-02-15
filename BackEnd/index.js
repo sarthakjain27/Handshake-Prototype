@@ -10,9 +10,10 @@ const saltRounds = 10;
 
 // my api package imports
 const pool = require('./Database');
-const Config = require('./config')
+const Config = require('./config');
 const Signup = require('./apis/signup');
 const Login = require('./apis/login');
+const JobComponent = require('./apis/jobComponent');
 
 
 const app = express();
@@ -29,7 +30,7 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
 }));
-app.use(cors({origin:Config['applicationAddress']+':'+Config['applicationPort'],credentials:true}));
+app.use(cors({ origin: `${Config.applicationAddress}:${Config.applicationPort}`, credentials: true }));
 
 app.post('/signup', (req, res) => {
   Signup.signup(req, res, bcrypt, saltRounds, pool);
@@ -37,6 +38,14 @@ app.post('/signup', (req, res) => {
 
 app.post('/login', (req, res) => {
   Login.login(req, res, bcrypt, pool);
+});
+
+app.post('/createJobPost', (req, res) => {
+  JobComponent.createJobPost(req, res, pool);
+});
+
+app.post('/listCompanyPostedJobs', (req, res) => {
+  JobComponent.listCompanyPostedJobs(req, res, pool);
 });
 
 const server = app.listen(3001, () => {

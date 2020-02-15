@@ -33,22 +33,22 @@ class AllRoutesCombined extends React.Component {
   render() {
     return (
       <Router>
-        <Route exact path= '/' component={Login} />
-        <Route exact path= '/signup' component={SignUp} />
+        <Route exact path="/" component={Login} />
+        <Route exact path="/signup" component={SignUp} />
 
-        <Route exact path= '/listPostings' component={CompanyHome} />
-        <Route exact path= '/newJobPost' component={NewJobPost} />
-        <Route exact path = '/companySearchStudents' component={CompanySearchStudents} />
-        <Route exact path = '/listEvents' component={CompanyListEvents} />
-        <Route exact path = '/newEventPost' component={NewEventPost} />
-        <Route exact path = '/companyProfile' component={CompanyProfile} />
+        <Route exact path="/listPostings" component={CompanyHome} />
+        <Route exact path="/newJobPost" component={NewJobPost} />
+        <Route exact path="/companySearchStudents" component={CompanySearchStudents} />
+        <Route exact path="/listEvents" component={CompanyListEvents} />
+        <Route exact path="/newEventPost" component={NewEventPost} />
+        <Route exact path="/companyProfile" component={CompanyProfile} />
 
-        <Route exact path = '/viewPostedJobs' component = {StudentHome} />
-        <Route exact path = '/appliedJobs' component = {AppliedJobs} />
-        <Route exact path = '/listEventsStudent' component = {StudentListEvents} />
-        <Route exact path = '/registeredEvents' component = {RegisteredEvents} />
-        <Route exact path = '/studentSearchStudents' component = {StudentSearchStudents} />
-        <Route exact path = '/studentProfile' component = {StudentProfile} />
+        <Route exact path="/viewPostedJobs" component={StudentHome} />
+        <Route exact path="/appliedJobs" component={AppliedJobs} />
+        <Route exact path="/listEventsStudent" component={StudentListEvents} />
+        <Route exact path="/registeredEvents" component={RegisteredEvents} />
+        <Route exact path="/studentSearchStudents" component={StudentSearchStudents} />
+        <Route exact path="/studentProfile" component={StudentProfile} />
       </Router>
     );
   }

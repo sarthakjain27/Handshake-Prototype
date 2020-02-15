@@ -1,5 +1,6 @@
 const login = (req, res, bcrypt, pool) => {
-  console.log(`Inside login module: ${JSON.stringify(req.body)}`);
+  console.log('Inside login module:');
+  console.log(req.body);
   const { user } = req.body;
   const { emailId } = req.body;
   const { password } = req.body;
@@ -28,9 +29,10 @@ const login = (req, res, bcrypt, pool) => {
         } else {
           console.log('Correct password given');
           res.send(foundUser);
-        }});
-      }
-    });
+        }
+      });
+    }
+  });
 };
 
 exports.login = login;
