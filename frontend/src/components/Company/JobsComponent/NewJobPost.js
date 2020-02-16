@@ -92,34 +92,39 @@ class NewJobPost extends React.Component {
 
   onPostSubmit = e => {
     e.preventDefault();
-    const data = {
-      title: this.state.title,
-      postingDate: this.state.postingDate.getMonth()+'/'+this.state.postingDate.getDate()+'/'+this.state.postingDate.getFullYear(),
-      deadline: this.state.deadline.getMonth()+'/'+this.state.deadline.getDate()+'/'+this.state.deadline.getFullYear(),
-      city: this.state.city,
-      cstate: this.state.cstate,
-      country: this.state.country,
-      salary: this.state.salary,
-      description: this.state.description,
-      category: this.state.category,
-      companyId: localStorage.getItem('company_id')
-    }
-    console.log(data)
-    axios.defaults.withCredentials = true;
-    axios.post(serverIp+':'+serverPort+'/createJobPost',data)
-    .then(response => {
-      console.log('Login Response Data');
-      console.log(response.data);
-      if (response.data === 'Error') {
-        window.alert('Error in Connecting to Database');
-      } else {
-        window.alert('Job Posted Successfully');
-        window.location.href = '/viewPostedJobs';
+    if(this.state.title === '' || this.state.city === '' || this.state.cstate === '' || this.state.country === '' || this.state.salary === '' || this.state.description === '' || this.state.category === '')
+    {
+      window.alert('Please enter all fields');
+    } else {
+      const data = {
+        title: this.state.title,
+        postingDate: (this.state.postingDate.getMonth()+1)+'/'+this.state.postingDate.getDate()+'/'+this.state.postingDate.getFullYear(),
+        deadline: (this.state.deadline.getMonth()+1)+'/'+this.state.deadline.getDate()+'/'+this.state.deadline.getFullYear(),
+        city: this.state.city,
+        cstate: this.state.cstate,
+        country: this.state.country,
+        salary: this.state.salary,
+        description: this.state.description,
+        category: this.state.category,
+        companyId: localStorage.getItem('company_id')
       }
-    }).catch(err => {
-      console.log(`In catch of axios post call to createJobPost  api ${err}`);
-      window.alert('Error in NewJobPost component axios Post call');
-    })
+      console.log(data)
+      axios.defaults.withCredentials = true;
+      axios.post(serverIp+':'+serverPort+'/createJobPost',data)
+      .then(response => {
+        console.log('Login Response Data');
+        console.log(response.data);
+        if (response.data === 'Error') {
+          window.alert('Error in Connecting to Database');
+        } else {
+          window.alert('Job Posted Successfully');
+          window.location.href = '/listPostings';
+        }
+      }).catch(err => {
+        console.log(`In catch of axios post call to createJobPost  api ${err}`);
+        window.alert('Error in NewJobPost component axios Post call');
+      })
+    }
   }
 
   render() {

@@ -14,6 +14,7 @@ const Config = require('./config');
 const Signup = require('./apis/signup');
 const Login = require('./apis/login');
 const JobComponent = require('./apis/jobComponent');
+const EventComponent = require('./apis/eventComponent');
 
 
 const app = express();
@@ -46,6 +47,14 @@ app.post('/createJobPost', (req, res) => {
 
 app.post('/listCompanyPostedJobs', (req, res) => {
   JobComponent.listCompanyPostedJobs(req, res, pool);
+});
+
+app.post('/createEvent', (req, res) => {
+  EventComponent.createEvent(req, res, pool);
+});
+
+app.post('/listCompanyCreatedEvents', (req, res) => {
+  EventComponent.listCompanyCreatedEvents(req, res, pool);
 });
 
 const server = app.listen(3001, () => {

@@ -20,8 +20,8 @@ class CompanyHome extends React.Component {
         postings:response.data
       });
     }).catch(err => {
-      console.log(`In catch of axios post call to createJobPost  api ${err}`);
-      window.alert('Error in NewJobPost component axios Post call');
+      console.log(`In catch of axios post call to listCompanyPostedJobs  api ${err}`);
+      window.alert('Error in CompnayHome component axios Post call');
     })
   }
 
