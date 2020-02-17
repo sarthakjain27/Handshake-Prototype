@@ -5,7 +5,7 @@ const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcrypt');
 const cors = require('cors');
-const multer  = require('multer')
+const multer = require('multer');
 
 const saltRounds = 10;
 
@@ -62,23 +62,74 @@ app.post('/listCompanyCreatedEvents', (req, res) => {
 });
 
 const companyProfilePictureStorage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './ProfilePictures/Company')
+  destination(req, file, cb) {
+    cb(null, './ProfilePictures/Company');
   },
-  filename: function (req, file, cb) {
-    cb(null, 'company_' + req.body.company_id+'.'+file.originalname.split('.')[file.originalname.split('.').length -1]);
-  }
+  filename(req, file, cb) {
+    cb(null, `company_${req.body.company_id}.${file.originalname.split('.')[file.originalname.split('.').length - 1]}`);
+  },
 });
 
-var companyProfilePictureUpload = multer({ storage: companyProfilePictureStorage });
+const companyProfilePictureUpload = multer({ storage: companyProfilePictureStorage });
 
-app.post('/updateCompanyProfile',companyProfilePictureUpload.single('file'),(req, res) => {
+app.post('/updateCompanyProfile', companyProfilePictureUpload.single('file'), (req, res) => {
   ProfileComponent.companyUpdateProfile(req, res, pool);
 });
 
 app.post('/getCompanyDetails', (req, res) => {
   ProfileComponent.getCompanyProfile(req, res, pool);
-})
+});
+
+const studentProfilePictureStorage = multer.diskStorage({
+  destination(req, file, cb) {
+    cb(null, './ProfilePictures/Student');
+  },
+  filename(req, file, cb) {
+    cb(null, `student_${req.body.student_id}.${file.originalname.split('.')[file.originalname.split('.').length - 1]}`);
+  },
+});
+
+const studentProfilePictureUpload = multer({ storage: studentProfilePictureStorage });
+
+app.post('/updateStudentProfile', studentProfilePictureUpload.single('file'), (req, res) => {
+  ProfileComponent.studentUpdateProfile(req, res, pool);
+});
+
+app.post('/getStudentDetails', (req, res) => {
+  ProfileComponent.getStudentProfile(req, res, pool);
+});
+
+app.post('/createEducation', (req, res) => {
+  ProfileComponent.createEducation(req, res, pool);
+});
+
+app.post('/updateEducation', (req, res) => {
+  ProfileComponent.updateEducation(req, res, pool);
+});
+
+app.post('/deleteEducation', (req, res) => {
+  ProfileComponent.deleteEducation(req, res, pool);
+});
+
+app.post('/getStudentAllEducation', (req, res) => {
+  ProfileComponent.getAllEducation(req, res, pool);
+});
+
+app.post('/createProfessionalExperience', (req, res) => {
+  ProfileComponent.createProfessionalExperience(req, res, pool);
+});
+
+app.post('/updateProfessionalExperience', (req, res) => {
+  ProfileComponent.updateProfessionalExperience(req, res, pool);
+});
+
+app.post('/deleteProfessionalExperience', (req, res) => {
+  ProfileComponent.deleteProfessionalExperience(req, res, pool);
+});
+
+app.post('/getStudentAllProfessionalExperience', (req, res) => {
+  ProfileComponent.getAllProfessionalExperience(req, res, pool);
+});
 
 const server = app.listen(3001, () => {
   console.log('Server listening on port 3001');

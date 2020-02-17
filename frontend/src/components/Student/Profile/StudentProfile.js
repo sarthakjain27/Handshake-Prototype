@@ -8,7 +8,9 @@ class StudentProfile extends React.Component {
     }
     return (
       <div>
-        <CustomNavBar />
+        <div>
+          <CustomNavBar />
+        </div>                
       </div>
     );
   }

@@ -94,7 +94,7 @@ class Profile extends React.Component {
       fd.append('cstate',this.state.cstate);
       fd.append('country',this.state.country);
       fd.append('description',this.state.description);
-      fd.append('contact_phone',this.state.contact_phone);
+      fd.append('contactPhone',this.state.contact_phone);
       fd.append('contact_email',this.state.contact_email);
       fd.append('file',this.state.selectedFile);
       axios.post(serverIp+':'+serverPort+'/updateCompanyProfile',fd,config)

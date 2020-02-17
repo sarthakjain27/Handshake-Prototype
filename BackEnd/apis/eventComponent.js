@@ -9,7 +9,7 @@ const createEvent = (req, res, pool) => {
   const state = req.body.cstate.toLowerCase();
   const country = req.body.country.toLowerCase();
   const { zipcode } = req.body;
-  
+
   // storing array of strings which is being stringified and passed
   // so for manipulation would need to parse first.
   const eligibility = req.body.eligibility.toLowerCase();
