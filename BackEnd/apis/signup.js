@@ -4,7 +4,7 @@ const signup = (req, res, bcrypt, saltRounds, pool) => {
   const { user } = req.body;
   const { emailId } = req.body;
   const { password } = req.body;
-  const { name } = req.body;
+  const name = req.body.name.toLowerCase();
   let tableName = 'student_information';
 
   if (user === 'company') {

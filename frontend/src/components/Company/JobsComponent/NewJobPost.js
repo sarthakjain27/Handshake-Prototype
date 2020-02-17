@@ -112,7 +112,7 @@ class NewJobPost extends React.Component {
       axios.defaults.withCredentials = true;
       axios.post(serverIp+':'+serverPort+'/createJobPost',data)
       .then(response => {
-        console.log('Login Response Data');
+        console.log('NewJobPost Response Data');
         console.log(response.data);
         if (response.data === 'Error') {
           window.alert('Error in Connecting to Database');

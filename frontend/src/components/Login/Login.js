@@ -62,7 +62,8 @@ class Login extends React.Component{
       } else {
           localStorage.setItem('email_id',response.data['email_id']);
           localStorage.setItem('city',response.data['city']);
-          localStorage.setItem('state',response.data['country']);
+          localStorage.setItem('state',response.data['state']);
+          localStorage.setItem('country',response.data['country']);
           localStorage.setItem('contact_phone',response.data['contact_phone']);
           localStorage.setItem('contact_email',response.data['contact_email']);
           localStorage.setItem('userRole',this.state.user);

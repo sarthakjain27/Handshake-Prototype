@@ -15,6 +15,7 @@ import SignUp from './components/SignUp/SignUp';
 import CompanyHome from './components/Company/Home/CompanyHome';
 import NewJobPost from './components/Company/JobsComponent/NewJobPost';
 import CompanyProfile from './components/Company/Profile/CompanyProfile';
+import EditCompanyProfile from './components/Company/Profile/Profile';
 import CompanySearchStudents from './components/Company/SearchStudents/SearchStudents';
 import CompanyListEvents from './components/Company/EventComponent/ListEvents';
 import NewEventPost from './components/Company/EventComponent/NewEventPost';
@@ -27,6 +28,7 @@ import StudentListEvents from './components/Student/EventsComponent/ListEvents';
 import RegisteredEvents from './components/Student/EventsComponent/RegisteredEvents';
 import StudentSearchStudents from './components/Student/SearchStudents/SearchStudents';
 import StudentProfile from './components/Student/Profile/StudentProfile';
+import EditStudentProfile from './components/Student/Profile/Profile';
 
 
 class AllRoutesCombined extends React.Component {
@@ -42,6 +44,7 @@ class AllRoutesCombined extends React.Component {
         <Route exact path="/listEvents" component={CompanyListEvents} />
         <Route exact path="/newEventPost" component={NewEventPost} />
         <Route exact path="/companyProfile" component={CompanyProfile} />
+        <Route exact path='/editCompanyProfile' component={EditCompanyProfile}/>
 
         <Route exact path="/viewPostedJobs" component={StudentHome} />
         <Route exact path="/appliedJobs" component={AppliedJobs} />
