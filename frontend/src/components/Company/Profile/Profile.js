@@ -189,7 +189,7 @@ class Profile extends React.Component {
             <FormGroup row>
               <Label for="exampleText" sm={2}>Company Description</Label>
               <Col sm={8}>
-                <Input type="textarea" name="text" id="exampleText" rows="7" onChange={this.descriptionChangeHandler}/>
+                <Input type="textarea" name="text" id="exampleText" rows="7" onChange={this.descriptionChangeHandler} value={this.state.description}/>
               </Col>
             </FormGroup>
             <FormGroup check row>

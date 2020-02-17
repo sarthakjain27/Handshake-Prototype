@@ -75,6 +75,7 @@ class Login extends React.Component{
             window.location.href = '/listPostings';
           }
           else {
+            localStorage.setItem('student_name',response.data['student_name']);
             localStorage.setItem('college_name',response.data['college_name']);
             localStorage.setItem('date_of_birth',response.data['date_of_birth']);
             localStorage.setItem('career_objective',response.data['career_objective']);
