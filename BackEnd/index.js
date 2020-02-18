@@ -36,6 +36,7 @@ app.use(session({
 app.use(cors({ origin: `${Config.applicationAddress}:${Config.applicationPort}`, credentials: true }));
 app.use(express.static('./ProfilePictures/Company'));
 app.use(express.static('./ProfilePictures/Student'));
+app.use(express.static('./ProfilePictures/Common'));
 
 app.post('/signup', (req, res) => {
   Signup.signup(req, res, bcrypt, saltRounds, pool);
