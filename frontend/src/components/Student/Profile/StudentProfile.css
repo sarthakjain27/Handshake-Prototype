@@ -34,3 +34,19 @@
 .experienceHeading {
   padding: 24px;
 }
+
+.style__card-item___B1f7m {
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.style__card-button___1X6wz {
+  color: #000;
+  text-align: center;
+}
+
+.style__plain___13WSa {
+  background: rgba(0,0,0,0);
+  border: 0;
+  color: #1569e0;
+}

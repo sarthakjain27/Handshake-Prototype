@@ -1,11 +1,14 @@
 import React from 'react';
 import {Card, Button} from 'react-bootstrap';
+import axios from 'axios';
+import {serverIp, serverPort} from '../../../config';
 
 class Education extends React.Component{
   constructor(props){
     super(props);
     this.capitalize = this.capitalize.bind(this);
     this.editEducationDetails = this.editEducationDetails.bind(this);
+    this.deleteEducationDetails = this.deleteEducationDetails.bind(this);
   }
 
   capitalize(word,splitParam=' '){
@@ -31,7 +34,26 @@ class Education extends React.Component{
     window.location.href = '/editStudentEducation';
   }
 
+  deleteEducationDetails(e){
+    e.preventDefault();
+    axios.post(serverIp+':'+serverPort+'/deleteEducation',{educationId:this.props.education.education_id})
+    .then(response => {
+      if(response.date === 'Error'){
+        console.log(`Error in deleting the given education ${this.props.education.education_id}`);
+        window.alert('Error in deleting the given education detail');
+      } else {
+        window.alert('Education Deleted Successfully');
+        window.location.href = '/studentProfile';
+      }
+    }).catch(err => {
+      console.log(`Error in Education component while deleting the education ${err}`);
+    })
+  }
+
   render(){
+    if (!localStorage.getItem('userRole')) {
+      window.location.href = '/';
+    }
     return(
       <div>
         <Card border="primary">
@@ -45,7 +67,8 @@ class Education extends React.Component{
               <b>CGPA: </b>{this.capitalize(this.props.education.cgpa)} <br/>
               <b>Year of Passing: </b>{this.capitalize(this.props.education.year_of_passing)}
             </Card.Text>
-            <Button variant="primary" onClick={this.editEducationDetails}>Edit</Button>
+            <Button variant="primary" onClick={this.editEducationDetails}>Edit</Button> 
+            <Button variant="danger" onClick={this.deleteEducationDetails}>Delete</Button>
           </Card.Body>
         </Card>
       </div>

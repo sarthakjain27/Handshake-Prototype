@@ -16,6 +16,7 @@ class StudentProfile extends React.Component {
     }
     this.capitalize = this.capitalize.bind(this);
     this.editBasicDetails = this.editBasicDetails.bind(this);
+    this.addEducation = this.addEducation.bind(this);
   }
 
   componentDidMount(){
@@ -61,6 +62,11 @@ class StudentProfile extends React.Component {
     window.location.href = '/editStudentProfile';
   }
 
+  addEducation(e){
+    e.preventDefault();
+    window.location.href = '/addEducationStudentProfile';
+  }
+
   render() {
     if (!localStorage.getItem('userRole')) {
       window.location.href = '/';
@@ -101,6 +107,13 @@ class StudentProfile extends React.Component {
                   </div>
                   <div className="experienceHeading">
                     {this.displayEducation()}
+                  </div>
+                  <div className="style__card-item___B1f7m">
+                    <div className="style__card-button___1X6wz">
+                      <button className="style__plain___13WSa" onClick={this.addEducation}>
+                        <span>Add Education</span>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>

@@ -5,20 +5,19 @@ import {serverIp, serverPort} from '../../../config';
 import {Row, Col, Button, Form, FormGroup, Label, Input, Media, FormText} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-class EditEducation extends React.Component {
+class AddEducation extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      collegeName: sessionStorage.getItem('college_name'),
-      city: sessionStorage.getItem('city'),
-      cstate: sessionStorage.getItem('state'),
-      country: sessionStorage.getItem('country'),
-      degree: sessionStorage.getItem('degree'),
-      major: sessionStorage.getItem('major'),
-      yearOfPassing: sessionStorage.getItem('year_of_passing'),
-      cgpa: sessionStorage.getItem('cgpa'),
-      studentId: sessionStorage.getItem('student_id'),
-      educationId: sessionStorage.getItem('education_id')
+      collegeName: '',
+      city: '',
+      cstate: '',
+      country: '',
+      degree: '',
+      major: '',
+      yearOfPassing: '',
+      cgpa: '',
+      studentId: localStorage.getItem('student_id')
     }
     this.collegeNameChangeHandler = this.collegeNameChangeHandler.bind(this);
     this.cityChangeHandler = this.cityChangeHandler.bind(this);
@@ -93,22 +92,21 @@ class EditEducation extends React.Component {
         major:this.state.major,
         yearOfPassing:this.state.yearOfPassing,
         cgpa:this.state.cgpa,
-        educationId:this.state.educationId
+        studentId:this.state.studentId
       }
-      axios.post(serverIp+':'+serverPort+'/updateEducation',data)
+      axios.post(serverIp+':'+serverPort+'/createEducation',data)
       .then(response => {
-        console.log('updateEducation Response Data');
+        console.log('createEducation Response Data');
         console.log(response.data);
         if (response.data === 'Error') {
-          window.alert('Error in Connecting to Database while updating education details');
+          window.alert('Error in Connecting to Database while creating education details');
         } else {
-          window.alert('Education Updated Successfully');
-          sessionStorage.clear();
+          window.alert('Education Created Successfully');
           window.location.href = '/studentProfile';
         }
       }).catch(err => {
-        console.log(`In catch of axios post call to updateEducation  api ${err}`);
-        window.alert('Error in EditEducation component of Student axios Post call');
+        console.log(`In catch of axios post call to createEducation  api ${err}`);
+        window.alert('Error in AddEducation component of Student axios Post call');
       })
     }
   }
@@ -168,7 +166,7 @@ class EditEducation extends React.Component {
             </FormGroup>
             <FormGroup check row>
               <Col sm={{ size: 4, offset:5 }}>
-                <Button style={{width:150,height:50}}>Update</Button>
+                <Button style={{width:150,height:50}}>Create</Button>
               </Col>
             </FormGroup>
           </Form>
@@ -178,4 +176,4 @@ class EditEducation extends React.Component {
   }
 }
 
-export default EditEducation;
+export default AddEducation;
