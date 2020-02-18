@@ -5,6 +5,7 @@ import {serverIp, serverPort} from '../../../config';
 import axios from 'axios';
 import {Card, Button, ListGroup, ListGroupItem} from 'react-bootstrap';
 import Education from './Education';
+import Experience from './Experience';
 
 class StudentProfile extends React.Component {
 
@@ -17,6 +18,9 @@ class StudentProfile extends React.Component {
     this.capitalize = this.capitalize.bind(this);
     this.editBasicDetails = this.editBasicDetails.bind(this);
     this.addEducation = this.addEducation.bind(this);
+    this.displayEducation = this.displayEducation.bind(this);
+    this.displayExperience = this.displayExperience.bind(this);
+    this.addExperience = this.addExperience.bind(this);
   }
 
   componentDidMount(){
@@ -49,6 +53,13 @@ class StudentProfile extends React.Component {
     })
   }
 
+  displayExperience(){
+    return this.state.experience.map((eachExperience)=>{
+      //for each object in exercise we are returning an Exercise component and passing three props
+      return <Experience experience={eachExperience} key={eachExperience.experience_id}/>
+    })
+  }
+
   capitalize(word,splitParam=' '){
     word = word.split(splitParam).map((eachWord) => {
       return eachWord.split(' ').map((each) => each.charAt(0).toUpperCase() + each.substring(1)).join(' ');
@@ -65,6 +76,11 @@ class StudentProfile extends React.Component {
   addEducation(e){
     e.preventDefault();
     window.location.href = '/addEducationStudentProfile';
+  }
+
+  addExperience(e){
+    e.preventDefault();
+    window.location.href = '/addExperienceStudentProfile';
   }
 
   render() {
@@ -112,6 +128,21 @@ class StudentProfile extends React.Component {
                     <div className="style__card-button___1X6wz">
                       <button className="style__plain___13WSa" onClick={this.addEducation}>
                         <span>Add Education</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div className="experienceCard">
+                  <div className="experienceHeading">
+                    <h2>Professional Experience</h2>
+                  </div>
+                  <div className="experienceHeading">
+                    {this.displayExperience()}
+                  </div>
+                  <div className="style__card-item___B1f7m">
+                    <div className="style__card-button___1X6wz">
+                      <button className="style__plain___13WSa" onClick={this.addExperience}>
+                        <span>Add Experience</span>
                       </button>
                     </div>
                   </div>

@@ -31,6 +31,9 @@ import StudentProfile from './components/Student/Profile/StudentProfile';
 import EditStudentProfile from './components/Student/Profile/Profile';
 import EditStudentEducation from './components/Student/Profile/EditEducation';
 import AddEducationStudent from './components/Student/Profile/AddEducation';
+import EditStudentProfessionalExperience from './components/Student/Profile/EditExperience';
+import AddProfessionalExperienceStudent from './components/Student/Profile/AddExperience';
+
 
 
 class AllRoutesCombined extends React.Component {
@@ -57,6 +60,8 @@ class AllRoutesCombined extends React.Component {
         <Route exact path='/editStudentProfile' component={EditStudentProfile}/>
         <Route exact path='/editStudentEducation' component={EditStudentEducation}/>
         <Route exact path='/addEducationStudentProfile' component={AddEducationStudent}/>
+        <Route exact path='/editStudentExperience' component={EditStudentProfessionalExperience}/>
+        <Route exact path='/addExperienceStudentProfile' component={AddProfessionalExperienceStudent}/>
       </Router>
     );
   }
