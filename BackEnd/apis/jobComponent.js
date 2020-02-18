@@ -40,5 +40,45 @@ const listCompanyPostedJobs = (req, res, pool) => {
   });
 };
 
+const getPostedJobs = (req, res, pool) => {
+  console.log('Inside getPostedJobs');
+  console.log(req.body);
+  let searchSQL = '';
+  if(req.body.companyName && req.body.title){
+    searchSQL = `SELECT a.job_title,a.posting_date,a.application_deadline,a.city,a.state,a.country,a.salary,a.job_description,a.job_category,a.job_post_id,
+                b.company_id,b.company_name,b.city as ccity, b.state as cstate, b.country as ccountry,b.description as cdescription,b.contact_phone,b.contact_email,b.profile_picture_url 
+                FROM job_postings a,company_information b 
+                where a.company_id = b.company_id 
+                and b.company_name like '%${req.body.companyName}%'
+                and a.job_title like '%${req.body.title}%'`;
+  } else if(req.body.companyName){
+    searchSQL = `SELECT a.job_title,a.posting_date,a.application_deadline,a.city,a.state,a.country,a.salary,a.job_description,a.job_category,a.job_post_id,
+                b.company_id,b.company_name,b.city as ccity, b.state as cstate, b.country as ccountry,b.description as cdescription,b.contact_phone,b.contact_email,b.profile_picture_url 
+                FROM job_postings a,company_information b 
+                where a.company_id = b.company_id 
+                and b.company_name like '%${req.body.companyName}%'`;
+  } else if(req.body.title){
+    searchSQL = `SELECT a.job_title,a.posting_date,a.application_deadline,a.city,a.state,a.country,a.salary,a.job_description,a.job_category,a.job_post_id,
+                b.company_id,b.company_name,b.city as ccity, b.state as cstate, b.country as ccountry,b.description as cdescription,b.contact_phone,b.contact_email,b.profile_picture_url 
+                FROM job_postings a,company_information b 
+                where a.company_id = b.company_id 
+                and a.job_title like '%${req.body.title}%'`;
+  } else {
+    searchSQL = `SELECT a.job_title,a.posting_date,a.application_deadline,a.city,a.state,a.country,a.salary,a.job_description,a.job_category,a.job_post_id,
+                b.company_id,b.company_name,b.city as ccity, b.state as cstate, b.country as ccountry,b.description as cdescription,b.contact_phone,b.contact_email,b.profile_picture_url
+                FROM job_postings a,company_information b 
+                where a.company_id = b.company_id`;
+  }
+  pool.query(searchSQL, (searchError, result) => {
+    if(searchError){
+      console.log(searchError);
+      console.log('Error in getAllPostedJobs');
+      res.send('Error');
+    } 
+    res.send(result);
+  })
+}
+
 exports.createJobPost = createJobPost;
 exports.listCompanyPostedJobs = listCompanyPostedJobs;
+exports.getPostedJobs = getPostedJobs;

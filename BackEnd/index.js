@@ -54,6 +54,10 @@ app.post('/listCompanyPostedJobs', (req, res) => {
   JobComponent.listCompanyPostedJobs(req, res, pool);
 });
 
+app.post('/getPostedJobs', (req, res) => {
+  JobComponent.getPostedJobs(req, res, pool);
+})
+
 app.post('/createEvent', (req, res) => {
   EventComponent.createEvent(req, res, pool);
 });
