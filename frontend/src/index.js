@@ -29,6 +29,7 @@ import RegisteredEvents from './components/Student/EventsComponent/RegisteredEve
 import StudentSearchStudents from './components/Student/SearchStudents/SearchStudents';
 import StudentProfile from './components/Student/Profile/StudentProfile';
 import EditStudentProfile from './components/Student/Profile/Profile';
+import EditStudentEducation from './components/Student/Profile/EditEducation';
 
 
 class AllRoutesCombined extends React.Component {
@@ -53,6 +54,7 @@ class AllRoutesCombined extends React.Component {
         <Route exact path="/studentSearchStudents" component={StudentSearchStudents} />
         <Route exact path="/studentProfile" component={StudentProfile} />
         <Route exact path='/editStudentProfile' component={EditStudentProfile}/>
+        <Route exact path='/editStudentEducation' component={EditStudentEducation}></Route>
       </Router>
     );
   }

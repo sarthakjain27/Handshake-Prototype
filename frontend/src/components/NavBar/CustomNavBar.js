@@ -10,6 +10,7 @@ class CustomNavBar extends React.Component{
   onSelectNavHandler = e => {
     if(e === 'logOut'){
       localStorage.clear();
+      sessionStorage.clear();
       window.location.href='/';
     }
   }

@@ -4,6 +4,7 @@ import './StudentProfile.css';
 import {serverIp, serverPort} from '../../../config';
 import axios from 'axios';
 import {Card, Button, ListGroup, ListGroupItem} from 'react-bootstrap';
+import Education from './Education';
 
 class StudentProfile extends React.Component {
 
@@ -40,6 +41,13 @@ class StudentProfile extends React.Component {
     })
   }
 
+  displayEducation(){
+    return this.state.education.map((eachEducation)=>{
+      //for each object in exercise we are returning an Exercise component and passing three props
+      return <Education education={eachEducation} key={eachEducation.education_id}/>
+    })
+  }
+
   capitalize(word,splitParam=' '){
     word = word.split(splitParam).map((eachWord) => {
       return eachWord.split(' ').map((each) => each.charAt(0).toUpperCase() + each.substring(1)).join(' ');
@@ -52,8 +60,6 @@ class StudentProfile extends React.Component {
     e.preventDefault();
     window.location.href = '/editStudentProfile';
   }
-
-
 
   render() {
     if (!localStorage.getItem('userRole')) {
@@ -69,7 +75,7 @@ class StudentProfile extends React.Component {
             <div className="row">
               <div className="col-md-4">
                 <Card border="primary">
-                  <Card.Img variant="top" src={serverIp+':'+serverPort+'/'+localStorage.getItem('profile_picture_url')} alt="Profile Picture" style={{height:200}}/>
+                  <Card.Img variant="top" src={serverIp+':'+serverPort+'/'+localStorage.getItem('profile_picture_url')} alt="Profile Picture" style={{height:300}}/>
                   <Card.Body>
                     <Card.Title>{this.capitalize(localStorage.getItem('student_name'))}</Card.Title>
                     <Card.Subtitle className="mb-2 text-muted">
@@ -87,6 +93,16 @@ class StudentProfile extends React.Component {
                     <small className="text-muted">Contact Email: {localStorage.getItem('contact_email')}</small>
                   </Card.Footer>
                 </Card>
+              </div>
+              <div className="col-md-8">
+                <div className="educationCard">
+                  <div className="experienceHeading">
+                    <h2>Education</h2>
+                  </div>
+                  <div className="experienceHeading">
+                    {this.displayEducation()}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
