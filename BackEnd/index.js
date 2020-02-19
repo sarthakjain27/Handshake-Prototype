@@ -57,7 +57,7 @@ app.post('/listCompanyPostedJobs', (req, res) => {
 
 app.post('/getPostedJobs', (req, res) => {
   JobComponent.getPostedJobs(req, res, pool);
-})
+});
 
 const studentResumeFileStorage = multer.diskStorage({
   destination(req, file, cb) {
