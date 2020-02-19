@@ -153,7 +153,7 @@ class StudentHome extends React.Component {
           <CustomNavBar />
         </div>
         <div data-hook="container" className="style__container___15r1p style__large___3HKaH ">
-          <form>
+          
             <div id="postingsFilters">
               <div data-hook="quick-filters">
                 <div className="style__card___1rhof style__fitted___5wNfd" data-hook="card">
@@ -215,7 +215,7 @@ class StudentHome extends React.Component {
                 </div>
               </div>
             </div>
-          </form>
+          
         </div>
       </div>
     );

@@ -37,6 +37,7 @@ app.use(cors({ origin: `${Config.applicationAddress}:${Config.applicationPort}`,
 app.use(express.static('./ProfilePictures/Company'));
 app.use(express.static('./ProfilePictures/Student'));
 app.use(express.static('./ProfilePictures/Common'));
+app.use(express.static('./Resume/JobApplication'));
 
 app.post('/signup', (req, res) => {
   Signup.signup(req, res, bcrypt, saltRounds, pool);
@@ -57,6 +58,25 @@ app.post('/listCompanyPostedJobs', (req, res) => {
 app.post('/getPostedJobs', (req, res) => {
   JobComponent.getPostedJobs(req, res, pool);
 })
+
+const studentResumeFileStorage = multer.diskStorage({
+  destination(req, file, cb) {
+    cb(null, './Resume/JobApplication');
+  },
+  filename(req, file, cb) {
+    cb(null, `student_${req.body.studentId}_${req.body.jobPostId}.${file.originalname.split('.')[file.originalname.split('.').length - 1]}`);
+  },
+});
+
+const studentResumeFileUpload = multer({ storage: studentResumeFileStorage });
+
+app.post('/applyForJob', studentResumeFileUpload.single('file'), (req, res) => {
+  JobComponent.applyForJob(req, res, pool);
+});
+
+app.post('/getAppliedJobs', (req, res) => {
+  JobComponent.getAppliedJobs(req, res, pool);
+});
 
 app.post('/createEvent', (req, res) => {
   EventComponent.createEvent(req, res, pool);

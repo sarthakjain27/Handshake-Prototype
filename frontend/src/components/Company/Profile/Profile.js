@@ -4,7 +4,7 @@ import axios from 'axios';
 import {serverIp, serverPort} from '../../../config';
 import {Row, Col, Button, Form, FormGroup, Label, Input, Media, FormText} from 'reactstrap';
 import {Image} from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import '../../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 class Profile extends React.Component {
   constructor(props){
