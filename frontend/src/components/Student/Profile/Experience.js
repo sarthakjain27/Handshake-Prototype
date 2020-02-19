@@ -72,7 +72,7 @@ class Experience extends React.Component{
             <Card.Text>
               <b>Work Description: </b>{this.props.experience.work_description}
             </Card.Text>
-            <Button variant="primary" onClick={this.editExperienceDetails}>Edit</Button> 
+            <Button variant="primary" onClick={this.editExperienceDetails}>Edit</Button>{' '}
             <Button variant="danger" onClick={this.deleteExperienceDetails}>Delete</Button>
           </Card.Body>
         </Card>

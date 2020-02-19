@@ -4,6 +4,7 @@ import axios from 'axios';
 import {serverIp, serverPort} from '../../../config';
 import {Row, Col, Button, Form, FormGroup, Label, Input, Media, FormText} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Select from "react-select";
 
 class AddEducation extends React.Component {
   constructor(props){
@@ -17,7 +18,17 @@ class AddEducation extends React.Component {
       major: '',
       yearOfPassing: '',
       cgpa: '',
-      studentId: localStorage.getItem('student_id')
+      studentId: localStorage.getItem('student_id'),
+      allMajors: [{label:'Computer Science', value:'Computer Science'},
+                  {label:'Computer Engineering', value:'Computer Engineering'},
+                  {label:'Software Engineering', value:'Software Engineering'},
+                  {label:'Electrical Engineering', value:'Electrical Engineering'},
+                  {label:'Electronics Engineering', value:'Electronics Engineering'},
+                  {label:'Data Science', value:'Data Science'},
+                  {label:'Mechanical Engineering', value:'Mechanical Engineering'},
+                  {label:'Chemical Engineering', value:'Chemical Engineering'},
+                  {label:'Metallurgy Engineering',value:'Metallurgy Engineering'},
+                  {label:'Civil Engineering',value:'Civil Engineering'}]
     }
     this.collegeNameChangeHandler = this.collegeNameChangeHandler.bind(this);
     this.cityChangeHandler = this.cityChangeHandler.bind(this);
@@ -62,7 +73,10 @@ class AddEducation extends React.Component {
 
   majorChangeHandler = e => {
     this.setState({
-      major:e.target.value
+      major:e
+    },()=>{
+      console.log(`Selected Major: ${this.state.major.value}`);
+      console.log(e);
     })
   }
 
@@ -89,7 +103,7 @@ class AddEducation extends React.Component {
         cstate:this.state.cstate,
         country:this.state.country,
         degree:this.state.degree,
-        major:this.state.major,
+        major:this.state.major.value,
         yearOfPassing:this.state.yearOfPassing,
         cgpa:this.state.cgpa,
         studentId:this.state.studentId
@@ -151,7 +165,11 @@ class AddEducation extends React.Component {
               </Col>
               <Label for="major" sm={2}>Major</Label>
               <Col sm={4}>
-                <Input type="text" name="major" id="major" value={this.state.major} onChange={this.majorChangeHandler}/>
+                <Select
+                    onChange={this.majorChangeHandler}
+                    options={this.state.allMajors}
+                    value={this.state.major}
+                />
               </Col>
             </FormGroup>
             <FormGroup row>

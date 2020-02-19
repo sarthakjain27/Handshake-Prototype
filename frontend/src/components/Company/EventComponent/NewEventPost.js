@@ -146,7 +146,7 @@ class NewEventPost extends React.Component {
         country: this.state.country,
         zipcode: this.state.zipcode,
         companyId: localStorage.getItem('company_id'),
-        time: this.state.time,
+        time: this.state.time, // time goes like military hours 13:00, 14:00, 16:00 see Event.js of company to convert in AM/PM
         date: formatted_date,
         eligibility: JSON.stringify(selectedM)
       }
@@ -264,13 +264,16 @@ class NewEventPost extends React.Component {
                                 onChange={this.zipcodeChangeHandler}
                                 required />
                         </div>
-                        <TimePicker 
-                          onChange = {this.timeChangeHandler}
-                          value = {this.state.time}
-                          required
-                        /> <br />
+                        <div>
+                          Select Time:{' '}
+                          <TimePicker 
+                            onChange = {this.timeChangeHandler}
+                            value = {this.state.time}
+                            required
+                          /> <br />
+                        </div>
                         <div className="form-group">
-                            <label>Select Testing Files</label>
+                            <label>Select Eligibility</label>
                             <Select
                                 isMulti
                                 required
@@ -279,7 +282,6 @@ class NewEventPost extends React.Component {
                                 value={this.state.selectedMajors}
                             />
                         </div>
-
                         <button type="submit" className="btn btn-primary">Post Job Opening</button>
                     </form>         
                 </div>

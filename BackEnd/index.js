@@ -87,6 +87,22 @@ app.post('/listCompanyCreatedEvents', (req, res) => {
   EventComponent.listCompanyCreatedEvents(req, res, pool);
 });
 
+app.post('/getAllEvents', (req, res) => {
+  EventComponent.getAllEvents(req, res, pool);
+});
+
+app.post('/getRegisteredEvents', (req, res) => {
+  EventComponent.getRegisteredEvents(req, res, pool);
+});
+
+app.post('/registerForEvent', (req, res) => {
+  EventComponent.registerForEvent(req, res, pool);
+});
+
+app.post('/getSearchedEvent', (req, res) => {
+  EventComponent.getSearchedEvent(req, res, pool);
+});
+
 const companyProfilePictureStorage = multer.diskStorage({
   destination(req, file, cb) {
     cb(null, './ProfilePictures/Company');

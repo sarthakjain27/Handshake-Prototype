@@ -67,7 +67,7 @@ class Education extends React.Component{
               <b>CGPA: </b>{this.capitalize(this.props.education.cgpa)} <br/>
               <b>Year of Passing: </b>{this.capitalize(this.props.education.year_of_passing)}
             </Card.Text>
-            <Button variant="primary" onClick={this.editEducationDetails}>Edit</Button> 
+            <Button variant="primary" onClick={this.editEducationDetails}>Edit</Button>{' '}
             <Button variant="danger" onClick={this.deleteEducationDetails}>Delete</Button>
           </Card.Body>
         </Card>

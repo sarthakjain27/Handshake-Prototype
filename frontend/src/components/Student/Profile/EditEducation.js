@@ -4,6 +4,7 @@ import axios from 'axios';
 import {serverIp, serverPort} from '../../../config';
 import {Row, Col, Button, Form, FormGroup, Label, Input, Media, FormText} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Select from "react-select";
 
 class EditEducation extends React.Component {
   constructor(props){
@@ -14,11 +15,21 @@ class EditEducation extends React.Component {
       cstate: sessionStorage.getItem('state'),
       country: sessionStorage.getItem('country'),
       degree: sessionStorage.getItem('degree'),
-      major: sessionStorage.getItem('major'),
+      major: {label:sessionStorage.getItem('major'),value:sessionStorage.getItem('major')},
       yearOfPassing: sessionStorage.getItem('year_of_passing'),
       cgpa: sessionStorage.getItem('cgpa'),
       studentId: sessionStorage.getItem('student_id'),
-      educationId: sessionStorage.getItem('education_id')
+      educationId: sessionStorage.getItem('education_id'),
+      allMajors: [{label:'Computer Science', value:'Computer Science'},
+                  {label:'Computer Engineering', value:'Computer Engineering'},
+                  {label:'Software Engineering', value:'Software Engineering'},
+                  {label:'Electrical Engineering', value:'Electrical Engineering'},
+                  {label:'Electronics Engineering', value:'Electronics Engineering'},
+                  {label:'Data Science', value:'Data Science'},
+                  {label:'Mechanical Engineering', value:'Mechanical Engineering'},
+                  {label:'Chemical Engineering', value:'Chemical Engineering'},
+                  {label:'Metallurgy Engineering',value:'Metallurgy Engineering'},
+                  {label:'Civil Engineering',value:'Civil Engineering'}]
     }
     this.collegeNameChangeHandler = this.collegeNameChangeHandler.bind(this);
     this.cityChangeHandler = this.cityChangeHandler.bind(this);
@@ -63,7 +74,10 @@ class EditEducation extends React.Component {
 
   majorChangeHandler = e => {
     this.setState({
-      major:e.target.value
+      major:e
+    },()=>{
+      console.log(`Selected Major: ${this.state.major.value}`);
+      console.log(e);
     })
   }
 
@@ -90,7 +104,7 @@ class EditEducation extends React.Component {
         cstate:this.state.cstate,
         country:this.state.country,
         degree:this.state.degree,
-        major:this.state.major,
+        major:this.state.major.value,
         yearOfPassing:this.state.yearOfPassing,
         cgpa:this.state.cgpa,
         educationId:this.state.educationId
@@ -153,7 +167,11 @@ class EditEducation extends React.Component {
               </Col>
               <Label for="major" sm={2}>Major</Label>
               <Col sm={4}>
-                <Input type="text" name="major" id="major" value={this.state.major} onChange={this.majorChangeHandler}/>
+                <Select
+                    onChange={this.majorChangeHandler}
+                    options={this.state.allMajors}
+                    value={this.state.major}
+                />
               </Col>
             </FormGroup>
             <FormGroup row>
