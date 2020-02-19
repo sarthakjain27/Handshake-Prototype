@@ -5,7 +5,6 @@ import axios from 'axios';
 import './StudentHome.css';
 import {Row, Col, Button, Form, FormGroup, Label, Input, Media} from 'reactstrap';
 import Dropdown from 'react-dropdown';
-import SplitPane, { Pane } from 'react-split-pane';
 import '../../../../node_modules/react-dropdown/style.css';
 import Job from './Job';
 
@@ -77,7 +76,7 @@ class StudentHome extends React.Component {
     })
   }
 
-  findJobsHandler(e){
+  findJobsHandler(){
     return this.state.filteredJobs.map((eachJob)=>{
       return <Job job={eachJob} key={eachJob.job_post_id}/>
     })
@@ -140,7 +139,6 @@ class StudentHome extends React.Component {
         filteredJobs:filteredJobArray
       });
     }
-    
   }
 
   render() {

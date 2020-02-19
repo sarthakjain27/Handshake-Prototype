@@ -114,9 +114,13 @@ const applyForJob = (req, res, pool) => {
 const getAppliedJobs = (req, res, pool) => {
   console.log('Inside getAppliedJobs');
   console.log(req.body);
-  const searchSQL = `SELECT * FROM students_applied_for_job a,job_postings b 
+  const searchSQL = `SELECT a.job_post_id,a.student_id,a.status,a.resume_file_url,a.jobApplicationId,a.applying_date,
+                      b.job_title,b.posting_date,b.application_deadline,b.city,b.state,b.country,b.job_description,b.job_category,
+                      c.company_id,c.company_name,c.city as ccity, c.state as cstate, c.country as ccountry,c.description as cdescription,c.contact_email,c.contact_phone,c.profile_picture_url
+                      FROM students_applied_for_job a,job_postings b, company_information c
                       WHERE a.student_id='${req.body.studentId}'
-                      AND a.job_post_id = b.job_post_id`;
+                      AND a.job_post_id = b.job_post_id
+                      AND b.company_id = c.company_id`;
   pool.query(searchSQL, (searchError, result) => {
     if (searchError) {
       console.log(searchError);

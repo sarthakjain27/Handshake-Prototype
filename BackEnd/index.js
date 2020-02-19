@@ -38,6 +38,7 @@ app.use(express.static('./ProfilePictures/Company'));
 app.use(express.static('./ProfilePictures/Student'));
 app.use(express.static('./ProfilePictures/Common'));
 app.use(express.static('./Resume/JobApplication'));
+app.use(express.static('./WebsiteImages'));
 
 app.post('/signup', (req, res) => {
   Signup.signup(req, res, bcrypt, saltRounds, pool);

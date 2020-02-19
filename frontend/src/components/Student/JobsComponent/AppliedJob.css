@@ -1,0 +1,36 @@
+.col-md-4 {
+  width: 33.33333%;
+}
+
+.col-md-8 {
+  width: 66.66667%;
+}
+
+.experienceHeading {
+  padding: 24px;
+}
+
+.educationCard {
+  margin-bottom: 24px;
+  font-family: sans-serif;
+  color: rgba(0,0,0,.8);
+  background-color: #fff;
+  border-radius: 3px;
+  -webkit-box-shadow: 0 0 4px 1px rgba(0,0,0,.05), 2px 2px 2px 1px rgba(0,0,0,.05);
+  box-shadow: 0 0 4px 1px rgba(0,0,0,.05), 2px 2px 2px 1px rgba(0,0,0,.05);
+}
+
+.row {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
+.main-div-studentProfile {
+  margin: 0 auto;
+  min-width: 320px;
+  padding: 24px 16px 0;
+}
+
+.main-relative-div-studentProfile {
+  position: relative;
+}
