@@ -53,7 +53,7 @@ class Job extends React.Component{
           <Card border="primary">
             <Card.Body>
               <Card.Title>
-                {this.capitalize(this.props.job.job_title)} | {this.capitalize(this.props.job.company_name)}
+                {this.capitalize(this.props.job.job_title)} | <a href="#" onClick={this.companyDetails}>{this.capitalize(this.props.job.company_name)}</a>
               </Card.Title>
               <Card.Subtitle className="mb-2 text-muted">
                 {this.capitalize(this.props.job.job_category)}, ${this.props.job.salary} per year <br />
@@ -64,8 +64,7 @@ class Job extends React.Component{
                 <b>Application Deadline: </b> {this.props.job.application_deadline} <br />
                 <b>Job Description: </b>{this.props.job.job_description}
               </Card.Text>
-              <Button variant="primary" onClick={this.applyForJob}>Apply</Button>{' '}
-              <Button variant="info" onClick={this.companyDetails}>Company Info</Button>
+              <Button variant="primary" onClick={this.applyForJob}>Apply</Button>
             </Card.Body>
           </Card>
         </div>

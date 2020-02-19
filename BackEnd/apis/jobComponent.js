@@ -24,7 +24,6 @@ const createJobPost = (req, res, pool) => {
   });
 };
 
-
 const listCompanyPostedJobs = (req, res, pool) => {
   console.log('Inside listCompanyPostedJobs module:');
   console.log(req.body);
