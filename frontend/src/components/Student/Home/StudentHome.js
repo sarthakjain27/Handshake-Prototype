@@ -15,15 +15,21 @@ class StudentHome extends React.Component {
     super(props);
     this.state = {
       searchValue: '',
-      selectedOption:'None',
+      selectedOption:'',
       userOptions:['None','Company Name','Job Title'],
       filteredJobs: [],
-      allJobs: []
+      allJobs: [],
+      categoryOptions:['All','Full Time','Part Time','On Campus','Internship'],
+      selectedCategoryFilter:'',
+      filteredCity:''
     }
     this.findJobsHandler = this.findJobsHandler.bind(this);
     this.searchValueChangeHandler = this.searchValueChangeHandler.bind(this);
     this.onChangeSelectedOptionHandler = this.onChangeSelectedOptionHandler.bind(this);
     this.findJobsSearchHandler = this.findJobsSearchHandler.bind(this);
+    this.cityFilter = this.cityFilter.bind(this);
+    this.onChangeSelectedCategoryHandler = this.onChangeSelectedCategoryHandler.bind(this);
+    this.handleApplyFilter = this.handleApplyFilter.bind(this);
   }
 
   /*
@@ -59,6 +65,18 @@ class StudentHome extends React.Component {
     });
   }
 
+  onChangeSelectedCategoryHandler(e){
+    this.setState({
+      selectedCategoryFilter:e.value
+    })
+  }
+
+  cityFilter(e){
+    this.setState({
+      filteredCity:e.target.value
+    })
+  }
+
   findJobsHandler(e){
     return this.state.filteredJobs.map((eachJob)=>{
       return <Job job={eachJob} key={eachJob.job_post_id}/>
@@ -87,6 +105,44 @@ class StudentHome extends React.Component {
     })
   }
 
+  handleApplyFilter(e){
+    e.preventDefault();
+    window.alert(`${this.state.selectedCategoryFilter} | ${this.state.filteredCity}`);
+    let category = '';
+    if(this.state.selectedCategoryFilter === 'Full Time')
+      category = 'full time';
+    else if(this.state.selectedCategoryFilter === 'Part Time')
+      category = 'part time';
+    else if(this.state.selectedCategoryFilter === 'On Campus')
+      category = 'on campus';
+    else if(this.state.selectedCategoryFilter === 'Internship')
+      category = 'intern';
+    if((this.state.selectedCategoryFilter === '' || this.state.selectedCategoryFilter === 'All') && (this.state.filteredCity === '')){
+      this.setState({
+        filteredJobs:this.state.allJobs
+      });
+    } else if(this.state.filteredCity !== '') {
+      let filteredJobArray = '';
+      if(category === '')
+      {
+        filteredJobArray = this.state.allJobs.filter(eachJob => eachJob.city.toUpperCase() === this.state.filteredCity.toUpperCase());
+      }
+      else {
+        filteredJobArray = this.state.allJobs.filter(eachJob => ((eachJob.city.toUpperCase() === this.state.filteredCity.toUpperCase()) && (eachJob.job_category === category)));
+      }
+      this.setState({
+        filteredJobs:filteredJobArray
+      });
+    } else {
+      let filteredJobArray = '';
+      filteredJobArray = this.state.allJobs.filter(eachJob => eachJob.job_category === category);
+      this.setState({
+        filteredJobs:filteredJobArray
+      });
+    }
+    
+  }
+
   render() {
     if (!localStorage.getItem('userRole')) {
       window.location.href = '/';
@@ -113,6 +169,7 @@ class StudentHome extends React.Component {
                                 options={this.state.userOptions}
                                 onChange={this.onChangeSelectedOptionHandler}
                                 value={this.state.selectedOption}
+                                placeholder="Given Search Is.."
                                 required
                             />
                           </Col>
@@ -130,7 +187,23 @@ class StudentHome extends React.Component {
               <div className="main-relative-div-studentProfile">
                 <div className="row">
                   <div className="col-md-4">
-                    
+                    <div className="experienceHeading">
+                      <h2>Apply Filters</h2>
+                    </div>
+                    <form onSubmit={this.handleApplyFilter}>
+                      <div className="educationCard">
+                        <Dropdown
+                          options={this.state.categoryOptions}
+                          onChange={this.onChangeSelectedCategoryHandler}
+                          value={this.state.selectedCategoryFilter}
+                          placeholder='Select Category'
+                        />
+                      </div>
+                      <div className="educationCard">
+                        <Input type="text" name="cityFilter" id="cityFilter" placeholder="City Filter" value={this.state.filteredCity} onChange={this.cityFilter}/>
+                      </div>
+                      <Button color="primary" style={{width:150,height:50}}>Filter</Button>
+                    </form>
                   </div>
                   <div className="col-md-8">
                     <div className="educationCard">
