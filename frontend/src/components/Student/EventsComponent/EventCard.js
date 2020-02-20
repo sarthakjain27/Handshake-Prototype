@@ -87,9 +87,7 @@ class EventCard extends React.Component{
                         rounded 
                         style={{height:50, width:50}}/> {' '}
               {this.capitalize(this.props.event.event_name)} | {this.capitalize(this.props.event.company_name)} {' '}
-              <Col sm={{ size: 4, offset:9 }}>
-                {button}
-              </Col>
+              {button}
             </Card.Title>
             <Card.Subtitle className="mb-2 text-muted">
               <b>Posted Date: </b> {this.convertDate(this.props.event.date)}, {this.convertTime(this.props.event.time)}

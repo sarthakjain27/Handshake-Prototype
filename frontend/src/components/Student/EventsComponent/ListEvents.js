@@ -6,6 +6,7 @@ import {Row, Col, Button, Form, FormGroup, Label, Input, Media} from 'reactstrap
 import Dropdown from 'react-dropdown';
 import '../../../../node_modules/react-dropdown/style.css';
 import EventCard from './EventCard';
+import './ListEvents.css';
 
 class StudentListEvents extends React.Component {
   constructor(props){
@@ -26,19 +27,18 @@ class StudentListEvents extends React.Component {
     .then(response => {
       console.log('ComponentDidMount response in ListEvents.js of Student');
       console.log(response.data);
-      this.setState({
-        filteredEvents:response.data,
-        allEvents:response.data
-      });
-    }).then(() => {
+      return response
+    }).then((response) => {
       axios.post(serverIp+':'+serverPort+'/getStudentAllEducation',{studentId:localStorage.getItem('student_id')})
-      .then(response => {
+      .then(resp => {
         console.log('getStudentAllEducation');
-        console.log(response.data);
+        console.log(resp.data);
         // storing education to enable/disable apply button in Event Card based on eligibility
-        sessionStorage.setItem('educationSetFromListEvents',JSON.stringify(response.data));
+        sessionStorage.setItem('educationSetFromListEvents',JSON.stringify(resp.data));
         this.setState({
-          education:response.data
+          education:response.data,
+          filteredEvents:response.data,
+          allEvents:response.data
         })
       }).catch(err => {
         console.log('Error in getStudentAllEducation post call in ListEvents componentDidMount axios post call: '+err);
