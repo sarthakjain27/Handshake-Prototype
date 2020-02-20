@@ -28,7 +28,7 @@ class Event extends React.Component{
     if(hourMinutes[0]<12){
       return hourMinutes[0]+':'+hourMinutes[1]+' AM';
     } else if(hourMinutes[0]>12){
-      return (hourMinutes[0]-1)+':'+hourMinutes[1]+' PM';
+      return (hourMinutes[0]-12)+':'+hourMinutes[1]+' PM';
     } else {
       return hourMinutes[0]+':'+hourMinutes[1]+' PM';
     }

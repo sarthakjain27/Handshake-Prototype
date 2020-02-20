@@ -39,9 +39,12 @@ class StudentProfile extends React.Component {
         this.setState({
           experience:response.data
         })
+      }).catch(err => {
+        console.log('Error in post call of getStudentAllProfessionalExperience: '+err);
+        window.alert('Error connecting to server');
       })
     }).catch(err => {
-      console.log('Error in either post call of getStudentAllEducation or getStudentAllProfessionalExperience: '+err);
+      console.log('Error in post call of getStudentAllEducation '+err);
       window.alert('Error connecting to server');
     })
   }
