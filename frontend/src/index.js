@@ -35,7 +35,6 @@ import EditStudentProfessionalExperience from './components/Student/Profile/Edit
 import AddProfessionalExperienceStudent from './components/Student/Profile/AddExperience';
 
 
-
 class AllRoutesCombined extends React.Component {
   render() {
     return (
@@ -49,7 +48,7 @@ class AllRoutesCombined extends React.Component {
         <Route exact path="/listEvents" component={CompanyListEvents} />
         <Route exact path="/newEventPost" component={NewEventPost} />
         <Route exact path="/companyProfile" component={CompanyProfile} />
-        <Route exact path='/editCompanyProfile' component={EditCompanyProfile}/>
+        <Route exact path="/editCompanyProfile" component={EditCompanyProfile} />
 
         <Route exact path="/viewPostedJobs" component={StudentHome} />
         <Route exact path="/appliedJobs" component={AppliedJobs} />
@@ -57,11 +56,11 @@ class AllRoutesCombined extends React.Component {
         <Route exact path="/registeredEvents" component={RegisteredEvents} />
         <Route exact path="/studentSearchStudents" component={StudentSearchStudents} />
         <Route exact path="/studentProfile" component={StudentProfile} />
-        <Route exact path='/editStudentProfile' component={EditStudentProfile}/>
-        <Route exact path='/editStudentEducation' component={EditStudentEducation}/>
-        <Route exact path='/addEducationStudentProfile' component={AddEducationStudent}/>
-        <Route exact path='/editStudentExperience' component={EditStudentProfessionalExperience}/>
-        <Route exact path='/addExperienceStudentProfile' component={AddProfessionalExperienceStudent}/>
+        <Route exact path="/editStudentProfile" component={EditStudentProfile} />
+        <Route exact path="/editStudentEducation" component={EditStudentEducation} />
+        <Route exact path="/addEducationStudentProfile" component={AddEducationStudent} />
+        <Route exact path="/editStudentExperience" component={EditStudentProfessionalExperience} />
+        <Route exact path="/addExperienceStudentProfile" component={AddProfessionalExperienceStudent} />
       </Router>
     );
   }

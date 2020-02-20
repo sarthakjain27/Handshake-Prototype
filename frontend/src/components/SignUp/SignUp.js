@@ -31,55 +31,55 @@ class SignUp extends React.Component{
   }
 
   // both company name and student name change will call this handler
-  onChangeNameHandler = e => {
+  onChangeNameHandler(e){
     this.setState({
       name:e.target.value
     });
   }
 
-  onChangeUserNameHandler = e => {
+  onChangeUserNameHandler(e){
     this.setState({
       emailId:e.target.value
     });
   }
 
-  onChangePasswordHandler = e => {
+  onChangePasswordHandler(e){
     this.setState({
       password:e.target.value
     });
   }
 
-  onChangeUserHandler = e => {
+  onChangeUserHandler(e){
     this.setState({
       user:e.value
     });
   }
 
-  onChangeCollegeNameHandler = e => {
+  onChangeCollegeNameHandler(e){
     this.setState({
       collegeName:e.target.value
     });
   }
 
-  onChangeCityHandler = e => {
+  onChangeCityHandler(e){
     this.setState({
       city:e.target.value
     });
   }
 
-  onChangeStateHandler = e => {
+  onChangeStateHandler(e){
     this.setState({
       cstate:e.target.value
     });
   }
 
-  onChangeCountryHandler = e => {
+  onChangeCountryHandler(e){
     this.setState({
       country:e.target.value
     });
   }
 
-  onSignUpSubmit = e => {
+  onSignUpSubmit(e){
     e.preventDefault();
     const data = {
       emailId: this.state.emailId,

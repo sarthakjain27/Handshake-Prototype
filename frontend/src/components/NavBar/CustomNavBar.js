@@ -8,7 +8,7 @@ class CustomNavBar extends React.Component{
     this.onSelectNavHandler = this.onSelectNavHandler.bind(this);
   }
 
-  onSelectNavHandler = e => {
+  onSelectNavHandler(e){
     if(e === 'logOut'){
       localStorage.clear();
       sessionStorage.clear();

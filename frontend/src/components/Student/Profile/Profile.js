@@ -35,55 +35,55 @@ class Profile extends React.Component {
     this.profileFileUploadHandler = this.profileFileUploadHandler.bind(this);
   }
 
-  studentNameChangeHandler = e => {
+  studentNameChangeHandler(e){
     this.setState({
       studentName:e.target.value
     })
   }
 
-  collegeNameChangeHandler = e => {
+  collegeNameChangeHandler(e){
     this.setState({
       collegeName:e.target.value
     })
   }
 
-  cityChangeHandler = e => {
+  cityChangeHandler(e){
     this.setState({
       city:e.target.value
     })
   }
 
-  stateChangeHandler = e => {
+  stateChangeHandler(e){
     this.setState({
       cstate:e.target.value
     })
   }
 
-  countryChangeHandler = e => {
+  countryChangeHandler(e){
     this.setState({
       country:e.target.value
     })
   }
 
-  careerObjectiveChangeHandler = e => {
+  careerObjectiveChangeHandler(e){
     this.setState({
       careerObjective:e.target.value
     })
   }
 
-  contactPhoneChangeHandler = e => {
+  contactPhoneChangeHandler(e){
     this.setState({
       contactPhone:e.target.value
     })
   }
   
-  contactEmailChangeHandler = e => {
+  contactEmailChangeHandler(e){
     this.setState({
       contact_email:e.target.value
     })
   }
 
-  profileFileUploadHandler = e => {
+  profileFileUploadHandler(e){
     this.setState({
       selectedFile:e.target.files[0]
     },() => {
@@ -91,13 +91,13 @@ class Profile extends React.Component {
     })
   }
 
-  dateOfBirthChangeHandler = date => {
+  dateOfBirthChangeHandler(date) {
     this.setState({
       dateOfBirth:date
     });
   }
 
-  editProfileHandlerSubmit = e => {
+  editProfileHandlerSubmit(e){
     e.preventDefault();
     if(this.state.studentName === '' || this.state.collegeName === '' || this.state.city === '' || this.state.cstate === '' || this.state.country === '' || this.state.careerObjective === '' || this.state.contact_email === '' || this.state.contactPhone === '' || this.state.dateOfBirth === ''){
       window.alert('Please enter all fields');

@@ -41,37 +41,37 @@ class AddEducation extends React.Component {
     this.submitChangeHandler = this.submitChangeHandler.bind(this);
   }
 
-  collegeNameChangeHandler = e => {
+  collegeNameChangeHandler(e){
     this.setState({
       collegeName:e.target.value
     })
   }
 
-  cityChangeHandler = e => {
+  cityChangeHandler(e){
     this.setState({
       city:e.target.value
     })
   }
 
-  stateChangeHandler = e => {
+  stateChangeHandler(e){
     this.setState({
       cstate:e.target.value
     })
   }
 
-  countryChangeHandler = e => {
+  countryChangeHandler(e){
     this.setState({
       country:e.target.value
     })
   }
 
-  degreeChangeHandler = e => {
+  degreeChangeHandler(e){
     this.setState({
       degree:e.target.value
     })
   }
 
-  majorChangeHandler = e => {
+  majorChangeHandler(e){
     this.setState({
       major:e
     },()=>{
@@ -80,19 +80,19 @@ class AddEducation extends React.Component {
     })
   }
 
-  yearOfPassingChangeHandler = e => {
+  yearOfPassingChangeHandler(e){
     this.setState({
       yearOfPassing:e.target.value
     })
   }
 
-  cgpaChangeHandler = e => {
+  cgpaChangeHandler(e){
     this.setState({
       cgpa:e.target.value
     })
   }
 
-  submitChangeHandler = e => {
+  submitChangeHandler(e){
     e.preventDefault();
     if(this.state.collegeName === '' || this.state.city === '' || this.state.cstate === '' || this.state.country === '' || this.state.degree === '' || this.state.major === '' || this.state.yearOfPassing === '' || this.state.cgpa === ''){
       window.alert('Please enter all fields');

@@ -36,61 +36,61 @@ class NewJobPost extends React.Component {
     this.onPostSubmit = this.onPostSubmit.bind(this);
   }
 
-  onChangeTitleHandler = e => {
+  onChangeTitleHandler(e){
     this.setState({
       title:e.target.value
     });
   }
 
-  onChangePostingDateHandler = date => {
+  onChangePostingDateHandler(date) {
     this.setState({
       postingDate:date
     });
   }
 
-  onChangeDeadlineHandler = date => {
+  onChangeDeadlineHandler(date) {
     this.setState({
       deadline:date
     });
   }
 
-  onChangeCityHandler = e => {
+  onChangeCityHandler(e){
     this.setState({
       city:e.target.value
     });
   }
 
-  onChangeStateHandler = e => {
+  onChangeStateHandler(e){
     this.setState({
       cstate:e.target.value
     });
   }
 
-  onChangeCountryHandler = e => {
+  onChangeCountryHandler(e){
     this.setState({
       country:e.target.value
     });
   }
 
-  onChangeSalaryHandler = e => {
+  onChangeSalaryHandler(e){
     this.setState({
       salary:e.target.value
     });
   }
 
-  onChangeDescriptionHandler = e => {
+  onChangeDescriptionHandler(e){
     this.setState({
       description:e.target.value
     });
   }
 
-  onChangeCategoryHandler = e => {
+  onChangeCategoryHandler(e){
     this.setState({
       category:e.value
     });
   }
 
-  onPostSubmit = e => {
+  onPostSubmit(e){
     e.preventDefault();
     if(this.state.title === '' || this.state.city === '' || this.state.cstate === '' || this.state.country === '' || this.state.salary === '' || this.state.description === '' || this.state.category === '')
     {

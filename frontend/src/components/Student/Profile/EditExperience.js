@@ -32,55 +32,55 @@ class EditEducation extends React.Component {
     this.submitChangeHandler = this.submitChangeHandler.bind(this);
   }
 
-  companyNameChangeHandler = e => {
+  companyNameChangeHandler(e){
     this.setState({
       companyName:e.target.value
     })
   }
 
-  titleChangeHandler = e => {
+  titleChangeHandler(e){
     this.setState({
       title:e.target.value
     })
   }
 
-  cityChangeHandler = e => {
+  cityChangeHandler(e){
     this.setState({
       city:e.target.value
     })
   }
 
-  stateChangeHandler = e => {
+  stateChangeHandler(e){
     this.setState({
       cstate:e.target.value
     })
   }
 
-  countryChangeHandler = e => {
+  countryChangeHandler(e){
     this.setState({
       country:e.target.value
     })
   }
 
-  startDateChangeHandler = e => {
+  startDateChangeHandler(e){
     this.setState({
       startDate:e
     })
   }
 
-  endDateChangeHandler = e => {
+  endDateChangeHandler(e){
     this.setState({
       endDate:e
     })
   }
 
-  descriptionChangeHandler = e => {
+  descriptionChangeHandler(e){
     this.setState({
       description:e.target.value
     })
   }
 
-  submitChangeHandler = e => {
+  submitChangeHandler(e){
     e.preventDefault();
     // endDate = '' for present job
     if(this.state.companyName === '' || this.state.title === '' || this.state.city === '' || this.state.cstate === '' || this.state.country === '' || this.state.description === '' || this.state.startDate === ''){

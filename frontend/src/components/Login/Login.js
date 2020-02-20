@@ -22,25 +22,25 @@ class Login extends React.Component{
   }
 
 
-  onChangeUserNameHandler = e => {
+  onChangeUserNameHandler(e){
     this.setState({
       emailId:e.target.value
     });
   }
 
-  onChangePasswordHandler = e => {
+  onChangePasswordHandler(e){
     this.setState({
       password:e.target.value
     });
   }
 
-  onChangeUserHandler = e => {
+  onChangeUserHandler(e){
     this.setState({
       user:e.value
     });
   }
 
-  onLoginSubmit = e => {
+  onLoginSubmit(e){
     e.preventDefault();
     const data = {
       emailId: this.state.emailId,
@@ -145,4 +145,4 @@ class Login extends React.Component{
 
 }
 
-export default Login
+export default Login;

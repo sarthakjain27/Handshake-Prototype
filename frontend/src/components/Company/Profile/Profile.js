@@ -31,49 +31,49 @@ class Profile extends React.Component {
     this.profileFileUploadHandler = this.profileFileUploadHandler.bind(this);
   }
 
-  companyNameChangeHandler = e => {
+  companyNameChangeHandler(e){
     this.setState({
       company_name:e.target.value
     })
   }
 
-  cityChangeHandler = e => {
+  cityChangeHandler(e){
     this.setState({
       city:e.target.value
     })
   }
 
-  stateChangeHandler = e => {
+  stateChangeHandler(e){
     this.setState({
       cstate:e.target.value
     })
   }
 
-  countryChangeHandler = e => {
+  countryChangeHandler(e){
     this.setState({
       country:e.target.value
     })
   }
 
-  descriptionChangeHandler = e => {
+  descriptionChangeHandler(e){
     this.setState({
       description:e.target.value
     })
   }
 
-  contactPhoneChangeHandler = e => {
+  contactPhoneChangeHandler(e){
     this.setState({
       contact_phone:e.target.value
     })
   }
   
-  contactEmailChangeHandler = e => {
+  contactEmailChangeHandler(e){
     this.setState({
       contact_email:e.target.value
     })
   }
 
-  profileFileUploadHandler = e => {
+  profileFileUploadHandler(e){
     this.setState({
       selectedFile:e.target.files[0]
     },() => {
@@ -81,7 +81,7 @@ class Profile extends React.Component {
     })
   }
 
-  editProfileHandlerSubmit = e => {
+  editProfileHandlerSubmit(e){
     e.preventDefault();
     if(this.state.company_name === '' || this.state.city === '' || this.state.cstate === '' || this.state.country === '' || this.state.description === '' || this.state.contact_email === '' || this.state.contact_phone === ''){
       window.alert('Please enter all fields');

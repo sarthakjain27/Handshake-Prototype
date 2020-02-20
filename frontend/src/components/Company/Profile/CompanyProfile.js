@@ -21,7 +21,7 @@ class CompanyProfile extends React.Component {
     this.editProfileHandler = this.editProfileHandler.bind(this);
   }
 
-  editProfileHandler = e => {
+  editProfileHandler(e){
     e.preventDefault();
     window.location.href='/editCompanyProfile';
   }
