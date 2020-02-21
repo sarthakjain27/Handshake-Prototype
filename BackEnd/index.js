@@ -56,6 +56,14 @@ app.post('/listCompanyPostedJobs', (req, res) => {
   JobComponent.listCompanyPostedJobs(req, res, pool);
 });
 
+app.post('/getStudentsRegisteredInAJob', (req, res) => {
+  JobComponent.getStudentsRegisteredInAJob(req, res, pool);
+});
+
+app.post('/updateAppliedStudentJobStatus', (req, res) => {
+  JobComponent.updateAppliedStudentJobStatus(req, res, pool);
+});
+
 app.post('/getPostedJobs', (req, res) => {
   JobComponent.getPostedJobs(req, res, pool);
 });
@@ -93,6 +101,10 @@ app.post('/getAllEvents', (req, res) => {
 
 app.post('/getRegisteredEvents', (req, res) => {
   EventComponent.getRegisteredEvents(req, res, pool);
+});
+
+app.post('/getStudentsRegisteredInAEvent', (req, res) => {
+  EventComponent.getStudentsRegisteredInAEvent(req, res, pool);
 });
 
 app.post('/registerForEvent', (req, res) => {

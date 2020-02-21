@@ -62,19 +62,22 @@ class EventCard extends React.Component{
       window.location.href = '/';
     }
     let button = ''
-    let eligible = false;
-    let currentYear = (new Date()).getFullYear();
-    let student_education = JSON.parse(sessionStorage.getItem('educationSetFromListEvents'));
-    let eligibility_majors = this.props.event.eligibility.split(',');
-    for(let i of student_education){
-      if((parseInt(i['year_of_passing'])>=currentYear) && (eligibility_majors.includes(i['major']))){
-        eligible = true;
-        break;
-      }
-    }
-    if(this.props.showRegisterButton && eligible)
+    if(this.props.showRegisterButton)
     {
-      button = <Button style={{width:100,height:40}} onClick={this.registerForEvent}>Register</Button>
+      let eligible = false;
+      let currentYear = (new Date()).getFullYear();
+      let student_education = JSON.parse(sessionStorage.getItem('educationSetFromListEvents'));
+      let eligibility_majors = this.props.event.eligibility.split(',');
+      for(let i of student_education){
+        if((parseInt(i['year_of_passing'])>=currentYear) && (eligibility_majors.includes(i['major']))){
+          eligible = true;
+          break;
+        }
+      }
+      if(eligible)
+      {
+        button = <Button style={{width:100,height:40}} onClick={this.registerForEvent}>Register</Button>
+      }
     }
     return(
       <div>

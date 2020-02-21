@@ -12,8 +12,9 @@ class Event extends React.Component {
 
   showStudents(e) {
     e.preventDefault();
-    window.alert(`${this.props.event.event_id}`);
-    window.location.href = '/newEventPost';
+    // window.alert(`${this.props.event.event_id}`);
+    sessionStorage.setItem('EventIdForRegisteredStudents',this.props.event.event_id);
+    window.location.href = '/RegisteredStudentsInEvent';
   }
 
   capitalize(word, splitParam = ' ') {

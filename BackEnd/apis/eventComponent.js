@@ -42,6 +42,25 @@ const listCompanyCreatedEvents = (req, res, pool) => {
   });
 };
 
+const getStudentsRegisteredInAEvent = (req, res, pool) => {
+  console.log('Inside getStudentsRegisteredInAEvent');
+  console.log(req.body);
+  const searchSQL = `select a.event_id,a.student_id,a.studentRegistrationId,
+                    b.student_name,b.college_name,b.date_of_birth,b.city,b.state,b.country,b.career_objective,b.contact_phone,b.contact_email,b.profile_picture_url
+                    from students_registered_for_event a, student_information b
+                    where a.event_id = '${req.body.eventId}'
+                    and a.student_id = b.student_id`;
+  
+  pool.query(searchSQL, (searchError, searchResult) => {
+    if(searchError){
+      console.log(searchError);
+      console.log('Error in getStudentsRegisteredInAEvent');
+      res.send('Error');
+    }
+    res.send(searchResult);
+  })        
+}
+
 const getAllEvents = (req, res, pool) => {
   console.log('Inside getAllEvents');
   console.log(req.body);
@@ -131,3 +150,4 @@ exports.getAllEvents = getAllEvents;
 exports.getRegisteredEvents = getRegisteredEvents;
 exports.getSearchedEvent = getSearchedEvent;
 exports.registerForEvent = registerForEvent;
+exports.getStudentsRegisteredInAEvent = getStudentsRegisteredInAEvent;
