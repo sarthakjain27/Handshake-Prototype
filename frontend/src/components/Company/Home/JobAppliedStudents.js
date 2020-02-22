@@ -4,28 +4,28 @@ import axios from 'axios';
 import {serverIp, serverPort} from '../../../config';
 import CustomNavBar from '../../NavBar/CustomNavBar';
 import '../../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import './NewEventPost.css';
+import './CompanyHome.css';
 
-class EventRegisteredStudents extends React.Component{
+class JobAppliedStudents extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      registeredStudents:[],
+      registeredStudents:[]
     }
     this.returnRegisteredStudents = this.returnRegisteredStudents.bind(this);
     this.capitalize = this.capitalize.bind(this);
   }
 
   componentDidMount(){
-    axios.post(serverIp+':'+serverPort+'/getStudentsRegisteredInAEvent',{eventId:sessionStorage.getItem('EventIdForRegisteredStudents')})
+    axios.post(serverIp+':'+serverPort+'/getStudentsRegisteredInAJob',{jobPostId:sessionStorage.getItem('JobIdForAppliedStudents')})
     .then(response => {
-      console.log('Response data in componentDidMount');
+      console.log('getStudentsRegisteredInAJob Response data in componentDidMount');
       console.log(response.data);
       this.setState({
         registeredStudents:response.data
       })
     }).catch(err => {
-      console.log(`Error in componentDidMount of RegisteredStudents: ${err}`);
+      console.log(`Error in componentDidMount of JobAppliedStudents: ${err}`);
       window.alert('Error in connecting to server');
     })
   }
@@ -63,28 +63,6 @@ class EventRegisteredStudents extends React.Component{
             </Card>
             <br />
           </div>
-          <div>
-            <Modal show={this.state.show} onHide={this.handleClose}>
-              <Modal.Header closeButton>
-                <Modal.Title>
-                  {this.capitalize(eachStudent.student_name)}{' '}
-                  <Image src={serverIp+':'+serverPort+'/'+eachStudent.profile_picture_url}
-                          alt='Student Profile Picture'
-                          roundedCircle 
-                          style={{height:50, width:50}}/> <br />
-                  
-                </Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                <b>College Name: </b>{this.capitalize(eachStudent.college_name)} <br />
-                <b>Career Objective </b> <br/>
-                {eachStudent.career_objective} <br /> <br />
-                <b>Location: </b> <i>{this.capitalize(eachStudent.city)}, {this.capitalize(eachStudent.state)}, {this.capitalize(eachStudent.country)}</i> <br />
-                <b>Contact Phone: </b> <i>{eachStudent.contact_phone}</i> <br />
-                <b>Contact Email: </b> <i>{eachStudent.contact_email}</i>
-              </Modal.Body>
-            </Modal>
-          </div>
         </div>
       );
     })
@@ -120,4 +98,4 @@ class EventRegisteredStudents extends React.Component{
   }
 }
 
-export default EventRegisteredStudents;
+export default JobAppliedStudents;

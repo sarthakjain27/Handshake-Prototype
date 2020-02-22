@@ -13,7 +13,8 @@ class StudentProfile extends React.Component {
     super(props);
     this.state = {
       education:[],
-      experience:[]
+      experience:[],
+      basicDetails:''
     }
     this.capitalize = this.capitalize.bind(this);
     this.editBasicDetails = this.editBasicDetails.bind(this);
@@ -23,52 +24,110 @@ class StudentProfile extends React.Component {
     this.addExperience = this.addExperience.bind(this);
   }
 
-  componentDidMount(){
-    axios.post(serverIp+':'+serverPort+'/getStudentAllEducation',{studentId:localStorage.getItem('student_id')})
-    .then(response => {
-      console.log('getStudentAllEducationResponse');
-      console.log(response.data);
-      this.setState({
-        education:response.data
-      })
-    }).then(()=>{
-      axios.post(serverIp+':'+serverPort+'/getStudentAllProfessionalExperience',{studentId:localStorage.getItem('student_id')})
+    componentWillMount(){
+    if(!this.props.match.params.id)
+    {
+      axios.post(serverIp+':'+serverPort+'/getStudentAllEducation',{studentId:localStorage.getItem('student_id')})
       .then(response => {
-        console.log('getStudentAllProfessionalExperience');
+        console.log('getStudentAllEducationResponse');
         console.log(response.data);
         this.setState({
-          experience:response.data
+          education:response.data
+        })
+      }).then(()=>{
+        axios.post(serverIp+':'+serverPort+'/getStudentAllProfessionalExperience',{studentId:localStorage.getItem('student_id')})
+        .then(response => {
+          console.log('getStudentAllProfessionalExperience');
+          console.log(response.data);
+          this.setState({
+            experience:response.data
+          })
+        }).catch(err => {
+          console.log('Error in post call of getStudentAllProfessionalExperience: '+err);
+          window.alert('Error connecting to server');
         })
       }).catch(err => {
-        console.log('Error in post call of getStudentAllProfessionalExperience: '+err);
+        console.log('Error in post call of getStudentAllEducation '+err);
         window.alert('Error connecting to server');
       })
-    }).catch(err => {
-      console.log('Error in post call of getStudentAllEducation '+err);
-      window.alert('Error connecting to server');
-    })
+    } else {
+      console.log(this.props);
+      axios.post(serverIp+':'+serverPort+'/getStudentBasicDetails',{studentId:this.props.match.params.id})
+      .then(response => {
+        console.log('getStudentBasicDetails from company');
+        console.log(response.data);
+        return(response.data)
+      }).then((basicInfo) => {
+        axios.post(serverIp+':'+serverPort+'/getStudentAllEducation',{studentId:this.props.match.params.id})
+        .then(response => {
+          console.log('getStudentAllEducationResponse');
+          console.log(response.data);
+          const d = {
+            basicInfo:basicInfo,
+            education:response.data
+          }
+          return d;
+        }).then((basicEducationData)=>{
+          axios.post(serverIp+':'+serverPort+'/getStudentAllProfessionalExperience',{studentId:this.props.match.params.id})
+          .then(response => {
+            console.log('getStudentAllProfessionalExperience');
+            console.log(response.data);
+            this.setState({
+              experience:response.data,
+              basicDetails:basicEducationData.basicInfo,
+              education:basicEducationData.education
+            })
+          }).catch(err => {
+            console.log('Error in post call of getStudentAllProfessionalExperience: '+err);
+            window.alert('Error connecting to server');
+          })
+        }).catch(err => {
+          console.log('Error in post call of getStudentAllEducation '+err);
+          window.alert('Error connecting to server');
+        })
+      }).catch(err => {
+        console.log('Error in post call of getStudentBasicDetails '+err);
+        window.alert('Error connecting to server');
+      })
+    }
   }
 
   displayEducation(){
-    return this.state.education.map((eachEducation)=>{
-      //for each object in exercise we are returning an Exercise component and passing three props
-      return <Education education={eachEducation} key={eachEducation.education_id}/>
-    })
+    if(!this.props.match.params.id){
+      return this.state.education.map((eachEducation)=>{
+        //for each object in exercise we are returning an Exercise component and passing three props
+        return <Education education={eachEducation} key={eachEducation.education_id} showButtons={true}/>
+      })
+    } else {
+      return this.state.education.map((eachEducation)=>{
+        //for each object in exercise we are returning an Exercise component and passing three props
+        return <Education education={eachEducation} key={eachEducation.education_id} showButtons={false}/>
+      })
+    }
   }
 
   displayExperience(){
-    return this.state.experience.map((eachExperience)=>{
-      //for each object in exercise we are returning an Exercise component and passing three props
-      return <Experience experience={eachExperience} key={eachExperience.experience_id}/>
-    })
+    if(!this.props.match.params.id){
+      return this.state.experience.map((eachExperience)=>{
+        //for each object in exercise we are returning an Exercise component and passing three props
+        return <Experience experience={eachExperience} key={eachExperience.experience_id} showButtons={true}/>
+      })
+    } else {
+      return this.state.experience.map((eachExperience)=>{
+        //for each object in exercise we are returning an Exercise component and passing three props
+        return <Experience experience={eachExperience} key={eachExperience.experience_id} showButtons={false}/>
+      })
+    }
   }
 
   capitalize(word,splitParam=' '){
-    word = word.split(splitParam).map((eachWord) => {
-      return eachWord.split(' ').map((each) => each.charAt(0).toUpperCase() + each.substring(1)).join(' ');
-    });
-    word = word.join(splitParam);
-    return word;
+    if(word){
+      word = word.split(splitParam).map((eachWord) => {
+        return eachWord.split(' ').map((each) => each.charAt(0).toUpperCase() + each.substring(1)).join(' ');
+      });
+      word = word.join(splitParam);
+      return word;
+    } else return '';
   }
 
   editBasicDetails(e){
@@ -89,71 +148,123 @@ class StudentProfile extends React.Component {
   render() {
     if (!localStorage.getItem('userRole')) {
       window.location.href = '/';
+    } 
+    var profile = null;
+    if(!this.props.match.params.id)
+    {
+      profile = 
+      <div className="main-div-studentProfile">
+        <div className="main-relative-div-studentProfile">
+          <div className="row">
+            <div className="col-md-4">
+              <Card border="primary">
+                <Card.Img variant="top" src={serverIp+':'+serverPort+'/'+localStorage.getItem('profile_picture_url')} alt="Profile Picture" style={{height:300}}/>
+                <Card.Body>
+                  <Card.Title>{this.capitalize(localStorage.getItem('student_name'))}</Card.Title>
+                  <Card.Subtitle className="mb-2 text-muted">
+                    Date of Birth: {localStorage.getItem('date_of_birth')} <br />
+                    {this.capitalize(localStorage.getItem('college_name'))} <br/>
+                    {this.capitalize(localStorage.getItem('city'))}, {this.capitalize(localStorage.getItem('state'))}, {this.capitalize(localStorage.getItem('country'))}
+                  </Card.Subtitle>
+                  <Card.Text>
+                    {this.capitalize(localStorage.getItem('career_objective'))}
+                  </Card.Text>
+                  <Button variant="primary" onClick={this.editBasicDetails}>Edit</Button>
+                </Card.Body>
+                <Card.Footer>
+                  <small className="text-muted"><b>Contact Phone:</b> {localStorage.getItem('contact_phone')}</small> <br />
+                  <small className="text-muted"><b>Contact Email:</b> {localStorage.getItem('contact_email')}</small>
+                </Card.Footer>
+              </Card>
+            </div>
+            <div className="col-md-8">
+              <div className="educationCard">
+                <div className="experienceHeading">
+                  <h2>Education</h2>
+                </div>
+                <div className="experienceHeading">
+                  {this.displayEducation()}
+                </div>
+                <div className="style__card-item___B1f7m">
+                  <div className="style__card-button___1X6wz">
+                    <button className="style__plain___13WSa" onClick={this.addEducation}>
+                      <span>Add Education</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div className="experienceCard">
+                <div className="experienceHeading">
+                  <h2>Professional Experience</h2>
+                </div>
+                <div className="experienceHeading">
+                  {this.displayExperience()}
+                </div>
+                <div className="style__card-item___B1f7m">
+                  <div className="style__card-button___1X6wz">
+                    <button className="style__plain___13WSa" onClick={this.addExperience}>
+                      <span>Add Experience</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    } else {
+      profile = 
+      <div className="main-div-studentProfile">
+        <div className="main-relative-div-studentProfile">
+          <div className="row">
+            <div className="col-md-4">
+            <Card border="primary">
+                <Card.Img variant="top" src={serverIp+':'+serverPort+'/'+this.state.basicDetails.profile_picture_url} alt="Profile Picture" style={{height:300}}/>
+                <Card.Body>
+                  <Card.Title>{this.capitalize(this.state.basicDetails.student_name)}</Card.Title>
+                  <Card.Subtitle className="mb-2 text-muted">
+                    Date of Birth: {this.capitalize(this.state.basicDetails.date_of_birth)} <br />
+                    {this.capitalize(this.state.basicDetails.college_name)} <br/>
+                    {this.capitalize(this.state.basicDetails.city)}, {this.capitalize(this.state.basicDetails.state)}, {this.capitalize(this.state.basicDetails.country)}
+                  </Card.Subtitle>
+                  <Card.Text>
+                    {this.state.basicDetails.career_objective}
+                  </Card.Text>
+                </Card.Body>
+                <Card.Footer>
+                  <small className="text-muted"> <b>Contact Phone:</b> {this.state.basicDetails.contact_phone}</small> <br />
+                  <small className="text-muted"><b>Contact Email:</b> {this.state.basicDetails.contact_email}</small>
+                </Card.Footer>
+              </Card>
+            </div>
+            <div className="col-md-8">
+              <div className="educationCard">
+                <div className="experienceHeading">
+                  <h2>Education</h2>
+                </div>
+                <div className="experienceHeading">
+                  {this.displayEducation()}
+                </div>
+              </div>
+              <div className="experienceCard">
+                <div className="experienceHeading">
+                  <h2>Professional Experience</h2>
+                </div>
+                <div className="experienceHeading">
+                  {this.displayExperience()}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     }
     return (
       <div>
         <div>
           <CustomNavBar />
         </div>
-        <div className="main-div-studentProfile">
-          <div className="main-relative-div-studentProfile">
-            <div className="row">
-              <div className="col-md-4">
-                <Card border="primary">
-                  <Card.Img variant="top" src={serverIp+':'+serverPort+'/'+localStorage.getItem('profile_picture_url')} alt="Profile Picture" style={{height:300}}/>
-                  <Card.Body>
-                    <Card.Title>{this.capitalize(localStorage.getItem('student_name'))}</Card.Title>
-                    <Card.Subtitle className="mb-2 text-muted">
-                      Date of Birth: {localStorage.getItem('date_of_birth')} <br />
-                      {this.capitalize(localStorage.getItem('college_name'))} <br/>
-                      {this.capitalize(localStorage.getItem('city'))}, {this.capitalize(localStorage.getItem('state'))}, {this.capitalize(localStorage.getItem('country'))}
-                    </Card.Subtitle>
-                    <Card.Text>
-                      {this.capitalize(localStorage.getItem('career_objective'))}
-                    </Card.Text>
-                    <Button variant="primary" onClick={this.editBasicDetails}>Edit</Button>
-                  </Card.Body>
-                  <Card.Footer>
-                    <small className="text-muted">Contact Phone: {localStorage.getItem('contact_phone')}</small> <br />
-                    <small className="text-muted">Contact Email: {localStorage.getItem('contact_email')}</small>
-                  </Card.Footer>
-                </Card>
-              </div>
-              <div className="col-md-8">
-                <div className="educationCard">
-                  <div className="experienceHeading">
-                    <h2>Education</h2>
-                  </div>
-                  <div className="experienceHeading">
-                    {this.displayEducation()}
-                  </div>
-                  <div className="style__card-item___B1f7m">
-                    <div className="style__card-button___1X6wz">
-                      <button className="style__plain___13WSa" onClick={this.addEducation}>
-                        <span>Add Education</span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div className="experienceCard">
-                  <div className="experienceHeading">
-                    <h2>Professional Experience</h2>
-                  </div>
-                  <div className="experienceHeading">
-                    {this.displayExperience()}
-                  </div>
-                  <div className="style__card-item___B1f7m">
-                    <div className="style__card-button___1X6wz">
-                      <button className="style__plain___13WSa" onClick={this.addExperience}>
-                        <span>Add Experience</span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>                
+        {profile}            
       </div>
     );
   }

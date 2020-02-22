@@ -12,11 +12,13 @@ class Education extends React.Component{
   }
 
   capitalize(word,splitParam=' '){
-    word = word.split(splitParam).map((eachWord) => {
-      return eachWord.split(' ').map((each) => each.charAt(0).toUpperCase() + each.substring(1)).join(' ');
-    });
-    word = word.join(splitParam);
-    return word;
+    if(word){
+      word = word.split(splitParam).map((eachWord) => {
+        return eachWord.split(' ').map((each) => each.charAt(0).toUpperCase() + each.substring(1)).join(' ');
+      });
+      word = word.join(splitParam);
+      return word;
+    } else return '';
   }
 
   editEducationDetails(e){
@@ -54,6 +56,14 @@ class Education extends React.Component{
     if (!localStorage.getItem('userRole')) {
       window.location.href = '/';
     }
+    let buttons = '';
+    if(this.props.showButtons){
+      buttons = 
+      <div>
+        <Button variant="primary" onClick={this.editEducationDetails}>Edit</Button>{' '}
+        <Button variant="danger" onClick={this.deleteEducationDetails}>Delete</Button>
+      </div>
+    }
     return(
       <div>
         <Card border="primary">
@@ -67,10 +77,10 @@ class Education extends React.Component{
               <b>CGPA: </b>{this.capitalize(this.props.education.cgpa)} <br/>
               <b>Year of Passing: </b>{this.capitalize(this.props.education.year_of_passing)}
             </Card.Text>
-            <Button variant="primary" onClick={this.editEducationDetails}>Edit</Button>{' '}
-            <Button variant="danger" onClick={this.deleteEducationDetails}>Delete</Button>
+            {buttons}
           </Card.Body>
         </Card>
+        <br />
       </div>
     );
   }

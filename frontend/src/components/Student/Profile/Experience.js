@@ -12,11 +12,13 @@ class Experience extends React.Component{
   }
 
   capitalize(word,splitParam=' '){
-    word = word.split(splitParam).map((eachWord) => {
-      return eachWord.split(' ').map((each) => each.charAt(0).toUpperCase() + each.substring(1)).join(' ');
-    });
-    word = word.join(splitParam);
-    return word;
+    if(word){
+      word = word.split(splitParam).map((eachWord) => {
+        return eachWord.split(' ').map((each) => each.charAt(0).toUpperCase() + each.substring(1)).join(' ');
+      });
+      word = word.join(splitParam);
+      return word;
+    } else return '';
   }
 
   editExperienceDetails(e){
@@ -60,6 +62,15 @@ class Experience extends React.Component{
     } else {
       showDate = this.props.experience.start_date + ' - ' + this.props.experience.end_date;
     }
+
+    let buttons = '';
+    if(this.props.showButtons){
+      buttons = 
+      <div>
+        <Button variant="primary" onClick={this.editExperienceDetails}>Edit</Button>{' '}
+        <Button variant="danger" onClick={this.deleteExperienceDetails}>Delete</Button>
+      </div>
+    }
     return(
       <div>
         <Card border="primary">
@@ -72,10 +83,10 @@ class Experience extends React.Component{
             <Card.Text>
               <b>Work Description: </b>{this.props.experience.work_description}
             </Card.Text>
-            <Button variant="primary" onClick={this.editExperienceDetails}>Edit</Button>{' '}
-            <Button variant="danger" onClick={this.deleteExperienceDetails}>Delete</Button>
+            {buttons}
           </Card.Body>
         </Card>
+        <br />
       </div>
     );
   }

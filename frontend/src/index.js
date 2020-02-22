@@ -20,6 +20,7 @@ import CompanySearchStudents from './components/Company/SearchStudents/SearchStu
 import CompanyListEvents from './components/Company/EventComponent/ListEvents';
 import NewEventPost from './components/Company/EventComponent/NewEventPost';
 import EventRegisteredStudents from './components/Company/EventComponent/EventRegisteredStudents';
+import JobAppliedStudents from './components/Company/Home/JobAppliedStudents';
 
 
 // Student Components import
@@ -51,6 +52,8 @@ class AllRoutesCombined extends React.Component {
         <Route exact path="/companyProfile" component={CompanyProfile} />
         <Route exact path="/editCompanyProfile" component={EditCompanyProfile} />
         <Route exact path="/RegisteredStudentsInEvent" component={EventRegisteredStudents}/>
+        <Route exact path="/StudentProfile/:id"  component={StudentProfile}/>
+        <Route exact path="/AppliedStudentsInJob" component={JobAppliedStudents}/>
 
         <Route exact path="/viewPostedJobs" component={StudentHome} />
         <Route exact path="/appliedJobs" component={AppliedJobs} />

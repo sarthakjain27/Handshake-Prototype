@@ -9,13 +9,16 @@ class Post extends React.Component{
   }
 
   showStudents(e){
-    window.alert(`${this.props.post.job_post_id}`)
-    window.location.href='/newJobPost';
+    //window.alert(`${this.props.post.job_post_id}`);
+    sessionStorage.setItem('JobIdForAppliedStudents',this.props.post.job_post_id);
+    window.location.href = '/AppliedStudentsInJob';
   }
 
   capitalize(word){
-    word = word.split(' ').map((eachWord) => eachWord.charAt(0).toUpperCase() + eachWord.substring(1)).join(' ');
-    return word;
+    if(word){
+      word = word.split(' ').map((eachWord) => eachWord.charAt(0).toUpperCase() + eachWord.substring(1)).join(' ');
+      return word;
+    }
   }
 
   render(){

@@ -87,6 +87,23 @@ const studentUpdateProfile = (req, res, pool) => {
   });
 };
 
+const getStudentBasicDetails = (req, res, pool) => {
+  console.log('Inside getStudentBasicDetails');
+  console.log(req.body);
+  const studentId = parseInt(req.body.studentId, 10);
+  const searchSQL = `select a.student_name, a.college_name, a.date_of_birth, a.city, a.state, a.country, a.career_objective, a.contact_email, a.contact_phone, a.profile_picture_url
+                    from student_information a 
+                    where student_id = '${studentId}'`;
+  pool.query(searchSQL, (searchError, searchResult) => {
+    if (searchError) {
+      console.log(searchError);
+      console.log('Error in getStudentBasicDetails');
+      res.send('Error');
+    }
+    res.send(searchResult[0]);
+  });
+}
+
 const getStudentProfile = (req, res, pool) => {
   console.log('Inside getStudentProfile');
   console.log(req.body);
@@ -265,3 +282,4 @@ exports.createProfessionalExperience = createProfessionalExperience;
 exports.updateProfessionalExperience = updateProfessionalExperience;
 exports.deleteProfessionalExperience = deleteProfessionalExperience;
 exports.getAllProfessionalExperience = getAllProfessionalExperience;
+exports.getStudentBasicDetails = getStudentBasicDetails;

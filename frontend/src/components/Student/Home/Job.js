@@ -43,11 +43,13 @@ class Job extends React.Component{
   }
 
   capitalize(word,splitParam=' '){
-    word = word.split(splitParam).map((eachWord) => {
-      return eachWord.split(' ').map((each) => each.charAt(0).toUpperCase() + each.substring(1)).join(' ');
-    });
-    word = word.join(splitParam);
-    return word;
+    if(word){
+      word = word.split(splitParam).map((eachWord) => {
+        return eachWord.split(' ').map((each) => each.charAt(0).toUpperCase() + each.substring(1)).join(' ');
+      });
+      word = word.join(splitParam);
+      return word;
+    } else return '';
   }
 
   applyForJob(e){

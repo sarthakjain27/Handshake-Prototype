@@ -83,6 +83,10 @@ app.post('/applyForJob', studentResumeFileUpload.single('file'), (req, res) => {
   JobComponent.applyForJob(req, res, pool);
 });
 
+app.post('/getStudentBasicDetails', (req, res) =>{
+  ProfileComponent.getStudentBasicDetails(req, res, pool);
+});
+
 app.post('/getAppliedJobs', (req, res) => {
   JobComponent.getAppliedJobs(req, res, pool);
 });
