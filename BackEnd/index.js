@@ -17,6 +17,7 @@ const Login = require('./apis/login');
 const JobComponent = require('./apis/jobComponent');
 const EventComponent = require('./apis/eventComponent');
 const ProfileComponent = require('./apis/profileComponent');
+const SkillSetComponent = require('./apis/skillSetComponent');
 
 
 const app = express();
@@ -156,6 +157,14 @@ const studentProfilePictureUpload = multer({ storage: studentProfilePictureStora
 app.post('/updateStudentProfile', studentProfilePictureUpload.single('file'), (req, res) => {
   ProfileComponent.studentUpdateProfile(req, res, pool);
 });
+
+app.post('/updateSkills', (req, res) => {
+  SkillSetComponent.updateSkills(req, res, pool);
+})
+
+app.post('/getStudentSkills', (req, res) => {
+  SkillSetComponent.getSkills(req, res, pool);
+})
 
 app.post('/getStudentDetails', (req, res) => {
   ProfileComponent.getStudentProfile(req, res, pool);

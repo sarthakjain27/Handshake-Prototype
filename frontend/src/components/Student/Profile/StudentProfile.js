@@ -3,9 +3,11 @@ import CustomNavBar from '../../NavBar/CustomNavBar';
 import './StudentProfile.css';
 import {serverIp, serverPort} from '../../../config';
 import axios from 'axios';
+import { Tooltip } from 'reactstrap';
 import {Card, Button, ListGroup, ListGroupItem} from 'react-bootstrap';
 import Education from './Education';
 import Experience from './Experience';
+import Select from "react-select";
 
 class StudentProfile extends React.Component {
 
@@ -14,7 +16,20 @@ class StudentProfile extends React.Component {
     this.state = {
       education:[],
       experience:[],
-      basicDetails:''
+      basicDetails:'',
+      skills:[],
+      allSkills:[{label:'JavaScript',value:'javascript'},
+                {label:'Nodejs',value:'nodejs'},
+                {label:'Reactjs',value:'reactjs'},
+                {label:'Java',value:'java'},
+                {label:'SQL',value:'sql'},
+                {label:'Python',value:'python'},
+                {label:'C++',value:'c++'},
+                {label:'Docker',value:'docker'},
+                {label:'GIT',value:'git'},
+                {label:'AWS',value:'aws'}],
+      selectedSkills:[],
+      tooltipOpen:false
     }
     this.capitalize = this.capitalize.bind(this);
     this.editBasicDetails = this.editBasicDetails.bind(this);
@@ -22,6 +37,10 @@ class StudentProfile extends React.Component {
     this.displayEducation = this.displayEducation.bind(this);
     this.displayExperience = this.displayExperience.bind(this);
     this.addExperience = this.addExperience.bind(this);
+    this.displaySkills = this.displaySkills.bind(this);
+    this.skillChangeHandler = this.skillChangeHandler.bind(this);
+    this.updateSkills = this.updateSkills.bind(this);
+    this.onToggle=this.onToggle.bind(this);
   }
 
     componentWillMount(){
@@ -44,6 +63,18 @@ class StudentProfile extends React.Component {
           })
         }).catch(err => {
           console.log('Error in post call of getStudentAllProfessionalExperience: '+err);
+          window.alert('Error connecting to server');
+        })
+      }).then(() => {
+        axios.post(serverIp+':'+serverPort+'/getStudentSkills',{studentId:localStorage.getItem('student_id')})
+        .then(response => {
+          console.log('getStudentSkills response');
+          console.log(response.data);
+          this.setState({
+            skills:response.data
+          })
+        }).catch(err => {
+          console.log('Error in post call of getStudentSkills '+err);
           window.alert('Error connecting to server');
         })
       }).catch(err => {
@@ -85,11 +116,80 @@ class StudentProfile extends React.Component {
           console.log('Error in post call of getStudentAllEducation '+err);
           window.alert('Error connecting to server');
         })
+      }).then(() => {
+        axios.post(serverIp+':'+serverPort+'/getStudentSkills',{studentId:this.props.match.params.id})
+        .then(response => {
+          console.log('getStudentSkills response');
+          console.log(response.data);
+          this.setState({
+            skills:response.data
+          })
+        }).catch(err => {
+          console.log('Error in post call of getStudentSkills '+err);
+          window.alert('Error connecting to server');
+        })
       }).catch(err => {
         console.log('Error in post call of getStudentBasicDetails '+err);
         window.alert('Error connecting to server');
       })
     }
+  }
+
+  onToggle(e)
+  {
+    this.setState({
+        tooltipOpen:!this.state.tooltipOpen
+    });
+  }
+
+  skillChangeHandler(e){
+    if (e === null) {
+      this.setState({
+        selectedSkills: [],
+      });
+    } else {
+      this.setState({
+        selectedSkills: e,
+      });
+    }
+  }
+
+  updateSkills(e){
+    e.preventDefault();
+    console.log(this.state.selectedSkills);
+    const newSkillSet = [];
+    this.state.selectedSkills.forEach((eachSkill) => {
+      newSkillSet.push(eachSkill.value);
+    });
+    console.log(newSkillSet);
+    // console.log(JSON.stringify(newSkillSet));
+    if(newSkillSet.length === 0){
+      window.alert('Skill Set Cannot be empty. Please select atleast 1 skill to be as your skill');
+      window.location.reload();
+    } else {
+      const data = {
+        studentId:localStorage.getItem('student_id'),
+        skills:newSkillSet
+      }
+      console.log(data);
+      axios.defaults.withCredentials = true;
+      axios.post(`${serverIp}:${serverPort}/updateSkills`, data)
+        .then((response) => {
+          console.log('UpdateSkills Response Data');
+          console.log(response.data);
+          if(response.data === 'Inserted Successfully'){
+            window.alert('Skill Set Updated Successfully to new selected skill set');
+            window.location.reload();
+          } else {
+            window.alert('Error in Connecting to Database');
+            window.location.reload();
+          } 
+        }).catch((err) => {
+          console.log(`In catch of axios post call to createEvent  api ${err}`);
+          window.alert('Error in NewEventPost component axios Post call');
+        });
+    }
+    
   }
 
   displayEducation(){
@@ -118,6 +218,13 @@ class StudentProfile extends React.Component {
         return <Experience experience={eachExperience} key={eachExperience.experience_id} showButtons={false}/>
       })
     }
+  }
+
+  displaySkills(){
+    let capitalizedSkills = this.state.skills.map((eachSkill) => {
+      return this.capitalize(eachSkill.skill_name);
+    })
+    return capitalizedSkills.join(', ');
   }
 
   capitalize(word,splitParam=' '){
@@ -176,6 +283,28 @@ class StudentProfile extends React.Component {
                   <small className="text-muted"><b>Contact Email:</b> {localStorage.getItem('contact_email')}</small>
                 </Card.Footer>
               </Card>
+              <br />
+              <div className="educationCard">
+                <div className="experienceHeading" id="TooltipExample">
+                  <h2>Skill Set</h2>
+                <label>Add Skill:</label>
+                <Tooltip placement="right" isOpen={this.state.tooltipOpen} target="TooltipExample" toggle={this.onToggle}>
+                    It will update your existing skill set with new skill set you select.
+                </Tooltip>
+                  <Select
+                    isMulti
+                    required
+                    onChange={this.skillChangeHandler}
+                    options={this.state.allSkills}
+                    value={this.state.selectedSkills}
+                  />
+                  <br/>
+                  <Button variant="primary" onClick={this.updateSkills}>Update Skill Set</Button>
+                </div>
+                <div className="experienceHeading">
+                  <b>Your skills: </b>{this.displaySkills()}
+                </div>
+              </div>
             </div>
             <div className="col-md-8">
               <div className="educationCard">
@@ -218,7 +347,7 @@ class StudentProfile extends React.Component {
         <div className="main-relative-div-studentProfile">
           <div className="row">
             <div className="col-md-4">
-            <Card border="primary">
+              <Card border="primary">
                 <Card.Img variant="top" src={serverIp+':'+serverPort+'/'+this.state.basicDetails.profile_picture_url} alt="Profile Picture" style={{height:300}}/>
                 <Card.Body>
                   <Card.Title>{this.capitalize(this.state.basicDetails.student_name)}</Card.Title>
@@ -236,6 +365,13 @@ class StudentProfile extends React.Component {
                   <small className="text-muted"><b>Contact Email:</b> {this.state.basicDetails.contact_email}</small>
                 </Card.Footer>
               </Card>
+              <br />
+              <div className="educationCard">
+                <div className="experienceHeading">
+                  <h2>Student Skill Set</h2>
+                  {this.displaySkills()}
+                </div>
+              </div>
             </div>
             <div className="col-md-8">
               <div className="educationCard">
