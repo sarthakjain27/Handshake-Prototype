@@ -49,6 +49,22 @@ const getCompanyProfile = (req, res, pool) => {
   });
 };
 
+const getCompanyDetailsForStudent = (req, res, pool) => {
+  console.log('Inside getCompanyDetailsForStudent');
+  console.log(req.body);
+  const companyId = parseInt(req.body.companyId, 10);
+  const searchSQL = `SELECT company_name,city,state,country,description,contact_phone,contact_email,profile_picture_url
+                    FROM company_information where company_id = '${companyId}'`;
+  pool.query(searchSQL, (searchError, result) => {
+    if (searchError) {
+      console.log(searchError);
+      console.log('Error in getCompanyDetailsForStudent');
+      res.send('Error');
+    }
+    res.send(result[0]);
+  });
+}
+
 const studentUpdateProfile = (req, res, pool) => {
   console.log('Inside studentUpdateProfile');
   console.log(req.body);
@@ -283,3 +299,4 @@ exports.updateProfessionalExperience = updateProfessionalExperience;
 exports.deleteProfessionalExperience = deleteProfessionalExperience;
 exports.getAllProfessionalExperience = getAllProfessionalExperience;
 exports.getStudentBasicDetails = getStudentBasicDetails;
+exports.getCompanyDetailsForStudent = getCompanyDetailsForStudent;

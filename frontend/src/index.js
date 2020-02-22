@@ -66,6 +66,7 @@ class AllRoutesCombined extends React.Component {
         <Route exact path="/addEducationStudentProfile" component={AddEducationStudent} />
         <Route exact path="/editStudentExperience" component={EditStudentProfessionalExperience} />
         <Route exact path="/addExperienceStudentProfile" component={AddProfessionalExperienceStudent} />
+        <Route exact path="/viewCompanyProfile/:id" component={CompanyProfile}/>
       </Router>
     );
   }

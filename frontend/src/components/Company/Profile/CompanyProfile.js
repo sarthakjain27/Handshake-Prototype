@@ -3,22 +3,69 @@ import CustomNavBar from '../../NavBar/CustomNavBar';
 import {serverIp, serverPort} from '../../../config';
 import {Row, Col, Button, Form, FormGroup, Label, Input, Media} from 'reactstrap';
 import {Image} from 'react-bootstrap';
+import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 class CompanyProfile extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      company_name: localStorage.getItem('company_name'),
-      city: localStorage.getItem('city'),
-      cstate: localStorage.getItem('state'),
-      country: localStorage.getItem('country'),
-      description: localStorage.getItem('description'),
-      contact_phone: localStorage.getItem('contact_phone'),
-      contact_email: localStorage.getItem('contact_email'),
-      profile_picture_url: localStorage.getItem('profile_picture_url')
+      company_name: '',
+      city: '',
+      cstate: '',
+      country: '',
+      description: '',
+      contact_phone: '',
+      contact_email: '',
+      profile_picture_url: ''
     }
     this.editProfileHandler = this.editProfileHandler.bind(this);
+    this.capitalize = this.capitalize.bind(this);
+  }
+
+  componentDidMount(){
+    if(!this.props.match.params.id)
+    {
+      this.setState({
+        company_name: localStorage.getItem('company_name'),
+        city: localStorage.getItem('city'),
+        cstate: localStorage.getItem('state'),
+        country: localStorage.getItem('country'),
+        description: localStorage.getItem('description'),
+        contact_phone: localStorage.getItem('contact_phone'),
+        contact_email: localStorage.getItem('contact_email'),
+        profile_picture_url: localStorage.getItem('profile_picture_url')
+      })
+    } else {
+      axios.post(serverIp+':'+serverPort+'/getCompanyDetailsForStudent',{companyId:this.props.match.params.id})
+      .then(response => {
+        console.log('Response data from CompanyProfile ComponentDidmount');
+        console.log(response.data);
+        this.setState({
+          company_name:response.data.company_name,
+          city:response.data.city,
+          cstate:response.data.state,
+          country:response.data.country,
+          description:response.data.description,
+          contact_phone:response.data.contact_phone,
+          contact_email:response.data.contact_email,
+          profile_picture_url:response.data.profile_picture_url
+        })
+      }).catch(err => {
+        console.log('Error in componentDidMount of CompanyProfile');
+        window.alert('Unable to connect to server');
+      })
+    }
+  }
+
+  capitalize(word,splitParam=' '){
+    if(word){
+      word = word.split(splitParam).map((eachWord) => {
+        return eachWord.split(' ').map((each) => each.charAt(0).toUpperCase() + each.substring(1)).join(' ');
+      });
+      word = word.join(splitParam);
+      return word;
+    } else return '';
   }
 
   editProfileHandler(e){
@@ -29,6 +76,16 @@ class CompanyProfile extends React.Component {
   render() {
     if (!localStorage.getItem('userRole')) {
       window.location.href = '/';
+    }
+    let buttons = '';
+    if(!this.props.match.params.id)
+    {
+      buttons = 
+        <FormGroup check row>
+          <Col sm={{ size: 4, offset:5 }}>
+            <Button style={{width:150,height:50}}>Edit</Button>
+          </Col>
+        </FormGroup>
     }
     return (
       <div>
@@ -50,7 +107,7 @@ class CompanyProfile extends React.Component {
             <FormGroup row>
               <Label for="companyName" sm={2}>Company Name</Label>
               <Col sm={6}>
-                <Input type="text" name="companyName" id="companyName" value={this.state.company_name} disabled/>
+                <Input type="text" name="companyName" id="companyName" value={this.capitalize(this.state.company_name)} disabled/>
               </Col>
             </FormGroup>
             <br/>
@@ -68,15 +125,15 @@ class CompanyProfile extends React.Component {
             <FormGroup row>
               <Label for="city" sm={1}>City</Label>
               <Col sm={2}>
-                <Input type="text" name="city" id="city" value={this.state.city} disabled/>
+                <Input type="text" name="city" id="city" value={this.capitalize(this.state.city)} disabled/>
               </Col>
               <Label for="state" sm={1}>State</Label>
               <Col sm={2}>
-                <Input type="text" name="state" id="state" value={this.state.cstate} disabled/>
+                <Input type="text" name="state" id="state" value={this.capitalize(this.state.cstate)} disabled/>
               </Col>
               <Label for="country" sm={1}>Country</Label>
               <Col sm={2}>
-                <Input type="text" name="country" id="country" value={this.state.country} disabled/>
+                <Input type="text" name="country" id="country" value={this.capitalize(this.state.country)} disabled/>
               </Col>
             </FormGroup>
             <FormGroup row>
@@ -85,11 +142,7 @@ class CompanyProfile extends React.Component {
                 <Input type="textarea" name="text" id="exampleText" rows="7" value={this.state.description} disabled/>
               </Col>
             </FormGroup>
-            <FormGroup check row>
-              <Col sm={{ size: 4, offset:5 }}>
-                <Button style={{width:150,height:50}}>Edit</Button>
-              </Col>
-            </FormGroup>
+            {buttons}
           </Form>
         </div>
       </div>

@@ -10,13 +10,10 @@ class Job extends React.Component{
     super(props);
     this.capitalize = this.capitalize.bind(this);
     this.applyForJob = this.applyForJob.bind(this);
-    this.companyDetails = this.companyDetails.bind(this);
-    this.state = {
-      show:false,
+    this.state = { 
       applicationShow:false,
       selectedFile:null
     }
-    this.handleClose = this.handleClose.bind(this);
     this.handleApplicationClose = this.handleApplicationClose.bind(this);
     this.resumeFileUploadHandler = this.resumeFileUploadHandler.bind(this);
     this.submitResume = this.submitResume.bind(this);
@@ -27,12 +24,6 @@ class Job extends React.Component{
       selectedFile:e.target.files[0]
     },() => {
       console.log(this.state.selectedFile);
-    })
-  }
-
-  handleClose(){
-    this.setState({
-      show:false
     })
   }
 
@@ -92,14 +83,6 @@ class Job extends React.Component{
     }
   }
 
-  companyDetails(e){
-    e.preventDefault();
-    // window.alert(`${this.props.job.company_name}`);
-    this.setState({
-      show:true
-    })
-  }
-
   render(){
     if (!localStorage.getItem('userRole')) {
       window.location.href = '/';
@@ -111,7 +94,7 @@ class Job extends React.Component{
           <Card border="primary">
             <Card.Body>
               <Card.Title>
-                {this.capitalize(this.props.job.job_title)} | <a href="#" onClick={this.companyDetails}>{this.capitalize(this.props.job.company_name)}</a>
+                {this.capitalize(this.props.job.job_title)} | <a href={'/viewCompanyProfile/'+this.props.job.company_id}>{this.capitalize(this.props.job.company_name)}</a>
               </Card.Title>
               <Card.Subtitle className="mb-2 text-muted">
                 {this.capitalize(this.props.job.job_category)}, ${this.props.job.salary} per year <br />
@@ -127,27 +110,6 @@ class Job extends React.Component{
               </Col>
             </Card.Body>
           </Card>
-        </div>
-        <div>
-          <Modal show={this.state.show} onHide={this.handleClose}>
-            <Modal.Header closeButton>
-              <Modal.Title>
-                {this.capitalize(this.props.job.company_name)}{' '}
-                <Image src={serverIp+':'+serverPort+'/'+this.props.job.profile_picture_url}
-                        alt='Company Profile Picture'
-                        roundedCircle 
-                        style={{height:50, width:50}}/> <br />
-                
-              </Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <b>Company Description </b> <br/>
-              {this.props.job.cdescription} <br /> <br />
-              <b>Location: </b> <i>{this.capitalize(this.props.job.ccity)}, {this.capitalize(this.props.job.cstate)}, {this.capitalize(this.props.job.ccountry)}</i> <br />
-              <b>Contact Phone: </b> <i>{this.props.job.contact_phone}</i> <br />
-              <b>Contact Email: </b> <i>{this.props.job.contact_email}</i>
-            </Modal.Body>
-          </Modal>
         </div>
         <div>
           <Modal show={this.state.applicationShow} onHide={this.handleApplicationClose} >

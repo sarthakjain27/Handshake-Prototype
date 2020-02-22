@@ -138,6 +138,10 @@ app.post('/getCompanyDetails', (req, res) => {
   ProfileComponent.getCompanyProfile(req, res, pool);
 });
 
+app.post('/getCompanyDetailsForStudent', (req, res) => {
+  ProfileComponent.getCompanyDetailsForStudent(req, res, pool);
+})
+
 const studentProfilePictureStorage = multer.diskStorage({
   destination(req, file, cb) {
     cb(null, './ProfilePictures/Student');
