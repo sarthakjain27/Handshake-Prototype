@@ -20,7 +20,6 @@ class JobAppliedStudents extends React.Component{
     this.showStudentResume = this.showStudentResume.bind(this);
     this.setReviewStatus = this.setReviewStatus.bind(this);
     this.setDeclineStatus = this.setDeclineStatus.bind(this);
-    
     this.handleClose = this.handleClose.bind(this);
   }
 
@@ -137,7 +136,10 @@ class JobAppliedStudents extends React.Component{
   }
 
   render(){
-    
+    let resumeShow = <h3>Student didn't upload any Resume</h3>
+    if(this.state.studentResumeUrl!==''){
+      resumeShow = <iframe src={serverIp+':'+serverPort+'/'+this.state.studentResumeUrl} style={{width:770,height:800}}></iframe>
+    }
     return(
       <div>
         <div>
@@ -149,7 +151,7 @@ class JobAppliedStudents extends React.Component{
               <Modal.Title>{this.capitalize(this.state.studentName)}'s Resume</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <iframe src={serverIp+':'+serverPort+'/'+this.state.studentResumeUrl} style={{width:770,height:800}}></iframe>
+              {resumeShow}
             </Modal.Body>
           </Modal>
         </div>
