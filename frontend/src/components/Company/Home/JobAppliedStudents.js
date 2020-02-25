@@ -10,10 +10,18 @@ class JobAppliedStudents extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      registeredStudents:[]
+      registeredStudents:[],
+      studentResumeUrl:'',
+      studentName:'',
+      show:false
     }
     this.returnRegisteredStudents = this.returnRegisteredStudents.bind(this);
     this.capitalize = this.capitalize.bind(this);
+    this.showStudentResume = this.showStudentResume.bind(this);
+    this.setReviewStatus = this.setReviewStatus.bind(this);
+    this.setDeclineStatus = this.setDeclineStatus.bind(this);
+    
+    this.handleClose = this.handleClose.bind(this);
   }
 
   componentDidMount(){
@@ -30,12 +38,63 @@ class JobAppliedStudents extends React.Component{
     })
   }
 
+  handleClose(){
+    
+    this.setState({
+      show:false,
+      studentResumeUrl:''
+    })
+  }
+
   capitalize(word, splitParam = ' ') {
     if(word){
       word = word.split(splitParam).map((eachWord) => eachWord.split(' ').map((each) => each.charAt(0).toUpperCase() + each.substring(1)).join(' '));
       word = word.join(splitParam);
       return word;
     }
+  }
+
+  showStudentResume(resumeUrl,studentname){
+    //window.alert(resumeUrl);
+    this.setState({
+      studentResumeUrl:resumeUrl,
+      studentName:studentname,
+      show:true
+    });
+  }
+
+  setReviewStatus(applicationId){
+    axios.post(serverIp+':'+serverPort+'/updateAppliedStudentJobStatus',{status:'reviewed',jobApplicationId:applicationId})
+    .then(response => {
+      console.log('setReviewStatus response');
+      console.log(response.data);
+      if(response.data === 'Error'){
+        window.alert('Error in updating student job status');
+      } else {
+        window.alert('Successfully updated student job status');
+        window.location.reload();
+      }
+    }).catch(err => {
+      console.log('Error in setReviewStatus in JobAppliedStudents component: '+err);
+      window.alert('Error in connecting to server');
+    })
+  }
+
+  setDeclineStatus(applicationId){
+    axios.post(serverIp+':'+serverPort+'/updateAppliedStudentJobStatus',{status:'declined',jobApplicationId:applicationId})
+    .then(response => {
+      console.log('setDeclineStatus response');
+      console.log(response.data);
+      if(response.data === 'Error'){
+        window.alert('Error in updating student job status');
+      } else {
+        window.alert('Successfully updated student job status');
+        window.location.reload();
+      }
+    }).catch(err => {
+      console.log('Error in setDeclineStatus in JobAppliedStudents component: '+err);
+      window.alert('Error in connecting to server');
+    })
   }
 
   returnRegisteredStudents(){
@@ -50,7 +109,13 @@ class JobAppliedStudents extends React.Component{
                             alt='Student Profile Picture'
                             roundedCircle
                             style={{height:40, width:40}}/> {' '}
-                  <a href={'/StudentProfile/'+eachStudent.student_id}>{this.capitalize(eachStudent.student_name)}</a>
+                  <a href={'/StudentProfile/'+eachStudent.student_id}>{this.capitalize(eachStudent.student_name)}</a> 
+                  {' '}
+                  <Button variant="info" onClick={()=>this.showStudentResume(eachStudent.resume_file_url,eachStudent.student_name)}>Info</Button>
+                  {' '}
+                  <Button variant="success" onClick={()=>this.setReviewStatus(eachStudent.jobApplicationId)}>Reviewed</Button>
+                  {' '}
+                  <Button variant="danger" onClick={()=>this.setDeclineStatus(eachStudent.jobApplicationId)}>Decline</Button>
                 </Card.Title>
                 <Card.Subtitle className="mb-2 text-muted">
                   {this.capitalize(eachStudent.college_name)}
@@ -60,6 +125,9 @@ class JobAppliedStudents extends React.Component{
                   {eachStudent.career_objective}
                 </Card.Text>
               </Card.Body>
+              <Card.Footer>
+                <b><i>Status: </i></b> {this.capitalize(eachStudent.status)}
+              </Card.Footer>
             </Card>
             <br />
           </div>
@@ -69,18 +137,28 @@ class JobAppliedStudents extends React.Component{
   }
 
   render(){
+    
     return(
       <div>
         <div>
           <CustomNavBar />
         </div>
-        
+        <div>
+          <Modal size="lg" show={this.state.show} onHide={this.handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>{this.capitalize(this.state.studentName)}'s Resume</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <iframe src={serverIp+':'+serverPort+'/'+this.state.studentResumeUrl} style={{width:770,height:800}}></iframe>
+            </Modal.Body>
+          </Modal>
+        </div>
         <div className="main-div-studentProfile">
           <div className="main-relative-div-studentProfile">
             <div className="row">
               <div className="col-md-4">
                 <div className="experienceHeading">
-                  <h2>Some Random Thing to Add Here Later</h2>
+                  <h3>Some Random Thing to Add Here Later</h3>
                 </div>
               </div>
               <div className="col-md-8">

@@ -38,7 +38,7 @@ class EachJobCard extends React.Component{
             </Card.Subtitle>
             <Card.Text>
               <Image src={serverIp+':'+serverPort+'/infoLogo.png'} rounded style={{height:20, width:20}}/>
-              <i>Status: </i>{this.props.job.status} <br/>
+              <i>Status: </i>{this.capitalize(this.props.job.status)} <br/>
               <i>Applying Date: </i> {this.props.job.applying_date} - <i>Application Closes On: </i> {this.props.job.application_deadline}
             </Card.Text>
           </Card.Body>
