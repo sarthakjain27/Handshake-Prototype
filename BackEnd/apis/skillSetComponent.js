@@ -39,7 +39,9 @@ const getSkills = (req, res, pool) => {
       console.log(searchError);
       res.send('Error');
     }
-    res.send(searchResult);
+    if(searchResult)
+      res.send(searchResult);
+    else res.send('Error');
   })
 }
 

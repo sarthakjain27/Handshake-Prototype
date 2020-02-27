@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 
 // My common components import
@@ -16,11 +16,11 @@ import CompanyHome from './components/Company/Home/CompanyHome';
 import NewJobPost from './components/Company/JobsComponent/NewJobPost';
 import CompanyProfile from './components/Company/Profile/CompanyProfile';
 import EditCompanyProfile from './components/Company/Profile/Profile';
-import CompanySearchStudents from './components/Company/SearchStudents/SearchStudents';
 import CompanyListEvents from './components/Company/EventComponent/ListEvents';
 import NewEventPost from './components/Company/EventComponent/NewEventPost';
 import EventRegisteredStudents from './components/Company/EventComponent/EventRegisteredStudents';
 import JobAppliedStudents from './components/Company/Home/JobAppliedStudents';
+import SearchStudents from './components/Company/SearchStudents/SearchStudents';
 
 
 // Student Components import
@@ -46,7 +46,6 @@ class AllRoutesCombined extends React.Component {
 
         <Route exact path="/listPostings" component={CompanyHome} />
         <Route exact path="/newJobPost" component={NewJobPost} />
-        <Route exact path="/companySearchStudents" component={CompanySearchStudents} />
         <Route exact path="/listEvents" component={CompanyListEvents} />
         <Route exact path="/newEventPost" component={NewEventPost} />
         <Route exact path="/companyProfile" component={CompanyProfile} />
@@ -54,6 +53,7 @@ class AllRoutesCombined extends React.Component {
         <Route exact path="/RegisteredStudentsInEvent" component={EventRegisteredStudents}/>
         <Route exact path="/StudentProfile/:id"  component={StudentProfile}/>
         <Route exact path="/AppliedStudentsInJob" component={JobAppliedStudents}/>
+        <Route exact path="/searchStudents" component={SearchStudents}/>
 
         <Route exact path="/viewPostedJobs" component={StudentHome} />
         <Route exact path="/appliedJobs" component={AppliedJobs} />

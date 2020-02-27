@@ -25,11 +25,11 @@ class CustomNavBar extends React.Component{
             <Image src={serverIp+':'+serverPort+'/handshakeLogo.png'}
                             alt='HandShake Logo'
                             roundedCircle 
-                            style={{height:40, width:40}}/>}
+                            style={{height:40, width:40}}/>
           </Navbar.Brand>
           <Nav className="ml-auto mr-5">
             <Nav.Link href="/newJobPost">Post Opening</Nav.Link>
-            <Nav.Link href="/companySearchStudents">Search Students</Nav.Link>
+            <Nav.Link href="/searchStudents">Search Students</Nav.Link>
             <NavDropdown title="Events" id="nav-dropdown">
               <NavDropdown.Item href="/listEvents">List Events</NavDropdown.Item>
               <NavDropdown.Divider />
@@ -53,7 +53,7 @@ class CustomNavBar extends React.Component{
             <Image src={serverIp+':'+serverPort+'/handshakeLogo.png'}
                           alt='HandShake Logo'
                           roundedCircle 
-                          style={{height:40, width:40}}/>}
+                          style={{height:40, width:40}}/>
           </Navbar.Brand>
           <Nav className="ml-auto mr-5">
             <Nav.Link href="/appliedJobs">Applications</Nav.Link>

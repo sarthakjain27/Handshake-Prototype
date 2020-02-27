@@ -15,8 +15,8 @@ class EditEducation extends React.Component {
       city: sessionStorage.getItem('city'),
       cstate: sessionStorage.getItem('state'),
       country: sessionStorage.getItem('country'),
-      startDate: new Date(sessionStorage.getItem('start_date').split('/')[0],sessionStorage.getItem('start_date').split('/')[1],sessionStorage.getItem('start_date').split('/')[2]),
-      endDate: new Date(sessionStorage.getItem('end_date').split('/')[0],sessionStorage.getItem('end_date').split('/')[1],sessionStorage.getItem('end_date').split('/')[2]),
+      startDate: new Date(sessionStorage.getItem('start_date').split('/')[0],parseInt(sessionStorage.getItem('start_date').split('/')[1])-1,sessionStorage.getItem('start_date').split('/')[2]),
+      endDate: new Date(sessionStorage.getItem('end_date').split('/')[0],parseInt(sessionStorage.getItem('end_date').split('/')[1])-1,sessionStorage.getItem('end_date').split('/')[2]),
       description: sessionStorage.getItem('work_description'),
       studentId: sessionStorage.getItem('student_id'),
       experienceId: sessionStorage.getItem('experience_id')
@@ -130,30 +130,30 @@ class EditEducation extends React.Component {
         </div>
         <br/>
         <div>
-          <Form onSubmit={this.submitChangeHandler}>
+          <form onSubmit={this.submitChangeHandler}>
             <FormGroup row>
               <Label for="companyName" sm={2}>Company Name</Label>
               <Col sm={5}>
-                <Input type="text" name="companyName" id="companyName" value={this.state.companyName} onChange={this.companyNameChangeHandler}/>
+                <Input type="text" name="companyName" id="companyName" value={this.state.companyName} onChange={this.companyNameChangeHandler} required/>
               </Col>
               <Label for="title" sm={1}>Title</Label>
               <Col sm={3}>
-                <Input type="text" name="title" id="title" value={this.state.title} onChange={this.titleChangeHandler}/>
+                <Input type="text" name="title" id="title" value={this.state.title} onChange={this.titleChangeHandler} required/>
               </Col>
             </FormGroup>
             <br/>
             <FormGroup row>
               <Label for="city" sm={1}>City</Label>
               <Col sm={2}>
-                <Input type="text" name="city" id="city" value={this.state.city} onChange={this.cityChangeHandler}/>
+                <Input type="text" name="city" id="city" value={this.state.city} onChange={this.cityChangeHandler} required/>
               </Col>
               <Label for="state" sm={1}>State</Label>
               <Col sm={2}>
-                <Input type="text" name="state" id="state" value={this.state.cstate} onChange={this.stateChangeHandler}/>
+                <Input type="text" name="state" id="state" value={this.state.cstate} onChange={this.stateChangeHandler} required/>
               </Col>
               <Label for="country" sm={1}>Country</Label>
               <Col sm={2}>
-                <Input type="text" name="country" id="country" value={this.state.country} onChange={this.countryChangeHandler}/>
+                <Input type="text" name="country" id="country" value={this.state.country} onChange={this.countryChangeHandler} required/>
               </Col>
             </FormGroup>
             <FormGroup row>
@@ -177,7 +177,7 @@ class EditEducation extends React.Component {
             <FormGroup row>
               <Label for="exampleText" sm={2}>Work Description</Label>
               <Col sm={8}>
-                <Input type="textarea" name="text" id="exampleText" rows="7" onChange={this.descriptionChangeHandler} value={this.state.description}/>
+                <Input type="textarea" name="text" id="exampleText" rows="7" onChange={this.descriptionChangeHandler} value={this.state.description} required/>
               </Col>
             </FormGroup>
             <FormGroup check row>
@@ -185,7 +185,7 @@ class EditEducation extends React.Component {
                 <Button style={{width:150,height:50}}>Update</Button>
               </Col>
             </FormGroup>
-          </Form>
+          </form>
         </div>
       </div>
     );

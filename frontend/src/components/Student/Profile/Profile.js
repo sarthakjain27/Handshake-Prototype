@@ -5,7 +5,7 @@ import {serverIp, serverPort} from '../../../config';
 import {Row, Col, Button, Form, FormGroup, Label, Input, Media, FormText} from 'reactstrap';
 import {Image} from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import '../../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 class Profile extends React.Component {
   constructor(props){
@@ -164,7 +164,7 @@ class Profile extends React.Component {
         </div>
         <br/>
         <div>
-          <Form onSubmit={this.editProfileHandlerSubmit}>
+          <form onSubmit={this.editProfileHandlerSubmit}>
             <FormGroup row>
               <Label for="profilePicture" sm={2}>Profile Picture</Label>
               <Col sm={10}>
@@ -177,22 +177,22 @@ class Profile extends React.Component {
             <FormGroup row>
               <Label for="studentName" sm={2}>Student Name</Label>
               <Col sm={3}>
-                <Input type="text" name="studentName" id="studentName" value={this.state.studentName} onChange={this.studentNameChangeHandler}/>
+                <Input type="text" name="studentName" id="studentName" value={this.state.studentName} onChange={this.studentNameChangeHandler} required/>
               </Col>
               <Label for="collegeName" sm={2}>College Name</Label>
               <Col sm={3}>
-                <Input type="text" name="collegeName" id="collegeName" value={this.state.collegeName} onChange={this.collegeNameChangeHandler}/>
+                <Input type="text" name="collegeName" id="collegeName" value={this.state.collegeName} onChange={this.collegeNameChangeHandler} required/>
               </Col>
             </FormGroup>
             <br/>
             <FormGroup row>
               <Label for="contactEmail" sm={1}>Contact Email</Label>
               <Col sm={2}>
-                <Input type="email" name="contactEmail" id="contactEmail" value={this.state.contact_email} onChange={this.contactEmailChangeHandler}/>
+                <Input type="email" name="contactEmail" id="contactEmail" value={this.state.contact_email} onChange={this.contactEmailChangeHandler} required/>
               </Col>
               <Label for="contactPhone" sm={1}>Contact Phone</Label>
               <Col sm={2}>
-                <Input type="number" name="contactNumber" id="contactNumber" value={this.state.contactPhone} onChange={this.contactPhoneChangeHandler}/>
+                <Input type="number" name="contactNumber" id="contactNumber" value={this.state.contactPhone} onChange={this.contactPhoneChangeHandler} required/>
               </Col>
               <Label for="dateOfBirth" sm={1}>Date of Birth</Label>
               <Col sm={2}>
@@ -207,21 +207,21 @@ class Profile extends React.Component {
             <FormGroup row>
               <Label for="city" sm={1}>City</Label>
               <Col sm={2}>
-                <Input type="text" name="city" id="city" value={this.state.city} onChange={this.cityChangeHandler}/>
+                <Input type="text" name="city" id="city" value={this.state.city} onChange={this.cityChangeHandler} required/>
               </Col>
               <Label for="state" sm={1}>State</Label>
               <Col sm={2}>
-                <Input type="text" name="state" id="state" value={this.state.cstate} onChange={this.stateChangeHandler}/>
+                <Input type="text" name="state" id="state" value={this.state.cstate} onChange={this.stateChangeHandler} required/>
               </Col>
               <Label for="country" sm={1}>Country</Label>
               <Col sm={2}>
-                <Input type="text" name="country" id="country" value={this.state.country} onChange={this.countryChangeHandler}/>
+                <Input type="text" name="country" id="country" value={this.state.country} onChange={this.countryChangeHandler} required/>
               </Col>
             </FormGroup>
             <FormGroup row>
               <Label for="careerObjective" sm={2}>Career Objective</Label>
               <Col sm={8}>
-                <Input type="textarea" name="text" id="careerObjective" rows="7" onChange={this.careerObjectiveChangeHandler} value={this.state.careerObjective}/>
+                <Input type="textarea" name="text" id="careerObjective" rows="7" onChange={this.careerObjectiveChangeHandler} value={this.state.careerObjective} required/>
               </Col>
             </FormGroup>
             <FormGroup check row>
@@ -229,7 +229,7 @@ class Profile extends React.Component {
                 <Button style={{width:150,height:50}}>Update</Button>
               </Col>
             </FormGroup>
-          </Form>
+          </form>
         </div>
       </div>
     );

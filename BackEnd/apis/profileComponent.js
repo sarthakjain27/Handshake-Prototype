@@ -131,7 +131,9 @@ const getStudentProfile = (req, res, pool) => {
       console.log('Error in getStudentProfile');
       res.send('Error');
     }
-    res.send(result[0]);
+    if(result)
+      res.send(result[0]);
+    else res.send('Error');
   });
 };
 
@@ -207,7 +209,9 @@ const getAllEducation = (req, res, pool) => {
       console.log('Error in getAllEducation');
       res.send('Error');
     }
-    res.send(result);
+    if(result)
+      res.send(result);
+    else res.send('Error');
   });
 };
 
@@ -281,7 +285,9 @@ const getAllProfessionalExperience = (req, res, pool) => {
       console.log('Error in getAllProfessionalExperience');
       res.send('Error');
     }
-    res.send(result);
+    if(result)
+      res.send(result);
+    else res.send('Error');
   });
 };
 

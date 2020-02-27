@@ -18,6 +18,7 @@ const JobComponent = require('./apis/jobComponent');
 const EventComponent = require('./apis/eventComponent');
 const ProfileComponent = require('./apis/profileComponent');
 const SkillSetComponent = require('./apis/skillSetComponent');
+const SearchComponent = require('./apis/searchComponent');
 
 
 const app = express();
@@ -201,6 +202,14 @@ app.post('/deleteProfessionalExperience', (req, res) => {
 app.post('/getStudentAllProfessionalExperience', (req, res) => {
   ProfileComponent.getAllProfessionalExperience(req, res, pool);
 });
+
+app.post('/searchStudents', (req, res) => {
+  SearchComponent.companySearchForStudents(req, res, pool);
+})
+
+app.get('/getAllStudents', (req, res) => {
+  SearchComponent.getAllStudents(req, res, pool);
+})
 
 const server = app.listen(3001, () => {
   console.log('Server listening on port 3001');

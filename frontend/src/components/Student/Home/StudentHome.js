@@ -3,6 +3,7 @@ import CustomNavBar from '../../NavBar/CustomNavBar';
 import {serverIp, serverPort} from '../../../config';
 import axios from 'axios';
 import './StudentHome.css';
+// reactstrap button submits the form
 import {Row, Col, Button, Form, FormGroup, Label, Input, Media} from 'reactstrap';
 import Dropdown from 'react-dropdown';
 import '../../../../node_modules/react-dropdown/style.css';
@@ -157,10 +158,16 @@ class StudentHome extends React.Component {
                 <div className="style__card___1rhof style__fitted___5wNfd" data-hook="card">
                   <div className="style__card-item___B1f7m style__medium___2atZe">
                     <div className="style__input-fields___3mtFs">
-                      <Form onSubmit={this.findJobsSearchHandler} style={{width:1200}}>
+                      <form onSubmit={this.findJobsSearchHandler} style={{width:1200}}>
                         <FormGroup row>
                           <Col sm={6}>
-                            <Input type="text" name="companyName" id="companyName" placeholder="Company Name or Title" value={this.state.searchValue} onChange={this.searchValueChangeHandler} />
+                            <Input type="text" name="companyName" id="companyName" 
+                                    placeholder="Company Name or Title" 
+                                    value={this.state.searchValue} 
+                                    onChange={this.searchValueChangeHandler} 
+                                    pattern="^[a-zA-Z]+([ .]{1}[a-zA-Z]+)*$"
+                                    title="It can only contain letters, single space character and period. It must start with letter and cannot end with special character"
+                                    required/>
                           </Col>
                           <Col sm={3}>
                             <Dropdown
@@ -175,7 +182,7 @@ class StudentHome extends React.Component {
                             <Button color="primary" style={{width:150,height:50}}>Search</Button>
                           </Col>
                         </FormGroup>
-                      </Form>
+                      </form>
                     </div>
                   </div>
                 </div>

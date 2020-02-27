@@ -136,32 +136,32 @@ class AddEducation extends React.Component {
         </div>
         <br/>
         <div>
-          <Form onSubmit={this.submitChangeHandler}>
+          <form onSubmit={this.submitChangeHandler}>
             <FormGroup row>
               <Label for="collegeName" sm={2}>College Name</Label>
               <Col sm={7}>
-                <Input type="text" name="collegeName" id="collegeName" value={this.state.collegeName} onChange={this.collegeNameChangeHandler}/>
+                <Input type="text" name="collegeName" id="collegeName" value={this.state.collegeName} onChange={this.collegeNameChangeHandler} required/>
               </Col>
             </FormGroup>
             <br/>
             <FormGroup row>
               <Label for="city" sm={1}>City</Label>
               <Col sm={2}>
-                <Input type="text" name="city" id="city" value={this.state.city} onChange={this.cityChangeHandler}/>
+                <Input type="text" name="city" id="city" value={this.state.city} onChange={this.cityChangeHandler} required/>
               </Col>
               <Label for="state" sm={1}>State</Label>
               <Col sm={2}>
-                <Input type="text" name="state" id="state" value={this.state.cstate} onChange={this.stateChangeHandler}/>
+                <Input type="text" name="state" id="state" value={this.state.cstate} onChange={this.stateChangeHandler} required/>
               </Col>
               <Label for="country" sm={1}>Country</Label>
               <Col sm={2}>
-                <Input type="text" name="country" id="country" value={this.state.country} onChange={this.countryChangeHandler}/>
+                <Input type="text" name="country" id="country" value={this.state.country} onChange={this.countryChangeHandler} required/>
               </Col>
             </FormGroup>
             <FormGroup row>
               <Label for="degree" sm={2}>Degree</Label>
               <Col sm={3}>
-                <Input type="text" name="degree" id="degree" value={this.state.degree} onChange={this.degreeChangeHandler}/>
+                <Input type="text" name="degree" id="degree" value={this.state.degree} onChange={this.degreeChangeHandler} required/>
               </Col>
               <Label for="major" sm={2}>Major</Label>
               <Col sm={4}>
@@ -169,17 +169,18 @@ class AddEducation extends React.Component {
                     onChange={this.majorChangeHandler}
                     options={this.state.allMajors}
                     value={this.state.major}
+                    required
                 />
               </Col>
             </FormGroup>
             <FormGroup row>
               <Label for="yearOfPassing" sm={2}>Year Of Passing</Label>
               <Col sm={3}>
-                <Input type="text" name="yearOfPassing" id="yearOfPassing" value={this.state.yearOfPassing} onChange={this.yearOfPassingChangeHandler}/>
+                <Input type="text" name="yearOfPassing" id="yearOfPassing" value={this.state.yearOfPassing} onChange={this.yearOfPassingChangeHandler} required/>
               </Col>
               <Label for="cgpa" sm={2}>CGPA</Label>
               <Col sm={3}>
-                <Input type="text" name="cgpa" id="cgpa" value={this.state.cgpa} onChange={this.cgpaChangeHandler}/>
+                <Input type="text" name="cgpa" id="cgpa" value={this.state.cgpa} onChange={this.cgpaChangeHandler} required/>
               </Col>
             </FormGroup>
             <FormGroup check row>
@@ -187,7 +188,7 @@ class AddEducation extends React.Component {
                 <Button style={{width:150,height:50}}>Create</Button>
               </Col>
             </FormGroup>
-          </Form>
+          </form>
         </div>
       </div>
     );

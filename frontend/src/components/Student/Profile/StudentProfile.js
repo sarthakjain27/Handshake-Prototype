@@ -143,13 +143,18 @@ class StudentProfile extends React.Component {
   }
 
   skillChangeHandler(e){
+    console.log(e);
     if (e === null) {
       this.setState({
         selectedSkills: [],
+      },()=>{
+        console.log(this.state.selectedSkills)
       });
     } else {
       this.setState({
         selectedSkills: e,
+      },()=>{
+        console.log(this.state.selectedSkills)
       });
     }
   }

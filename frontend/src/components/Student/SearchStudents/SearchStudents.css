@@ -1,0 +1,195 @@
+
+.form-heading { color:#fff; font-size:23px;}
+.panel h2{ color:#444444; font-size:18px; margin:0 0 8px 0;}
+.panel p { color:#777777; font-size:14px; margin-bottom:30px; line-height:24px;}
+.login-form .form-control {
+  background: #f7f7f7 none repeat scroll 0 0;
+  border: 1px solid #d4d4d4;
+  border-radius: 4px;
+  font-size: 14px;
+  height: 50px;
+  width: 275px;
+  line-height: 50px;
+}
+.main-div {
+  background: #ffffff none repeat scroll 0 0;
+  border-radius: 2px;
+  margin: 10px auto 30px;
+  max-width: 38%;
+  padding: 50px 70px 70px 71px;
+  border: 2px solid black;
+  
+}
+
+.main-div-createJobPost {
+  background: #2db5d4 none repeat scroll 0 0;
+  border-radius: 2px;
+  margin: 10px auto 30px;
+  max-width: 38%;
+  padding: 30px 70px 50px 71px;
+  border: 2px solid black;
+  
+}
+
+.main-div-create-book {
+  background: #ffffff none repeat scroll 0 0;
+  border-radius: 2px;
+  margin: 2px;
+  max-width: 38%;
+  padding: 50px 70px 70px 71px;
+  border: 2px solid black;
+}
+
+.panel-create-book h2{ color:#444444; text-align: left ;font-size:18px; margin:0 0 8px 0;}
+
+.login-form .form-group {
+  margin-bottom:10px;
+}
+.login-form{ text-align:center;}
+.forgot a {
+  color: #777777;
+  font-size: 14px;
+  text-decoration: underline;
+}
+.login-form  .btn.btn-primary {
+  background: #f0ad4e none repeat scroll 0 0;
+  border-color: #f0ad4e;
+  color: #ffffff;
+  font-size: 14px;
+  width: 200px;
+  height: 50px;
+  line-height: 50px;
+  padding: 0;
+}
+.forgot {
+  text-align: left; margin-bottom:30px;
+}
+.botto-text {
+  color: #ffffff;
+  font-size: 14px;
+  margin: auto;
+}
+.back { text-align: left; margin-top:10px;}
+.back a {color: #444444; font-size: 13px;text-decoration: none;}
+
+
+.style__large___3HKaH {
+  max-width: 1224px;
+}
+
+.style__container___15r1p {
+  margin: 0 auto;
+  min-width: 320px;
+  padding: 24px 16px 0;
+}
+
+.style__card___1rhof {
+  margin-bottom: 24px;
+  font-family: Suisse Int\'l,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,sans-serif;
+  color: rgba(0,0,0,.8);
+  background-color: #fff;
+  border-radius: 3px;
+  -webkit-box-shadow: 0 0 4px 1px rgba(0,0,0,.05), 2px 2px 2px 1px rgba(0,0,0,.05);
+  box-shadow: 0 0 4px 1px rgba(0,0,0,.05), 2px 2px 2px 1px rgba(0,0,0,.05);
+}
+
+.style__card___1rhof.style__fitted___5wNfd {
+  margin-bottom: 0;
+}
+
+.style__card-item___B1f7m.style__medium___2atZe {
+  padding: 16px;
+}
+
+.style__card-item___B1f7m.style__medium___2atZe:last-of-type {
+  padding-bottom: 16px;
+}
+
+.style__card-item___B1f7m:last-child {
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.style__card-item___B1f7m:first-child {
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
+.style__input-fields___3mtFs {
+  display: flex;
+}
+
+.main-div-studentProfile {
+  margin: 0 auto;
+  min-width: 320px;
+  padding: 24px 16px 0;
+}
+
+.main-relative-div-studentProfile {
+  position: relative;
+}
+
+.row {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
+.col-md-4 {
+  width: 33.33333%;
+}
+
+.col-md-8 {
+  width: 66.66667%;
+}
+
+.col-md-2 {
+  width: 5%;
+}
+
+.col-md-10 {
+  width: 100%;
+}
+
+.educationCard {
+  margin-bottom: 24px;
+  font-family: sans-serif;
+  color: rgba(0,0,0,.8);
+  background-color: #fff;
+  border-radius: 3px;
+  -webkit-box-shadow: 0 0 4px 1px rgba(0,0,0,.05), 2px 2px 2px 1px rgba(0,0,0,.05);
+  box-shadow: 0 0 4px 1px rgba(0,0,0,.05), 2px 2px 2px 1px rgba(0,0,0,.05);
+}
+
+.experienceCard {
+  margin-bottom: 24px;
+  font-family: sans-serif;
+  color: rgba(0,0,0,.8);
+  background-color: #fff;
+  border-radius: 3px;
+  -webkit-box-shadow: 0 0 4px 1px rgba(0,0,0,.05), 2px 2px 2px 1px rgba(0,0,0,.05);
+  box-shadow: 0 0 4px 1px rgba(0,0,0,.05), 2px 2px 2px 1px rgba(0,0,0,.05);
+}
+
+.experienceHeading {
+  padding: 24px;
+}
+
+.experienceHeading1 {
+  padding: 50px;
+}
+
+.style__card-item___B1f7m {
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.style__card-button___1X6wz {
+  color: #000;
+  text-align: center;
+}
+
+.style__plain___13WSa {
+  background: rgba(0,0,0,0);
+  border: 0;
+  color: #1569e0;
+}

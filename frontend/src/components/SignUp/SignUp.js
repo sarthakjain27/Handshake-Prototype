@@ -32,6 +32,7 @@ class SignUp extends React.Component{
 
   // both company name and student name change will call this handler
   onChangeNameHandler(e){
+    console.log(e.target);
     this.setState({
       name:e.target.value
     });
@@ -102,11 +103,9 @@ class SignUp extends React.Component{
       console.log(response.data);
       if(response.data === 'Exists'){
         window.alert('User already exists in the database. Try another username');
-      } else if (response.data === 'Error in Connecting to Database'){
-        window.alert('Error in Connecting to Database');
-      } else if (response.data === 'SomeOtherError on querying the DB'){
-        window.alert('SomeOtherError on querying the DB');
-      }else {
+      } else if (response.data === 'Error'){
+        window.alert('Error while querying the Database');
+      } else {
         window.alert('Successfully Registered');
         window.location.href = '/'
       }
