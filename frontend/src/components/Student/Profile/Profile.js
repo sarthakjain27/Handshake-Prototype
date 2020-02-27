@@ -19,9 +19,15 @@ class Profile extends React.Component {
       contactPhone: localStorage.getItem('contact_phone'),
       contact_email: localStorage.getItem('contact_email'),
       careerObjective: localStorage.getItem('career_objective'),
-      dateOfBirth: new Date(localStorage.getItem('date_of_birth').split('/')[0],localStorage.getItem('date_of_birth').split('/')[1],localStorage.getItem('date_of_birth').split('/')[2]),
+      //dateOfBirth: new Date(localStorage.getItem('date_of_birth').split('/')[0],localStorage.getItem('date_of_birth').split('/')[1],localStorage.getItem('date_of_birth').split('/')[2]),
+      dateOfBirth: new Date(),
       selectedFile:null
     }
+
+    if(localStorage.getItem('date_of_birth') !== ''){
+      this.state.dateOfBirth = new Date(localStorage.getItem('date_of_birth').split('/')[0],parseInt(localStorage.getItem('date_of_birth').split('/')[1])-1,localStorage.getItem('date_of_birth').split('/')[2])
+    }
+    
     this.editProfileHandlerSubmit = this.editProfileHandlerSubmit.bind(this);
     this.studentNameChangeHandler = this.studentNameChangeHandler.bind(this);
     this.collegeNameChangeHandler = this.collegeNameChangeHandler.bind(this);

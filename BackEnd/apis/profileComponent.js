@@ -63,7 +63,7 @@ const getCompanyDetailsForStudent = (req, res, pool) => {
     }
     res.send(result[0]);
   });
-}
+};
 
 const studentUpdateProfile = (req, res, pool) => {
   console.log('Inside studentUpdateProfile');
@@ -118,7 +118,7 @@ const getStudentBasicDetails = (req, res, pool) => {
     }
     res.send(searchResult[0]);
   });
-}
+};
 
 const getStudentProfile = (req, res, pool) => {
   console.log('Inside getStudentProfile');
@@ -131,8 +131,7 @@ const getStudentProfile = (req, res, pool) => {
       console.log('Error in getStudentProfile');
       res.send('Error');
     }
-    if(result)
-      res.send(result[0]);
+    if (result) res.send(result[0]);
     else res.send('Error');
   });
 };
@@ -209,8 +208,7 @@ const getAllEducation = (req, res, pool) => {
       console.log('Error in getAllEducation');
       res.send('Error');
     }
-    if(result)
-      res.send(result);
+    if (result) res.send(result);
     else res.send('Error');
   });
 };
@@ -285,8 +283,7 @@ const getAllProfessionalExperience = (req, res, pool) => {
       console.log('Error in getAllProfessionalExperience');
       res.send('Error');
     }
-    if(result)
-      res.send(result);
+    if (result) res.send(result);
     else res.send('Error');
   });
 };

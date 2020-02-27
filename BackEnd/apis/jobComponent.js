@@ -47,31 +47,31 @@ const getStudentsRegisteredInAJob = (req, res, pool) => {
                       from students_applied_for_job a,student_information b
                       where a.student_id = b.student_id
                       and a.job_post_id = '${req.body.jobPostId}'`;
-  
+
   pool.query(searchSQL, (searchError, searchResult) => {
-    if(searchError){
+    if (searchError) {
       console.log(searchError);
       console.log('Error in getStudentsRegisteredInAEvent');
       res.send('Error');
     }
     res.send(searchResult);
-  })
-}
+  });
+};
 
 const updateAppliedStudentJobStatus = (req, res, pool) => {
   console.log('updateAppliedStudentJobStatus');
   console.log(req.body);
   const updateSQL = `UPDATE students_applied_for_job SET status='${req.body.status}' where jobApplicationId='${req.body.jobApplicationId}'`;
   pool.query(updateSQL, (updateError, updateResult) => {
-    if(updateError){
+    if (updateError) {
       console.log(updateError);
       console.log('Error in updateAppliedStudentJobStatus');
       res.send('Error');
     }
     console.log(`Student with jobApplicationId=${req.body.jobApplicationId} Status' Updated`);
     res.send('Updated');
-  })
-}
+  });
+};
 
 const getPostedJobs = (req, res, pool) => {
   console.log('Inside getPostedJobs');

@@ -85,7 +85,7 @@ app.post('/applyForJob', studentResumeFileUpload.single('file'), (req, res) => {
   JobComponent.applyForJob(req, res, pool);
 });
 
-app.post('/getStudentBasicDetails', (req, res) =>{
+app.post('/getStudentBasicDetails', (req, res) => {
   ProfileComponent.getStudentBasicDetails(req, res, pool);
 });
 
@@ -142,7 +142,7 @@ app.post('/getCompanyDetails', (req, res) => {
 
 app.post('/getCompanyDetailsForStudent', (req, res) => {
   ProfileComponent.getCompanyDetailsForStudent(req, res, pool);
-})
+});
 
 const studentProfilePictureStorage = multer.diskStorage({
   destination(req, file, cb) {
@@ -161,11 +161,11 @@ app.post('/updateStudentProfile', studentProfilePictureUpload.single('file'), (r
 
 app.post('/updateSkills', (req, res) => {
   SkillSetComponent.updateSkills(req, res, pool);
-})
+});
 
 app.post('/getStudentSkills', (req, res) => {
   SkillSetComponent.getSkills(req, res, pool);
-})
+});
 
 app.post('/getStudentDetails', (req, res) => {
   ProfileComponent.getStudentProfile(req, res, pool);
@@ -205,11 +205,11 @@ app.post('/getStudentAllProfessionalExperience', (req, res) => {
 
 app.post('/searchStudents', (req, res) => {
   SearchComponent.companySearchForStudents(req, res, pool);
-})
+});
 
 app.get('/getAllStudents', (req, res) => {
   SearchComponent.getAllStudents(req, res, pool);
-})
+});
 
 const server = app.listen(3001, () => {
   console.log('Server listening on port 3001');

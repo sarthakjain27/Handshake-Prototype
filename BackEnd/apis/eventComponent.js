@@ -50,16 +50,16 @@ const getStudentsRegisteredInAEvent = (req, res, pool) => {
                     from students_registered_for_event a, student_information b
                     where a.event_id = '${req.body.eventId}'
                     and a.student_id = b.student_id`;
-  
+
   pool.query(searchSQL, (searchError, searchResult) => {
-    if(searchError){
+    if (searchError) {
       console.log(searchError);
       console.log('Error in getStudentsRegisteredInAEvent');
       res.send('Error');
     }
     res.send(searchResult);
-  })        
-}
+  });
+};
 
 const getAllEvents = (req, res, pool) => {
   console.log('Inside getAllEvents');

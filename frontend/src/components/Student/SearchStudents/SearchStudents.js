@@ -15,15 +15,21 @@ class StudentSearchStudents extends React.Component {
     super(props);
     this.state = {
       students:[],
+      filteredStudents:[],
       userOption:['Student Name','College Name','ALL'],
       selectedOption:'ALL',
-      searchValue:''
+      searchValue:'',
+      selectedMajorFilter:'',
+      filterMajor:['Computer Science','Computer Engineering','Software Engineering','Electrical Engineering','Electronics Engineering','Data Science','Mechanical Engineering','Chemical Engineering','Metallurgy Engineering','Civil Engineering']
     }
     this.searchForStudents = this.searchForStudents.bind(this);
     this.onChangeSelectedOptionHandler = this.onChangeSelectedOptionHandler.bind(this);
     this.searchValueChangeHandler = this.searchValueChangeHandler.bind(this);
     this.displayStudentsHandler = this.displayStudentsHandler.bind(this);
     this.capitalize = this.capitalize.bind(this);
+    this.handleApplyFilter = this.handleApplyFilter.bind(this);
+    this.handleResetFilter = this.handleResetFilter.bind(this);
+    this.onChangeSelectedMajorHandler = this.onChangeSelectedMajorHandler.bind(this);
   }
 
   componentDidMount(){
@@ -36,12 +42,39 @@ class StudentSearchStudents extends React.Component {
         window.alert('Error in querying the database');
       } else {
         this.setState({
-          students:response.data
+          students:response.data,
+          filteredStudents:response.data
         })
       }
     }).catch(err => {
       console.log('Error in axios call of component did mount of search students of student: '+err);
       window.alert('Error in connecting to the server');
+    })
+  }
+
+  handleApplyFilter(e){
+    e.preventDefault();
+    if(this.state.selectedMajorFilter === ''){
+      window.alert('Please Select a Major!')
+    } else{
+      let filteredStudentArray = '';
+      filteredStudentArray = this.state.students.filter(eachStudent => eachStudent.allMajors!==null && eachStudent.allMajors.includes(this.state.selectedMajorFilter.toLowerCase()));
+      this.setState({
+        filteredStudents:filteredStudentArray
+      })
+    }
+  }
+
+  handleResetFilter(e){
+    e.preventDefault();
+    this.setState({
+      filteredStudents:this.state.students
+    })
+  }
+
+  onChangeSelectedMajorHandler(e){
+    this.setState({
+      selectedMajorFilter:e.value
     })
   }
 
@@ -58,7 +91,7 @@ class StudentSearchStudents extends React.Component {
   }
 
   displayStudentsHandler(){
-    return this.state.students.map((eachStudent) => {
+    return this.state.filteredStudents.map((eachStudent) => {
       return (
         <div>
           <div>
@@ -108,7 +141,8 @@ class StudentSearchStudents extends React.Component {
         window.alert('Error in querying the database');
       } else {
         this.setState({
-          students:response.data
+          students:response.data,
+          filteredStudents:response.data
         })
       }
     }).catch(err => {
@@ -173,8 +207,20 @@ class StudentSearchStudents extends React.Component {
                 <div className="row">
                   <div className="col-md-4">
                     <div className="experienceHeading">
-                      <h3>Filter to add here later</h3>
+                      <h2>Apply Filters</h2>
                     </div>
+                    <form>
+                      <div className="educationCard">
+                        <Dropdown
+                          options={this.state.filterMajor}
+                          onChange={this.onChangeSelectedMajorHandler}
+                          value={this.state.selectedMajorFilter}
+                          placeholder='Select Major'
+                        />
+                      </div>
+                      <Button color="primary" style={{width:100,height:50}} onClick={this.handleApplyFilter}>Filter</Button>{' '}
+                      <Button color="info" style={{width:100,height:50}} onSubmit={this.handleResetFilter}>Reset</Button>
+                    </form>
                   </div>
                   <div className="col-md-8">
                     <div className="educationCard">
