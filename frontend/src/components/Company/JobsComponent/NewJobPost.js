@@ -4,6 +4,7 @@ import './NewJobPost.css';
 import DatePicker from 'react-datepicker';
 import Dropdown from 'react-dropdown';
 import axios from 'axios';
+import {Row, Col, Button, Form, FormGroup, Label, Input, Media, FormText} from 'reactstrap';
 import {serverIp, serverPort} from '../../../config';
 import '../../../../node_modules/react-datepicker/dist/react-datepicker.css';
 import '../../../../node_modules/react-dropdown/style.css';
@@ -137,13 +138,15 @@ class NewJobPost extends React.Component {
           <CustomNavBar />
         </div>
         <div className="container">
-            <div className="login-form">
-                <div className="main-div-createJobPost">
-                    <div >
+            <div>
+                <div className="main-div-createJobPost-NewJobPost">
+                    <div className="login-form">
                         <h2>Job Details</h2>
                     </div>
                     <form onSubmit={this.onPostSubmit}>
-                        <div className="form-group">
+                      <FormGroup row>
+                        <Col sm={12}>
+                          <div className="form-group">
                             <input type="text" 
                                     className="form-control" 
                                     name="jobTitle" 
@@ -151,86 +154,115 @@ class NewJobPost extends React.Component {
                                     pattern="^[a-zA-Z0-9]+([ .]{1}[a-zA-Z0-9]+)*$"
                                     title="Book Title can only contain letters, digits and single space character. It must start with alphanumeric characters only."
                                     onChange={this.onChangeTitleHandler}
-                                    required />
-                        </div>
-                        <div className="form-group">
-                            <label>Posting Date: </label>
+                                    required 
+                                    autoFocus/>
+                          </div>
+                        </Col>
+                      </FormGroup>
+                        <FormGroup row>
+                          <Label sm={2}>Posting Date: </Label>
+                          <Col sm={4}>
+                            <div className="form-group">
                               <DatePicker 
                                   className="form-control"
                                   selected={this.state.postingDate}
                                   onChange={this.onChangePostingDateHandler}
                                   required/>
-                        </div>
-                        <div className="form-group">
-                            <label>Deadline Date: </label>
+                            </div>
+                          </Col>
+                          <Label sm={2}>Deadline Date: </Label>
+                          <Col sm={4}>
+                            <div className="form-group">
                               <DatePicker 
                                   className="form-control"
                                   selected={this.state.deadline}
                                   onChange={this.onChangeDeadlineHandler}
                                   required/>
-                        </div>
-                        <div className="form-group">
-                          <input type="text" 
-                                className="form-control" 
-                                name="city" 
-                                placeholder="Job City"
-                                pattern="^[a-zA-Z]+([ .]{1}[a-zA-Z]+)*$"
-                                title="It can only contain letters, single space character and period. It must start with letter only."
-                                onChange={this.onChangeCityHandler}
-                                required />
-                        </div>
-                        <div className="form-group">
-                          <input type="text" 
-                                className="form-control" 
-                                name="state" 
-                                placeholder="Job State"
-                                pattern="^[a-zA-Z]+([ .]{1}[a-zA-Z]+)*$"
-                                title="It can only contain letters, single space character and period. It must start with letter only."
-                                onChange={this.onChangeStateHandler}
-                                required />
-                        </div>
-                        <div className="form-group">
-                          <input type="text" 
-                                className="form-control" 
-                                name="country" 
-                                placeholder="Job Country"
-                                pattern="^[a-zA-Z]+([ .]{1}[a-zA-Z]+)*$"
-                                title="It can only contain letters, single space character and period. It must start with letter only."
-                                onChange={this.onChangeCountryHandler}
-                                required />
-                        </div>
-                        <div className="form-group">
-                          <input type="number" 
-                                className="form-control" 
-                                name="salary" 
-                                placeholder="Annual Salary in USD"
-                                title="Please enter only digits."
-                                onChange={this.onChangeSalaryHandler}
-                                required />
-                        </div>
-                        <div className="form-group">
-                          <label>Job description: 
+                            </div>
+                          </Col>
+                        </FormGroup>
+                        <FormGroup row>
+                          <Col sm={4}>
+                            <div className="form-group">
+                              <input type="text" 
+                                    className="form-control" 
+                                    name="city" 
+                                    placeholder="Job City"
+                                    pattern="^[a-zA-Z]+([ .]{1}[a-zA-Z]+)*$"
+                                    title="It can only contain letters, single space character and period. It must start with letter only."
+                                    onChange={this.onChangeCityHandler}
+                                    required />
+                            </div>
+                          </Col>
+                          <Col sm={4}>
+                          <div className="form-group">
+                            <input type="text" 
+                                  className="form-control" 
+                                  name="state" 
+                                  placeholder="Job State"
+                                  pattern="^[a-zA-Z]+([ .]{1}[a-zA-Z]+)*$"
+                                  title="It can only contain letters, single space character and period. It must start with letter only."
+                                  onChange={this.onChangeStateHandler}
+                                  required />
+                          </div>
+                          </Col>
+                          <Col sm={4}>
+                            <div className="form-group">
+                              <input type="text" 
+                                    className="form-control" 
+                                    name="country" 
+                                    placeholder="Job Country"
+                                    pattern="^[a-zA-Z]+([ .]{1}[a-zA-Z]+)*$"
+                                    title="It can only contain letters, single space character and period. It must start with letter only."
+                                    onChange={this.onChangeCountryHandler}
+                                    required />
+                            </div>
+                          </Col>
+                        </FormGroup>
+                        <FormGroup row>
+                          <Col sm={5}>
+                          <div className="form-group">
+                            <input type="number" 
+                                  className="form-control" 
+                                  name="salary" 
+                                  placeholder="Annual Salary in USD"
+                                  title="Please enter only digits."
+                                  onChange={this.onChangeSalaryHandler}
+                                  required />
+                          </div>
+                          </Col>
+                          <Col sm={1}></Col>
+                          <Col sm={6}>
+                            <div className="form-group">
+                              <Dropdown
+                                options={this.state.categoryOptions}
+                                onChange={this.onChangeCategoryHandler}
+                                value={this.state.category}
+                                placeholder='Job Category'
+                                required
+                              />
+                            </div>
+                          </Col>
+                        </FormGroup>
+                        <FormGroup row>
+                          <Label sm={2}>Job description: </Label>
+                          <Col sm={8}>
                             <textarea
                                   rows="8"
-                                  cols="32"
-                                  style={{fontSize:14}}
+                                  cols="80"
+                                  
                                   name="jobDescription" 
                                   placeholder="Job Description"
                                   onChange={this.onChangeDescriptionHandler}
                                   required />
-                          </label>
-                        </div>
-                        <div className="form-group">
-                          <Dropdown
-                            options={this.state.categoryOptions}
-                            onChange={this.onChangeCategoryHandler}
-                            value={this.state.category}
-                            placeholder='Job Category'
-                            required
-                          />
-                        </div>
-
-                        <button type="submit" className="btn btn-primary">Post Job Opening</button>
+                          </Col>
+                        </FormGroup>
+                        
+                        <FormGroup check row>
+                          <Col sm={{ offset:5 }}>
+                            <button type="submit" className="btn btn-primary">Post Job Opening</button>
+                          </Col>
+                        </FormGroup>
                     </form>         
                 </div>
             </div>

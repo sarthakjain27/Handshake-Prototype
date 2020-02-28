@@ -40,7 +40,29 @@ class ListEvents extends React.Component {
           <CustomNavBar />
         </div>
         <div>
-          {this.eventList()}
+          <div className="main-div-studentProfile">
+            <div className="main-relative-div-studentProfile">
+              <div className="row">
+                <div className="col-md-4-ListEvents">
+                  <div className="experienceHeading">
+                    <h2></h2>
+                  </div>
+                </div>
+                <div className="col-md-8-ListEvents">
+                  <div className="educationCard">
+                    <div className="experienceHeading">
+                    {this.eventList()}
+                    </div>
+                  </div>
+                </div>
+                <div className="col-md-4-ListEvents">
+                  <div className="experienceHeading">
+                    <h2></h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );

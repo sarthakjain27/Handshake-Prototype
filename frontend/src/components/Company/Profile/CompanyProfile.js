@@ -77,6 +77,10 @@ class CompanyProfile extends React.Component {
     if (!localStorage.getItem('userRole')) {
       window.location.href = '/';
     }
+    let profile_src = 'default.png';
+    if(this.state.profile_picture_url !== ''){
+      profile_src = this.state.profile_picture_url;
+    }
     let buttons = '';
     if(!this.props.match.params.id)
     {
@@ -98,7 +102,7 @@ class CompanyProfile extends React.Component {
           <Form onSubmit={this.editProfileHandler}>
             <FormGroup row>
             <Col xs={6} md={4}>
-              <Image src={serverIp+':'+serverPort+'/'+this.state.profile_picture_url}
+              <Image src={serverIp+':'+serverPort+'/'+profile_src}
                       alt='Profile Picture'
                       roundedCircle 
                       style={{height:200, width:200}}/>

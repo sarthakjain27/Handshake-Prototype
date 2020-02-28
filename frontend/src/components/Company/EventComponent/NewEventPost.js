@@ -4,6 +4,7 @@ import axios from 'axios';
 import TimePicker from 'react-time-picker';
 import Select from 'react-select';
 import CustomNavBar from '../../NavBar/CustomNavBar';
+import {Row, Col, Button, Form, FormGroup, Label, Input, Media, FormText} from 'reactstrap';
 import { serverIp, serverPort } from '../../../config';
 import './NewEventPost.css';
 import '../../../../node_modules/react-datepicker/dist/react-datepicker.css';
@@ -179,127 +180,157 @@ class NewEventPost extends React.Component {
           <CustomNavBar />
         </div>
         <div className="container">
-          <div className="login-form">
-            <div className="main-div-createJobPost">
-              <div>
+          <div>
+            <div className="main-div-createJobPost-NewEventPost">
+              <div className="login-form">
                 <h2>Event Details</h2>
               </div>
               <form onSubmit={this.onSubmitCreateEvent}>
-                <div className="form-group">
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="eventName"
-                    placeholder="Event Name"
-                    pattern="^[a-zA-Z0-9]+([ .]{1}[a-zA-Z0-9]+)*$"
-                    title="Event Name can only contain letters, digits and single space character. It must start with alphanumeric characters only."
-                    onChange={this.eventNameChangeHandler}
-                    required
-                  />
-                </div>
-                <div className="form-group">
-                  <label>
-                    Event Details:
+                <FormGroup row>
+                  <Col sm={10}>
+                    <div className="form-group">
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="eventName"
+                        placeholder="Event Name"
+                        pattern="^[a-zA-Z0-9]+([ .]{1}[a-zA-Z0-9]+)*$"
+                        title="Event Name can only contain letters, digits and single space character. It must start with alphanumeric characters only."
+                        onChange={this.eventNameChangeHandler}
+                        required
+                        autoFocus
+                      />
+                    </div>
+                  </Col>
+                </FormGroup>
+                <FormGroup row>
+                  <Label sm={2}>Event Details: </Label>
+                  <Col sm={8}>
                     <textarea
-                      rows="8"
-                      cols="32"
-                      style={{ fontSize: 14 }}
-                      name="eventDescription"
-                      placeholder="Event Description"
-                      onChange={this.descriptionChangeHandler}
+                        rows="8"
+                        cols="70"
+                        name="eventDescription"
+                        placeholder="Event Description"
+                        onChange={this.descriptionChangeHandler}
+                        required
+                      />
+                  </Col>
+                </FormGroup>
+
+                <FormGroup row>
+                  <Label sm={2}>Event Date: </Label>
+                  <Col sm={4}>
+                    <DatePicker
+                      className="form-control"
+                      selected={this.state.date}
+                      onChange={this.dateChangeHandler}
                       required
                     />
-                  </label>
-                </div>
-                <div className="form-group">
-                  <label>Event Date: </label>
-                  <DatePicker
-                    className="form-control"
-                    selected={this.state.date}
-                    onChange={this.dateChangeHandler}
-                    required
-                  />
-                </div>
-                <div className="form-group">
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="street"
-                    placeholder="Street"
-                    pattern="^[a-zA-Z0-9]+([ .,]{1}[a-zA-Z0-9]+)*$"
-                    title="It can only contain letters, single space character and period. It must start with letter only."
-                    onChange={this.streetChangeHandler}
-                    required
-                  />
-                </div>
-                <div className="form-group">
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="city"
-                    placeholder="Event City"
-                    pattern="^[a-zA-Z]+([ .]{1}[a-zA-Z]+)*$"
-                    title="It can only contain letters, single space character and period. It must start with letter only."
-                    onChange={this.cityChangeHandler}
-                    required
-                  />
-                </div>
-                <div className="form-group">
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="state"
-                    placeholder="Event State"
-                    pattern="^[a-zA-Z]+([ .]{1}[a-zA-Z]+)*$"
-                    title="It can only contain letters, single space character and period. It must start with letter only."
-                    onChange={this.stateChangeHandler}
-                    required
-                  />
-                </div>
-                <div className="form-group">
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="country"
-                    placeholder="Event Country"
-                    pattern="^[a-zA-Z]+([ .]{1}[a-zA-Z]+)*$"
-                    title="It can only contain letters, single space character and period. It must start with letter only."
-                    onChange={this.countryChangeHandler}
-                    required
-                  />
-                </div>
-                <div className="form-group">
-                  <input
-                    type="number"
-                    className="form-control"
-                    name="zipcode"
-                    placeholder="Zipcode"
-                    onChange={this.zipcodeChangeHandler}
-                    required
-                  />
-                </div>
-                <div>
-                  Select Time:
-                  {' '}
-                  <TimePicker
-                    onChange={this.timeChangeHandler}
-                    value={this.state.time}
-                    required
-                  />
-                  {' '}
-                  <br />
-                </div>
-                <div className="form-group">
-                  <label>Select Eligibility</label>
-                  <Select
-                    isMulti
-                    required
-                    onChange={this.eligibilityChangeHandler}
-                    options={this.state.allMajors}
-                    value={this.state.selectedMajors}
-                  />
-                </div>
-                <button type="submit" className="btn btn-primary">Post Job Opening</button>
+                  </Col>
+                  <Label sm={2}>Event Time: </Label>
+                  <Col sm={4}>
+                    <TimePicker
+                      onChange={this.timeChangeHandler}
+                      value={this.state.time}
+                      required
+                    />
+                  </Col>
+                </FormGroup>
+
+                <FormGroup row>
+                  <Col sm={8}>
+                    <div className="form-group">
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="street"
+                        placeholder="Event Street"
+                        pattern="^[a-zA-Z0-9]+([ .,]{1}[a-zA-Z0-9]+)*$"
+                        title="It can only contain letters, single space character and period. It must start with letter only."
+                        onChange={this.streetChangeHandler}
+                        required
+                      />
+                    </div>
+                  </Col>
+                  <Col sm={3}>
+                    <div className="form-group">
+                      <input
+                        type="number"
+                        className="form-control"
+                        name="zipcode"
+                        placeholder="Zipcode"
+                        onChange={this.zipcodeChangeHandler}
+                        required
+                      />
+                    </div>
+                  </Col>
+                </FormGroup>
+
+                <FormGroup row>
+                  <Col sm={3}>
+                    <div className="form-group">
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="city"
+                        placeholder="Event City"
+                        pattern="^[a-zA-Z]+([ .]{1}[a-zA-Z]+)*$"
+                        title="It can only contain letters, single space character and period. It must start with letter only."
+                        onChange={this.cityChangeHandler}
+                        required
+                      />
+                    </div>
+                  </Col>
+                  <Col sm={1}></Col>
+                  <Col sm={3}>
+                    <div className="form-group">
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="state"
+                        placeholder="Event State"
+                        pattern="^[a-zA-Z]+([ .]{1}[a-zA-Z]+)*$"
+                        title="It can only contain letters, single space character and period. It must start with letter only."
+                        onChange={this.stateChangeHandler}
+                        required
+                      />
+                    </div>
+                  </Col>
+                  <Col sm={1}></Col>
+                  <Col sm={3}>
+                    <div className="form-group">
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="country"
+                        placeholder="Event Country"
+                        pattern="^[a-zA-Z]+([ .]{1}[a-zA-Z]+)*$"
+                        title="It can only contain letters, single space character and period. It must start with letter only."
+                        onChange={this.countryChangeHandler}
+                        required
+                      />
+                    </div>
+                  </Col>
+                  
+                </FormGroup>
+                <FormGroup row>
+                  <Label sm={2}>Select Eligibility: </Label>
+                  <Col sm={6}>
+                    <Select
+                      isMulti
+                      required
+                      onChange={this.eligibilityChangeHandler}
+                      options={this.state.allMajors}
+                      value={this.state.selectedMajors}
+                      required
+                    />
+                  </Col>
+                </FormGroup>
+                <FormGroup check row>
+                  <Col sm={{ offset:5 }}>
+                    <button type="submit" className="btn btn-primary">Post Job Opening</button>
+                  </Col>
+                </FormGroup>
               </form>
             </div>
           </div>

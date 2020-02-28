@@ -142,6 +142,14 @@
   width: 66.66667%;
 }
 
+.col-md-4-CompanyHome {
+  width: 10%;
+}
+
+.col-md-8-CompanyHome {
+  width: 80%;
+}
+
 .col-md-2 {
   width: 10%;
 }

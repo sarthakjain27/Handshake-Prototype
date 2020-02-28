@@ -32,7 +32,7 @@ class SignUp extends React.Component{
 
   // both company name and student name change will call this handler
   onChangeNameHandler(e){
-    console.log(e.target);
+    //console.log(e.target);
     this.setState({
       name:e.target.value
     });
@@ -96,6 +96,7 @@ class SignUp extends React.Component{
       data['country'] = this.state.country;
     }
 
+
     axios.defaults.withCredentials = true;
     axios.post(serverIp+':'+serverPort+'/signup',data)
     .then(response => {
@@ -131,7 +132,8 @@ class SignUp extends React.Component{
               pattern="^[a-zA-Z0-9]+([ .]{1}[a-zA-Z0-9]+)*$"
               title="It can only contain letters, digits, single space character and period. It must start with alphanumeric characters only."
               onChange={this.onChangeCityHandler}
-              required />
+              required 
+              />
       </div>
       <div className="form-group">
         <input type="text" 
@@ -141,7 +143,8 @@ class SignUp extends React.Component{
               pattern="^[a-zA-Z0-9]+([ .]{1}[a-zA-Z0-9]+)*$"
               title="It can only contain letters, digits, single space character and period. It must start with alphanumeric characters only."
               onChange={this.onChangeStateHandler}
-              required />
+              required 
+              />
       </div>
       <div className="form-group">
         <input type="text" 
@@ -151,7 +154,8 @@ class SignUp extends React.Component{
               pattern="^[a-zA-Z0-9]+([ .]{1}[a-zA-Z0-9]+)*$"
               title="It can only contain letters, digits, single space character and period. It must start with alphanumeric characters only."
               onChange={this.onChangeCountryHandler}
-              required />
+              required 
+              />
       </div>
     </div>
 
@@ -166,7 +170,8 @@ class SignUp extends React.Component{
                   pattern="^[a-zA-Z0-9]+([ .]{1}[a-zA-Z0-9]+)*$"
                   title="It can only contain letters, digits, single space character and period. It must start with alphanumeric characters only."
                   onChange={this.onChangeCollegeNameHandler}
-                  required />
+                  required 
+                  />
         </div>
     }
     return(
@@ -183,7 +188,9 @@ class SignUp extends React.Component{
                                     name="username" 
                                     placeholder={this.state.user==='student'?'Student Username':'Company Username'}
                                     onChange={this.onChangeUserNameHandler}
-                                    required />
+                                    required 
+                                    autoFocus
+                                    autoComplete="true"/>
                         </div>
                         <div className="form-group">
                             <input type="password" 
@@ -201,7 +208,8 @@ class SignUp extends React.Component{
                                     pattern="^[a-zA-Z0-9]+([ .]{1}[a-zA-Z0-9]+)*$"
                                     title="It can only contain letters, digits, single space character and period. It must start with alphanumeric characters only."
                                     onChange={this.onChangeNameHandler}
-                                    required />
+                                    required 
+                                    />
                         </div>
                         {differentDiv}
                         <div className="form-group">

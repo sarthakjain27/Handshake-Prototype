@@ -261,16 +261,21 @@ class StudentProfile extends React.Component {
     if (!localStorage.getItem('userRole')) {
       window.location.href = '/';
     } 
+    
     var profile = null;
     if(!this.props.match.params.id)
     {
+      let profile_src = 'default.png';
+      if(localStorage.getItem('profile_picture_url') !== ''){
+        profile_src = localStorage.getItem('profile_picture_url');
+      }
       profile = 
       <div className="main-div-studentProfile">
         <div className="main-relative-div-studentProfile">
           <div className="row">
             <div className="col-md-4">
               <Card border="primary">
-                <Card.Img variant="top" src={serverIp+':'+serverPort+'/'+localStorage.getItem('profile_picture_url')} alt="Profile Picture" style={{height:300}}/>
+                <Card.Img variant="top" src={serverIp+':'+serverPort+'/'+profile_src} alt="Profile Picture" style={{height:300}}/>
                 <Card.Body>
                   <Card.Title>{this.capitalize(localStorage.getItem('student_name'))}</Card.Title>
                   <Card.Subtitle className="mb-2 text-muted">
@@ -347,13 +352,17 @@ class StudentProfile extends React.Component {
         </div>
       </div>
     } else {
+      let profile_src = 'default.png';
+      if(this.state.basicDetails.profile_picture_url !== ''){
+        profile_src = this.state.basicDetails.profile_picture_url;
+      }
       profile = 
       <div className="main-div-studentProfile">
         <div className="main-relative-div-studentProfile">
           <div className="row">
             <div className="col-md-4">
               <Card border="primary">
-                <Card.Img variant="top" src={serverIp+':'+serverPort+'/'+this.state.basicDetails.profile_picture_url} alt="Profile Picture" style={{height:300}}/>
+                <Card.Img variant="top" src={serverIp+':'+serverPort+'/'+profile_src} alt="Profile Picture" style={{height:300}}/>
                 <Card.Body>
                   <Card.Title>{this.capitalize(this.state.basicDetails.student_name)}</Card.Title>
                   <Card.Subtitle className="mb-2 text-muted">

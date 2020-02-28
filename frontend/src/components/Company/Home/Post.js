@@ -25,24 +25,21 @@ class Post extends React.Component{
     return(
       <div>
         <br/>
-        <Card bg="info" text="white" border="primary" className="text-center">
-          <Card.Header>{this.capitalize(this.props.post.job_title)} | {this.capitalize(this.props.post.job_category)}</Card.Header>
+        <Card border="primary" className="text-center">
           <Card.Body>
             <Card.Title>
-              Annual Salary: <i>${this.props.post.salary}</i>
+              {this.capitalize(this.props.post.job_title)} | {this.capitalize(this.props.post.job_category)}
             </Card.Title>
+            <Card.Subtitle className="mb-2 text-muted">
+              <b>Job Location: </b> <i>{this.capitalize(this.props.post.city)}{', '}{this.capitalize(this.props.post.state)}{', '}{this.capitalize(this.props.post.country)} </i>
+            </Card.Subtitle>
             <Card.Text>
               {this.props.post.job_description}
             </Card.Text>
             <Button variant="primary" onClick={this.showStudents}>See Students</Button>
           </Card.Body>
           <Card.Footer >
-            <b>Job City: </b> <i>{this.props.post.city}</i> <br/>
-            <b>Job State: </b> <i>{this.props.post.state}</i> <br />
-            <b>Job Country: </b> <i>{this.props.post.country}</i>
-          </Card.Footer>
-          <Card.Footer >
-            <b>Posting Date: </b> <i>{this.props.post.posting_date}</i> <br/>
+            <b>Posting Date: </b> <i>{this.props.post.posting_date}</i> {' '}
             <b>Deadline: </b> <i>{this.props.post.application_deadline}</i>
           </Card.Footer>
         </Card>

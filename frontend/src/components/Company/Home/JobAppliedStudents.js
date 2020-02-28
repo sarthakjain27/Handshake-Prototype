@@ -109,7 +109,7 @@ class JobAppliedStudents extends React.Component{
                             style={{height:40, width:40}}/> {' '}
                   <a href={'/StudentProfile/'+eachStudent.student_id}>{this.capitalize(eachStudent.student_name)}</a> 
                   {' '}
-                  <Button variant="info" onClick={()=>this.showStudentResume(eachStudent.resume_file_url,eachStudent.student_name)}>Info</Button>
+                  <Button variant="info" onClick={()=>this.showStudentResume(eachStudent.resume_file_url,eachStudent.student_name)}>Resume</Button>
                   {' '}
                   <Button variant="success" onClick={()=>this.setReviewStatus(eachStudent.jobApplicationId)}>Reviewed</Button>
                   {' '}

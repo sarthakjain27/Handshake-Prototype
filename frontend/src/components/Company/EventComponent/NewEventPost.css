@@ -22,12 +22,21 @@
 }
 
 .main-div-createJobPost {
-  background: #2db5d4 none repeat scroll 0 0;
+  background: #ffffff none repeat scroll 0 0;
   border-radius: 2px;
   margin: 10px auto 30px;
   max-width: 38%;
   padding: 30px 70px 50px 71px;
   border: 2px solid black;
+  
+}
+.main-div-createJobPost-NewEventPost {
+  background: #ffffff none repeat scroll 0 0;
+  border-radius: 2px;
+  margin: 10px auto 30px;
+  max-width: 90%;
+  padding: 30px 70px 50px 71px;
+  border: 2px solid rgb(33, 124, 209);
   
 }
 
@@ -147,6 +156,14 @@
 }
 
 .col-md-10 {
+  width: 80%;
+}
+
+.col-md-4-ListEvents {
+  width: 10%;
+}
+
+.col-md-8-ListEvents {
   width: 80%;
 }
 

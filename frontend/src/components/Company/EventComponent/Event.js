@@ -44,22 +44,23 @@ class Event extends React.Component {
     return (
       <div>
         <br />
-        <Card bg="info" text="white" border="primary" className="text-center">
-          <Card.Header>
-            {this.capitalize(this.props.event.event_name)}
-            {' '}
-            |
-            {' '}
-            {this.convertDate(this.props.event.date)}
-            {' '}
-            |
-            {' '}
-            {this.convertTime(this.props.event.time)}
-          </Card.Header>
+        <Card border="primary" className="text-center">
           <Card.Body>
             <Card.Title>
-              Location:
+              {this.capitalize(this.props.event.event_name)}
               {' '}
+              |
+              {' '}
+              {this.convertDate(this.props.event.date)}
+              {' '}
+              |
+              {' '}
+              {this.convertTime(this.props.event.time)}
+            </Card.Title>
+            <Card.Subtitle className="mb-2 text-muted">
+              <b>Location:</b>
+              {' '}
+              <i>
               {this.capitalize(this.props.event.street)}
               ,
               {' '}
@@ -73,7 +74,8 @@ class Event extends React.Component {
               ,
               {' '}
               {this.capitalize(this.props.event.zipcode)}
-            </Card.Title>
+              </i>
+            </Card.Subtitle>
             <Card.Text>
               {this.props.event.description}
             </Card.Text>

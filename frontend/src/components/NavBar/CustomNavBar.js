@@ -17,6 +17,12 @@ class CustomNavBar extends React.Component{
   }
 
   render(){
+
+    let profile_src = 'default.png';
+    if(localStorage.getItem('profile_picture_url') !== ''){
+      profile_src = localStorage.getItem('profile_picture_url');
+    }
+
     let navBar;
     if(localStorage.getItem('userRole') === 'company') {
       navBar = 
@@ -36,7 +42,7 @@ class CustomNavBar extends React.Component{
               <NavDropdown.Item href="/newEventPost">Create Event</NavDropdown.Item>
             </NavDropdown>
             <NavDropdown title={
-                        <Image src={serverIp+':'+serverPort+'/'+localStorage.getItem('profile_picture_url')}
+                        <Image src={serverIp+':'+serverPort+'/'+profile_src}
                         alt='Profile Picture'
                         roundedCircle 
                         style={{height:30, width:30}}/>} id="nav-dropdown">
@@ -64,7 +70,7 @@ class CustomNavBar extends React.Component{
             </NavDropdown>
             <Nav.Link href="/studentSearchStudents">Search Students</Nav.Link>
             <NavDropdown title={
-                        <Image src={serverIp+':'+serverPort+'/'+localStorage.getItem('profile_picture_url')}
+                        <Image src={serverIp+':'+serverPort+'/'+profile_src}
                         alt='Profile Picture'
                         roundedCircle 
                         style={{height:30, width:30}}/>} 

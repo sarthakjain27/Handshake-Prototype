@@ -42,7 +42,29 @@ class CompanyHome extends React.Component {
           <CustomNavBar />
         </div>
         <div>
-          {this.jobList()}
+          <div className="main-div-studentProfile">
+            <div className="main-relative-div-studentProfile">
+              <div className="row">
+                <div className="col-md-4-CompanyHome">
+                  <div className="experienceHeading">
+                    <h2></h2>
+                  </div>
+                </div>
+                <div className="col-md-8-CompanyHome">
+                  <div className="educationCard">
+                    <div className="experienceHeading">
+                    {this.jobList()}
+                    </div>
+                  </div>
+                </div>
+                <div className="col-md-4-CompanyHome">
+                  <div className="experienceHeading">
+                    <h2></h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );

@@ -110,7 +110,9 @@ class Login extends React.Component{
                                     name="username" 
                                     placeholder="Username"
                                     onChange={this.onChangeUserNameHandler}
-                                    required />
+                                    required 
+                                    autoFocus
+                                    autoComplete/>
                         </div>
                         <div className="form-group">
                             <input type="password" 

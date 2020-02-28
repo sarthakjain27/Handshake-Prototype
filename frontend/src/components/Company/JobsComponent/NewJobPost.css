@@ -11,6 +11,7 @@
   width: 275px;
   line-height: 50px;
 }
+
 .main-div {
   background: #ffffff none repeat scroll 0 0;
   border-radius: 2px;
@@ -21,13 +22,13 @@
   
 }
 
-.main-div-createJobPost {
-  background: #2db5d4 none repeat scroll 0 0;
+.main-div-createJobPost-NewJobPost {
+  background: #ffffff none repeat scroll 0 0;
   border-radius: 2px;
   margin: 10px auto 30px;
-  max-width: 38%;
+  max-width: 90%;
   padding: 30px 70px 50px 71px;
-  border: 2px solid black;
+  border: 2px solid rgb(0, 132, 255);
   
 }
 
@@ -46,6 +47,7 @@
   margin-bottom:10px;
 }
 .login-form{ text-align:center;}
+.login-form-NewJobPost{ text-align:center;}
 .forgot a {
   color: #777777;
   font-size: 14px;

@@ -144,11 +144,11 @@ class Profile extends React.Component {
         </div>
         <br/>
         <div>
-          <Form onSubmit={this.editProfileHandlerSubmit}>
+          <form onSubmit={this.editProfileHandlerSubmit}>
             <FormGroup row>
               <Label for="profilePicture" sm={2}>Profile Picture</Label>
               <Col sm={10}>
-                <Input type="file" name="profilePicture" id="profilePicture" accept="image/*" onChange={this.profileFileUploadHandler}/>
+                <Input type="file" name="profilePicture" id="profilePicture" accept="image/*" onChange={this.profileFileUploadHandler} required/>
                 <FormText color="muted">
                   Upload new Profile Picture. Leave it to keep the previous one.
                 </FormText>
@@ -157,39 +157,39 @@ class Profile extends React.Component {
             <FormGroup row>
               <Label for="companyName" sm={2}>Company Name</Label>
               <Col sm={6}>
-                <Input type="text" name="companyName" id="companyName" value={this.state.company_name} onChange={this.companyNameChangeHandler}/>
+                <Input type="text" name="companyName" id="companyName" value={this.state.company_name} onChange={this.companyNameChangeHandler} required/>
               </Col>
             </FormGroup>
             <br/>
             <FormGroup row>
               <Label for="contactEmail" sm={2}>Contact Email</Label>
               <Col sm={3}>
-                <Input type="email" name="contactEmail" id="contactEmail" value={this.state.contact_email} onChange={this.contactEmailChangeHandler}/>
+                <Input type="email" name="contactEmail" id="contactEmail" value={this.state.contact_email} onChange={this.contactEmailChangeHandler} required/>
               </Col>
               <Label for="contactPhone" sm={2}>Contact Phone</Label>
               <Col sm={3}>
-                <Input type="number" name="contactNumber" id="contactNumber" value={this.state.contact_phone} onChange={this.contactPhoneChangeHandler}/>
+                <Input type="number" name="contactNumber" id="contactNumber" value={this.state.contact_phone} onChange={this.contactPhoneChangeHandler} required/>
               </Col>
             </FormGroup>
             <br />
             <FormGroup row>
               <Label for="city" sm={1}>City</Label>
               <Col sm={2}>
-                <Input type="text" name="city" id="city" value={this.state.city} onChange={this.cityChangeHandler}/>
+                <Input type="text" name="city" id="city" value={this.state.city} onChange={this.cityChangeHandler} required/>
               </Col>
               <Label for="state" sm={1}>State</Label>
               <Col sm={2}>
-                <Input type="text" name="state" id="state" value={this.state.cstate} onChange={this.stateChangeHandler}/>
+                <Input type="text" name="state" id="state" value={this.state.cstate} onChange={this.stateChangeHandler} required/>
               </Col>
               <Label for="country" sm={1}>Country</Label>
               <Col sm={2}>
-                <Input type="text" name="country" id="country" value={this.state.country} onChange={this.countryChangeHandler}/>
+                <Input type="text" name="country" id="country" value={this.state.country} onChange={this.countryChangeHandler} required/>
               </Col>
             </FormGroup>
             <FormGroup row>
               <Label for="exampleText" sm={2}>Company Description</Label>
               <Col sm={8}>
-                <Input type="textarea" name="text" id="exampleText" rows="7" onChange={this.descriptionChangeHandler} value={this.state.description}/>
+                <Input type="textarea" name="text" id="exampleText" rows="7" onChange={this.descriptionChangeHandler} value={this.state.description} required/>
               </Col>
             </FormGroup>
             <FormGroup check row>
@@ -197,7 +197,7 @@ class Profile extends React.Component {
                 <Button style={{width:150,height:50}}>Update</Button>
               </Col>
             </FormGroup>
-          </Form>
+          </form>
         </div>
       </div>
     );
