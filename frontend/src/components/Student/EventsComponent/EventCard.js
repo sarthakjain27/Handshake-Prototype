@@ -2,16 +2,22 @@ import React from 'react';
 import {Card, Button, Modal, Image} from 'react-bootstrap';
 import {Row, Col, Form, FormGroup, Label, Input, Media, FormText} from 'reactstrap';
 import axios from 'axios';
+import { Tooltip } from 'reactstrap';
 import {serverIp, serverPort} from '../../../config';
 import '../../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 class EventCard extends React.Component{
   constructor(props){
     super(props);
+    this.state = {
+      tooltipOpen:false
+    }
+    console.log(props);
     this.capitalize = this.capitalize.bind(this);
     this.convertTime = this.convertTime.bind(this);
     this.convertDate = this.convertDate.bind(this);
     this.registerForEvent = this.registerForEvent.bind(this);
+    this.onToggle=this.onToggle.bind(this);
   }
 
   capitalize(word,splitParam=' '){
@@ -22,6 +28,13 @@ class EventCard extends React.Component{
       word = word.join(splitParam);
       return word;
     } else return '';
+  }
+
+  onToggle(e)
+  {
+    this.setState({
+        tooltipOpen:!this.state.tooltipOpen
+    });
   }
 
   convertTime(time){
@@ -79,6 +92,13 @@ class EventCard extends React.Component{
       if(eligible)
       {
         button = <Button style={{width:100,height:40}} onClick={this.registerForEvent}>Register</Button>
+      } else {
+        button = <Button variant="info" style={{width:100,height:55}} id="TooltipExample">
+                    <Tooltip placement="right" isOpen={this.state.tooltipOpen} target="TooltipExample" toggle={this.onToggle}>
+                        You are not eligible since your latest education Major doesn't fall into the eligible category listed by the company.
+                    </Tooltip>
+                    Not Eligible
+                  </Button>
       }
     }
     return(
@@ -99,7 +119,8 @@ class EventCard extends React.Component{
             </Card.Subtitle>
             <Card.Text>
               <b>Description</b>  <br />
-              {this.props.event.edescription}
+              {this.props.event.edescription} <br />
+              <b>Eligible Majors: </b> <i>{this.capitalize(this.props.event.eligibility, ',')}</i>
             </Card.Text>
             <Card.Footer>
               <b>Location:</b> {this.capitalize(this.props.event.street)}, {this.capitalize(this.props.event.city)}, {this.capitalize(this.props.event.state)}, {this.capitalize(this.props.event.country)}, {this.capitalize(this.props.event.zipcode)}
