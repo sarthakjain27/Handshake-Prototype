@@ -42,51 +42,58 @@ class Login extends React.Component{
 
   onLoginSubmit(e){
     e.preventDefault();
-    const data = {
-      emailId: this.state.emailId,
-      password: this.state.password,
-      user: this.state.user
+    if(this.state.user === ''){
+      window.alert('Please select a User Role from Dropdown');
     }
-
-    axios.defaults.withCredentials = true;
-    axios.post(serverIp+':'+serverPort+'/login',data)
-    .then(response => {
-      console.log('Login Response Data');
-      console.log(response.data);
-      if(response.data === 'User Not Present') {
-        window.alert('Given username not present.')
-      } else if(response.data === 'Wrong Password') {
-        window.alert('Wrong Password given')
-      } else if (response.data === 'Error'){
-        window.alert('Error in Connecting to Database');
-      } else {
-          localStorage.setItem('email_id',response.data['email_id']);
-          localStorage.setItem('city',response.data['city']);
-          localStorage.setItem('state',response.data['state']);
-          localStorage.setItem('country',response.data['country']);
-          localStorage.setItem('contact_phone',response.data['contact_phone']);
-          localStorage.setItem('contact_email',response.data['contact_email']);
-          localStorage.setItem('userRole',this.state.user);
-          localStorage.setItem('profile_picture_url',response.data['profile_picture_url']);
-          if(this.state.user === 'company') {
-            localStorage.setItem('company_name',response.data['company_name']);
-            localStorage.setItem('description',response.data['description']);
-            localStorage.setItem('company_id',response.data['company_id']);
-            window.location.href = '/listPostings';
-          }
-          else {
-            localStorage.setItem('student_name',response.data['student_name']);
-            localStorage.setItem('college_name',response.data['college_name']);
-            localStorage.setItem('date_of_birth',response.data['date_of_birth']);
-            localStorage.setItem('career_objective',response.data['career_objective']);
-            localStorage.setItem('student_id',response.data['student_id']);
-            window.location.href = '/viewPostedJobs';
-          }
+    else{
+      const data = {
+        emailId: this.state.emailId.toLowerCase(),
+        password: this.state.password,
+        user: this.state.user
       }
-    }).catch(err => {
-      console.log(`In catch of axios post call to login api ${err}`);
-      window.alert('Error in Login API axios Post call');
-    })
+  
+      axios.defaults.withCredentials = true;
+      axios.post(serverIp+':'+serverPort+'/login',data)
+      .then(response => {
+        console.log('Login Response Data');
+        console.log(response.data);
+        if(response.data === 'User Not Present') {
+          window.alert('Given username not present.')
+        } else if(response.data === 'Wrong Password') {
+          window.alert('Wrong Password given')
+        } else if (response.data === 'Error'){
+          window.alert('Error in Connecting to Database');
+        } else if(response.data === 'Wrong UserRole Given'){
+          window.alert('Wrong User Role given from dropdown');
+        }else {
+            localStorage.setItem('email_id',response.data['email_id']);
+            localStorage.setItem('city',response.data['city']);
+            localStorage.setItem('state',response.data['state']);
+            localStorage.setItem('country',response.data['country']);
+            localStorage.setItem('contact_phone',response.data['contact_phone']);
+            localStorage.setItem('contact_email',response.data['contact_email']);
+            localStorage.setItem('userRole',this.state.user);
+            localStorage.setItem('profile_picture_url',response.data['profile_picture_url']);
+            if(this.state.user === 'company') {
+              localStorage.setItem('company_name',response.data['company_name']);
+              localStorage.setItem('description',response.data['description']);
+              localStorage.setItem('company_id',response.data['company_id']);
+              window.location.href = '/listPostings';
+            }
+            else {
+              localStorage.setItem('student_name',response.data['student_name']);
+              localStorage.setItem('college_name',response.data['college_name']);
+              localStorage.setItem('date_of_birth',response.data['date_of_birth']);
+              localStorage.setItem('career_objective',response.data['career_objective']);
+              localStorage.setItem('student_id',response.data['student_id']);
+              window.location.href = '/viewPostedJobs';
+            }
+        }
+      }).catch(err => {
+        console.log(`In catch of axios post call to login api ${err}`);
+        window.alert('Error in Login API axios Post call');
+      })
+    }
   }
 
   render() {
@@ -119,6 +126,8 @@ class Login extends React.Component{
                                     className="form-control" 
                                     name="password" 
                                     placeholder="Password"
+                                    pattern=".{6,}"
+                                    title="Minimum 6 Characters Required"
                                     onChange={this.onChangePasswordHandler}
                                     required />
                         </div>

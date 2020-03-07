@@ -21,7 +21,10 @@ const signup = (req, res, bcrypt, saltRounds, pool) => {
       res.send('Exists');
     } else {
       bcrypt.hash(password, saltRounds, (error, hash) => {
-        if (error) throw error;
+        if (error) {
+          console.log(error);
+          res.send('Hashing Error');
+        }
         let insertSql = '';
         if (user === 'company') {
           const city = req.body.city.toLowerCase();

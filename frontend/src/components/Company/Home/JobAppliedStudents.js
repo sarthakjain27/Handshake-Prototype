@@ -21,6 +21,7 @@ class JobAppliedStudents extends React.Component{
     this.setReviewStatus = this.setReviewStatus.bind(this);
     this.setDeclineStatus = this.setDeclineStatus.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.goBackToListings = this.goBackToListings.bind(this);
   }
 
   componentDidMount(){
@@ -50,6 +51,11 @@ class JobAppliedStudents extends React.Component{
       word = word.join(splitParam);
       return word;
     }
+  }
+
+  goBackToListings(e){
+    e.preventDefault();
+    window.location.href = '/listPostings';
   }
 
   showStudentResume(resumeUrl,studentname){
@@ -109,7 +115,7 @@ class JobAppliedStudents extends React.Component{
                             style={{height:40, width:40}}/> {' '}
                   <a href={'/StudentProfile/'+eachStudent.student_id}>{this.capitalize(eachStudent.student_name)}</a> 
                   {' '}
-                  <Button variant="info" onClick={()=>this.showStudentResume(eachStudent.resume_file_url,eachStudent.student_name)}>Resume</Button>
+                  <Button variant="info" name="showStudentResume" onClick={()=>this.showStudentResume(eachStudent.resume_file_url,eachStudent.student_name)}>Resume</Button>
                   {' '}
                   <Button variant="success" onClick={()=>this.setReviewStatus(eachStudent.jobApplicationId)}>Reviewed</Button>
                   {' '}
@@ -159,7 +165,7 @@ class JobAppliedStudents extends React.Component{
             <div className="row">
               <div className="col-md-4">
                 <div className="experienceHeading">
-                  <h3>Some Random Thing to Add Here Later</h3>
+                  <h3><Button style={{width:150,height:50}} onClick={this.goBackToListings}>Go Back</Button></h3>
                 </div>
               </div>
               <div className="col-md-8">

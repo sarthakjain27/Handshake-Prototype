@@ -117,7 +117,7 @@ class StudentHome extends React.Component {
       category = 'on campus';
     else if(this.state.selectedCategoryFilter === 'Internship')
       category = 'intern';
-    if((this.state.selectedCategoryFilter === '' || this.state.selectedCategoryFilter === 'All') && (this.state.filteredCity === '')){
+    if((category === '') && (this.state.filteredCity === '')){
       this.setState({
         filteredJobs:this.state.allJobs
       });

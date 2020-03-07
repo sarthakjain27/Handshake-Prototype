@@ -4,10 +4,14 @@ const login = (req, res, bcrypt, pool) => {
   const { user } = req.body;
   const { emailId } = req.body;
   const { password } = req.body;
-  let tableName = 'student_information';
+  let tableName = '';
 
   if (user === 'company') {
     tableName = 'company_information';
+  } else if(user === 'student'){
+    tableName = 'student_information';
+  } else {
+    res.send('Wrong UserRole Given');
   }
   const userPresentSql = `SELECT * FROM ${tableName} WHERE EMAIL_ID = '${emailId}'`;
   pool.query(userPresentSql, (searchError, searchResult) => {
@@ -23,7 +27,10 @@ const login = (req, res, bcrypt, pool) => {
       console.log(`User found in table ${tableName}`);
       console.log(foundUser);
       bcrypt.compare(password, foundUser.password, (pwdCompareError, pwdCompareResult) => {
-        if (pwdCompareError) throw pwdCompareError;
+        if (pwdCompareError) {
+          console.log('Password Compare Error: '+pwdCompareError);
+          res.send('Error in comparing Password');
+        }
         if (!pwdCompareResult) {
           res.send('Wrong Password');
         } else {

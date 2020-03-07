@@ -83,7 +83,7 @@ class SignUp extends React.Component{
   onSignUpSubmit(e){
     e.preventDefault();
     const data = {
-      emailId: this.state.emailId,
+      emailId: this.state.emailId.toLowerCase(),
       password: this.state.password,
       user: this.state.user,
       name: this.state.name
@@ -108,7 +108,7 @@ class SignUp extends React.Component{
         window.alert('Error while querying the Database');
       } else {
         window.alert('Successfully Registered');
-        window.location.href = '/'
+        window.location.href = '/';
       }
     }).catch(err => {
       console.log(`In catch of axios post call to signup api ${err}`);
@@ -197,6 +197,8 @@ class SignUp extends React.Component{
                                     className="form-control" 
                                     name="password" 
                                     placeholder="Password"
+                                    pattern=".{6,}"
+                                    title="Minimum 6 Characters Required"
                                     onChange={this.onChangePasswordHandler}
                                     required />
                         </div>

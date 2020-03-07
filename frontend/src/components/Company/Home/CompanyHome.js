@@ -30,7 +30,7 @@ class CompanyHome extends React.Component {
         //for each object in exercise we are returning an Exercise component and passing three props
         return <Post post={eachPost} key={eachPost.job_post_id}/>
     })
-}
+  }
 
   render() {
     if (!localStorage.getItem('userRole')) {

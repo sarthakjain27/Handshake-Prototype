@@ -211,6 +211,8 @@ app.get('/getAllStudents', (req, res) => {
   SearchComponent.getAllStudents(req, res, pool);
 });
 
+module.exports = app;
+
 const server = app.listen(3001, () => {
   console.log('Server listening on port 3001');
 });

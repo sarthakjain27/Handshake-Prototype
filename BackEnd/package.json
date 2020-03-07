@@ -4,8 +4,8 @@
   "description": "Backend Code for Handshake Prototype Web Application",
   "main": "index.js",
   "scripts": {
-    "test": "nodemon index.js",
-    "start": "node index.js"
+    "test": "mocha test",
+    "start": "nodemon index.js"
   },
   "keywords": [
     "Nodejs",
@@ -17,11 +17,14 @@
   "dependencies": {
     "bcrypt": "^3.0.8",
     "body-parser": "^1.19.0",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
     "cookie-parser": "^1.4.4",
     "cors": "^2.8.5",
     "ejs": "^3.0.1",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
+    "mocha": "^7.1.0",
     "multer": "^1.4.2",
     "mysql": "^2.18.1",
     "nodemon": "^2.0.2"
