@@ -103,13 +103,17 @@ class JobAppliedStudents extends React.Component{
 
   returnRegisteredStudents(){
     return this.state.registeredStudents.map((eachStudent) => {
+      let img_src = serverIp+':'+serverPort+'/default.png';
+      if(eachStudent.profile_picture_url!==''){
+        img_src = serverIp+':'+serverPort+'/'+eachStudent.profile_picture_url;
+      }
       return (
         <div>
           <div>
             <Card border="primary">
               <Card.Body>
                 <Card.Title>
-                  <Image src={serverIp+':'+serverPort+'/'+eachStudent.profile_picture_url}
+                  <Image src={img_src}
                             alt='Student Profile Picture'
                             roundedCircle
                             style={{height:40, width:40}}/> {' '}
@@ -130,7 +134,7 @@ class JobAppliedStudents extends React.Component{
                 </Card.Text>
               </Card.Body>
               <Card.Footer>
-                <b><i>Status: </i></b> {this.capitalize(eachStudent.status)}
+                <b><i>Current Status: </i></b> {this.capitalize(eachStudent.status)}
               </Card.Footer>
             </Card>
             <br />

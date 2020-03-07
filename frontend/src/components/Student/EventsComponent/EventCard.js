@@ -93,7 +93,7 @@ class EventCard extends React.Component{
       {
         button = <Button style={{width:100,height:40}} onClick={this.registerForEvent}>Register</Button>
       } else {
-        button = <Button variant="info" style={{width:100,height:55}} id="TooltipExample">
+        button = <Button variant="danger" style={{width:80,height:58}} id="TooltipExample">
                     <Tooltip placement="right" isOpen={this.state.tooltipOpen} target="TooltipExample" toggle={this.onToggle}>
                         You are not eligible since your latest education Major doesn't fall into the eligible category listed by the company.
                     </Tooltip>

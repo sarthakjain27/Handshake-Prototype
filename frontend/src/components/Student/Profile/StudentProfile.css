@@ -21,7 +21,7 @@
   width: 66.66667%;
 }
 
-.educationCard {
+.educationCardStudentProfile {
   margin-bottom: 24px;
   font-family: sans-serif;
   color: rgba(0,0,0,.8);
@@ -29,9 +29,12 @@
   border-radius: 3px;
   -webkit-box-shadow: 0 0 4px 1px rgba(0,0,0,.05), 2px 2px 2px 1px rgba(0,0,0,.05);
   box-shadow: 0 0 4px 1px rgba(0,0,0,.05), 2px 2px 2px 1px rgba(0,0,0,.05);
+  border-color: #1585e0;
+  border-style: inset;
+  border-width: thin;
 }
 
-.experienceCard {
+.educationCardSkillSet {
   margin-bottom: 24px;
   font-family: sans-serif;
   color: rgba(0,0,0,.8);
@@ -39,6 +42,22 @@
   border-radius: 3px;
   -webkit-box-shadow: 0 0 4px 1px rgba(0,0,0,.05), 2px 2px 2px 1px rgba(0,0,0,.05);
   box-shadow: 0 0 4px 1px rgba(0,0,0,.05), 2px 2px 2px 1px rgba(0,0,0,.05);
+  border-color: #1585e0;
+  border-style: inset;
+  border-width: thin;
+}
+
+.experienceCardStudentProfile {
+  margin-bottom: 24px;
+  font-family: sans-serif;
+  color: rgba(0,0,0,.8);
+  background-color: #fff;
+  border-radius: 3px;
+  -webkit-box-shadow: 0 0 4px 1px rgba(0,0,0,.05), 2px 2px 2px 1px rgba(0,0,0,.05);
+  box-shadow: 0 0 4px 1px rgba(0,0,0,.05), 2px 2px 2px 1px rgba(0,0,0,.05);
+  border-color: #1585e0;
+  border-style: inset;
+  border-width: thin;
 }
 
 .experienceHeading {

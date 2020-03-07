@@ -20,6 +20,7 @@ class StudentListEvents extends React.Component {
     this.returnEventsCards = this.returnEventsCards.bind(this);
     this.searchValueChangeHandler = this.searchValueChangeHandler.bind(this);
     this.findEventsSearchHandler = this.findEventsSearchHandler.bind(this);
+    this.handleReset = this.handleReset.bind(this);
   }
 
   componentDidMount(){
@@ -62,6 +63,22 @@ class StudentListEvents extends React.Component {
     });
   }
 
+  handleReset(e){
+    e.preventDefault();
+    axios.post(serverIp+':'+serverPort+'/getAllEvents',{})
+    .then(response => {
+      console.log('handleReset response in ListEvents.js of Student');
+      this.setState({
+        filteredEvents:response.data,
+        allEvents:response.data,
+        searchValue:''
+      })
+    }).catch(err => {
+      console.log('Error in ListEvents handleReset axios getAllEvents post call: '+err);
+      window.alert('Error in connecting to server');
+    })
+  }
+
   findEventsSearchHandler(e){
     e.preventDefault();
     const data = {
@@ -99,8 +116,11 @@ class StudentListEvents extends React.Component {
                     <h2>Search Events</h2>
                   </div>
                   <form onSubmit={this.findEventsSearchHandler}>
-                    <Input type="text" name="searchEvent" id="searchEvent" placeholder="Search Event" value={this.state.searchValue} onChange={this.searchValueChangeHandler} /> <br />
-                    <Button color="primary" style={{width:150,height:50}}>Search</Button>
+                    <Input type="text" name="searchEvent" id="searchEvent" placeholder="Search Event" value={this.state.searchValue} onChange={this.searchValueChangeHandler} required/> <br />
+                    <Col sm={{offset:2}}>
+                      <Button color="primary" style={{width:100,height:40}}>Search</Button>{' '}
+                      <Button color="info" style={{width:100,height:40}} onClick={this.handleReset}>Reset</Button>
+                    </Col>
                   </form>
                 </div>
                 <div className="col-md-8">

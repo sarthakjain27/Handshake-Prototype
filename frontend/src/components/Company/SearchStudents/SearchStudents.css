@@ -150,6 +150,14 @@
   width: 100%;
 }
 
+.col-md-4-SearchStudentsCompany {
+  width: 10%;
+}
+
+.col-md-8-SearchStudentsCompany {
+  width: 80%;
+}
+
 .educationCard {
   margin-bottom: 24px;
   font-family: sans-serif;

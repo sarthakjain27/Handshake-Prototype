@@ -16,7 +16,7 @@ class CompanySearchStudents extends React.Component {
     this.state = {
       students:[],
       userOption:['Student Name','College Name','Skill Name'],
-      selectedOption:'Student Name',
+      selectedOption:'',
       searchValue:''
     }
     this.searchForStudents = this.searchForStudents.bind(this);
@@ -24,6 +24,25 @@ class CompanySearchStudents extends React.Component {
     this.searchValueChangeHandler = this.searchValueChangeHandler.bind(this);
     this.displayStudentsHandler = this.displayStudentsHandler.bind(this);
     this.capitalize = this.capitalize.bind(this);
+    this.handleSearchReset = this.handleSearchReset.bind(this);
+  }
+
+  componentDidMount(){
+    axios.post(serverIp+':'+serverPort+'/searchStudents',{searchParam:'ALL'})
+    .then((response) => {
+      console.log('Component Did Mount of searchStudents.js of Company response');
+      console.log(response.data);
+      if(response.data === 'Error'){
+        window.alert('Error in querying the database');
+      } else {
+        this.setState({
+          students:response.data
+        })
+      }
+    }).catch(err => {
+      console.log('Error in axios post call in searchStudents in Company: '+err);
+      window.alert('Error in connecting to server');
+    })
   }
 
   searchValueChangeHandler(e){
@@ -40,13 +59,17 @@ class CompanySearchStudents extends React.Component {
 
   displayStudentsHandler(){
     return this.state.students.map((eachStudent) => {
+      let img_src = serverIp+':'+serverPort+'/default.png';
+      if(eachStudent.profile_picture_url!==''){
+        img_src = serverIp+':'+serverPort+'/'+eachStudent.profile_picture_url;
+      }
       return (
         <div>
           <div>
             <Card border="primary">
               <Card.Body>
                 <Card.Title>
-                  <Image src={serverIp+':'+serverPort+'/'+eachStudent.profile_picture_url}
+                  <Image src={img_src}
                             alt='Profile Picture'
                             roundedCircle
                             style={{height:40, width:40}}/> {' '}
@@ -71,31 +94,56 @@ class CompanySearchStudents extends React.Component {
   searchForStudents(e){
     e.preventDefault();
     const data = {value:this.state.searchValue};
-    if(this.state.selectedOption === 'Student Name'){
-      data.searchParam = 'Name';
-    } else if(this.state.selectedOption === 'College Name'){
-      data.searchParam = 'College Name';
-    } else if(this.state.selectedOption === 'Skill Name'){
-      data.searchParam = 'Skill';
-    } else {
-      window.alert('Wrong Paramter Selected');
-      window.location.reload();
+    if(this.state.selectedOption === ''){
+      window.alert('Please select a parameter');
     }
-    axios.post(serverIp+':'+serverPort+'/searchStudents',data)
-    .then(response => {
-      console.log('searchForStudents in SearchStudents company response');
+    else if(this.state.selectedOption !== 'Student Name' && this.state.selectedOption !== 'College Name' && this.state.selectedOption !== 'Skill Name'){
+      window.alert('Wrong Paramter Selected');
+    } else{
+      if(this.state.selectedOption === 'Student Name'){
+        data.searchParam = 'Name';
+      } else if(this.state.selectedOption === 'College Name'){
+        data.searchParam = 'College Name';
+      } else if(this.state.selectedOption === 'Skill Name'){
+        data.searchParam = 'Skill';
+      } 
+      axios.post(serverIp+':'+serverPort+'/searchStudents',data)
+      .then(response => {
+        console.log('searchForStudents in SearchStudents company response');
+        console.log(response.data);
+        if(response.data === 'Error'){
+          window.alert('Error in querying the database');
+        } else {
+          this.setState({
+            students:response.data
+          })
+        }
+      }).catch(err => {
+        console.log('Error in axios post call in SearchStudents in Company: '+err);
+        window.alert('Error in connecting to server');
+      })
+    }
+  }
+
+  handleSearchReset(e){
+    e.preventDefault();
+    axios.post(serverIp+':'+serverPort+'/searchStudents',{searchParam:'ALL'})
+    .then((response) => {
+      console.log('Component Did Mount of searchStudents.js of Company response');
       console.log(response.data);
       if(response.data === 'Error'){
         window.alert('Error in querying the database');
       } else {
         this.setState({
-          students:response.data
+          students:response.data,
+          searchValue:'',
+          selectedOption:''
         })
       }
     }).catch(err => {
-      console.log('Error in axios post call in SearchStudents in Company');
+      console.log('Error in axios post call in searchStudents in Company: '+err);
       window.alert('Error in connecting to server');
-    })
+    });
   }
 
   capitalize(word, splitParam = ' ') {
@@ -137,10 +185,12 @@ class CompanySearchStudents extends React.Component {
                                 options={this.state.userOption}
                                 onChange={this.onChangeSelectedOptionHandler}
                                 value={this.state.selectedOption}
+                                placeholder="Given value provided is ?"
                               />
                           </Col>
                           <Col sm={3}>
-                            <Button color="primary" style={{width:150,height:50}}>Search</Button>
+                            <Button color="primary" style={{width:100,height:40}}>Search</Button>{' '}
+                            <Button color="info" style={{width:100,height:40}} onClick={this.handleSearchReset}>Reset</Button>{' '}
                           </Col>
                         </FormGroup>
                       </form>
@@ -152,15 +202,23 @@ class CompanySearchStudents extends React.Component {
             <div className="main-div-studentProfile">
               <div className="main-relative-div-studentProfile">
                 <div className="row">
-                  
-                  <div className="col-md-10">
+                  <div className="col-md-4-SearchStudentsCompany">
+                    <div className="experienceHeading">
+                      <h2></h2>
+                    </div>
+                  </div>
+                  <div className="col-md-8-SearchStudentsCompany">
                     <div className="educationCard">
                       <div className="experienceHeading">
                         {this.displayStudentsHandler()}
                       </div>
                     </div>
                   </div>
-                  
+                  <div className="col-md-4-SearchStudentsCompany">
+                    <div className="experienceHeading">
+                      <h2></h2>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

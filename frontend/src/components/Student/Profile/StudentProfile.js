@@ -294,7 +294,7 @@ class StudentProfile extends React.Component {
                 </Card.Footer>
               </Card>
               <br />
-              <div className="educationCard">
+              <div className="educationCardSkillSet">
                 <div className="experienceHeading" id="TooltipExample">
                   <h2>Skill Set</h2>
                 <label>Add Skill:</label>
@@ -317,7 +317,7 @@ class StudentProfile extends React.Component {
               </div>
             </div>
             <div className="col-md-8">
-              <div className="educationCard">
+              <div className="educationCardStudentProfile">
                 <div className="experienceHeading">
                   <h2>Education</h2>
                 </div>
@@ -332,7 +332,7 @@ class StudentProfile extends React.Component {
                   </div>
                 </div>
               </div>
-              <div className="experienceCard">
+              <div className="experienceCardStudentProfile">
                 <div className="experienceHeading">
                   <h2>Professional Experience</h2>
                 </div>
@@ -380,7 +380,7 @@ class StudentProfile extends React.Component {
                 </Card.Footer>
               </Card>
               <br />
-              <div className="educationCard">
+              <div className="educationCardSkillSet">
                 <div className="experienceHeading">
                   <h2>Student Skill Set</h2>
                   {this.displaySkills()}
@@ -388,7 +388,7 @@ class StudentProfile extends React.Component {
               </div>
             </div>
             <div className="col-md-8">
-              <div className="educationCard">
+              <div className="educationCardStudentProfile">
                 <div className="experienceHeading">
                   <h2>Education</h2>
                 </div>
@@ -396,7 +396,7 @@ class StudentProfile extends React.Component {
                   {this.displayEducation()}
                 </div>
               </div>
-              <div className="experienceCard">
+              <div className="experienceCardStudentProfile">
                 <div className="experienceHeading">
                   <h2>Professional Experience</h2>
                 </div>

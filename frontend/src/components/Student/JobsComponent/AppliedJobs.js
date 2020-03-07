@@ -15,13 +15,14 @@ class AppliedJobs extends React.Component {
     this.state = {
       filteredJobs:[],
       allJobs:[],
-      categoryOptions:['All','Pending','Reviewed','Declined'],
+      categoryOptions:['Pending','Reviewed','Declined'],
       selectedCategoryFilter:'',
     }
     this.appliedJobs = this.appliedJobs.bind(this);
     this.handleApplyFilter = this.handleApplyFilter.bind(this);
     this.onChangeSelectedCategoryHandler = this.onChangeSelectedCategoryHandler.bind(this);
     this.handleApplyFilter = this.handleApplyFilter.bind(this);
+    this.handleReset = this.handleReset.bind(this);
   }
 
   componentDidMount(){
@@ -51,18 +52,20 @@ class AppliedJobs extends React.Component {
     })
   }
 
-  handleApplyFilter(e){
+  handleReset(e){
     e.preventDefault();
-    window.alert('Hello');
+    this.setState({
+      selectedCategoryFilter:'',
+      filteredJobs:this.state.allJobs
+    });
   }
 
   handleApplyFilter(e){
     e.preventDefault();
-    window.alert(`${this.state.selectedCategoryFilter}`);
+    // window.alert(`${this.state.selectedCategoryFilter}`);
+    console.log(`${this.state.selectedCategoryFilter}`);
     let category = '';
-    if(this.state.selectedCategoryFilter === 'All' || this.state.selectedCategoryFilter === '')
-      category = '';
-    else if(this.state.selectedCategoryFilter === 'Pending')
+    if(this.state.selectedCategoryFilter === 'Pending')
       category = 'pending';
     else if(this.state.selectedCategoryFilter === 'Reviewed')
       category = 'reviewed';
@@ -99,15 +102,19 @@ class AppliedJobs extends React.Component {
                 </div>
                 <form onSubmit={this.handleApplyFilter}>
                   <div className="educationCard">
-                    Application Status <br /> <br />
+                    
                     <Dropdown
                       options={this.state.categoryOptions}
                       onChange={this.onChangeSelectedCategoryHandler}
                       value={this.state.selectedCategoryFilter}
-                      placeholder='Select Category'
+                      placeholder='Select Application Status...'
                     />
                   </div>
-                  <Button color="primary" style={{width:150,height:50}}>Filter</Button>
+                  <Col sm={{offset:2}}>
+                    <Button color="primary" style={{width:100,height:50}}>Filter</Button>{' '}
+                    <Button color="info" style={{width:100,height:50}} onClick={this.handleReset}>Reset</Button>
+                  </Col>
+                  
                 </form>
               </div>
               <div className="col-md-8">

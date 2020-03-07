@@ -16,8 +16,8 @@ class StudentSearchStudents extends React.Component {
     this.state = {
       students:[],
       filteredStudents:[],
-      userOption:['Student Name','College Name','ALL'],
-      selectedOption:'ALL',
+      userOption:['Student Name','College Name'],
+      selectedOption:'',
       searchValue:'',
       selectedMajorFilter:'',
       filterMajor:['Computer Science','Computer Engineering','Software Engineering','Electrical Engineering','Electronics Engineering','Data Science','Mechanical Engineering','Chemical Engineering','Metallurgy Engineering','Civil Engineering']
@@ -30,6 +30,7 @@ class StudentSearchStudents extends React.Component {
     this.handleApplyFilter = this.handleApplyFilter.bind(this);
     this.handleResetFilter = this.handleResetFilter.bind(this);
     this.onChangeSelectedMajorHandler = this.onChangeSelectedMajorHandler.bind(this);
+    this.handleSearchReset = this.handleSearchReset.bind(this);
   }
 
   componentDidMount(){
@@ -92,13 +93,17 @@ class StudentSearchStudents extends React.Component {
 
   displayStudentsHandler(){
     return this.state.filteredStudents.map((eachStudent) => {
+      let img_src = serverIp+':'+serverPort+'/default.png';
+      if(eachStudent.profile_picture_url!==''){
+        img_src = serverIp+':'+serverPort+'/'+eachStudent.profile_picture_url;
+      }
       return (
         <div>
           <div>
             <Card border="primary">
               <Card.Body>
                 <Card.Title>
-                  <Image src={serverIp+':'+serverPort+'/'+eachStudent.profile_picture_url}
+                  <Image src={img_src}
                             alt='Profile Picture'
                             roundedCircle
                             style={{height:40, width:40}}/> {' '}
@@ -123,31 +128,56 @@ class StudentSearchStudents extends React.Component {
   searchForStudents(e){
     e.preventDefault();
     const data = {value:this.state.searchValue};
-    if(this.state.selectedOption === 'Student Name'){
-      data.searchParam = 'Name';
-    } else if(this.state.selectedOption === 'College Name'){
-      data.searchParam = 'College Name';
-    } else if(this.state.selectedOption === 'ALL'){
-      data.searchParam = 'ALL';
-    } else {
+    if(this.state.selectedOption === ''){
+      window.alert('Please Select Search Parameter');
+    } else if(this.state.selectedOption !== 'Student Name' && this.state.selectedOption !== 'College Name') {
       window.alert('Wrong Paramter Selected');
-      window.location.reload();
+    } else {
+      if(this.state.selectedOption === 'Student Name'){
+        data.searchParam = 'Name';
+      } else if(this.state.selectedOption === 'College Name'){
+        data.searchParam = 'College Name';
+      } 
+      axios.post(serverIp+':'+serverPort+'/searchStudents',data)
+      .then(response => {
+        console.log('searchForStudents in SearchStudents company response');
+        console.log(response.data);
+        if(response.data === 'Error'){
+          window.alert('Error in querying the database');
+        } else {
+          this.setState({
+            students:response.data,
+            filteredStudents:response.data
+          })
+        }
+      }).catch(err => {
+        console.log('Error in axios post call in SearchStudents in Company');
+        window.alert('Error in connecting to server');
+      })
     }
-    axios.post(serverIp+':'+serverPort+'/searchStudents',data)
+    
+  }
+
+  handleSearchReset(e){
+    e.preventDefault();
+    axios.get(serverIp+':'+serverPort+'/getAllStudents')
     .then(response => {
-      console.log('searchForStudents in SearchStudents company response');
+      console.log('handleSearchReset response data in Search students in Student folder');
       console.log(response.data);
       if(response.data === 'Error'){
+        console.log('Error in handle search reset of search students of student');
         window.alert('Error in querying the database');
       } else {
         this.setState({
           students:response.data,
-          filteredStudents:response.data
+          filteredStudents:response.data,
+          searchValue:'',
+          selectedOption:''
         })
       }
     }).catch(err => {
-      console.log('Error in axios post call in SearchStudents in Company');
-      window.alert('Error in connecting to server');
+      console.log('Error in axios call of handle search reset of search students of student: '+err);
+      window.alert('Error in connecting to the server');
     })
   }
 
@@ -178,11 +208,12 @@ class StudentSearchStudents extends React.Component {
                         <FormGroup row>
                           <Col sm={6}>
                             <Input type="text" name="companyName" id="companyName" 
-                                    placeholder="Student Name, College Name" 
+                                    placeholder="Student Name or College Name ..." 
                                     value={this.state.searchValue} 
                                     onChange={this.searchValueChangeHandler} 
                                     pattern="^[a-zA-Z]+([ ]{1}[a-zA-Z]+)*$"
                                     title="It can only contain letters, single space character. It must start with letter and cannot end with special character"
+                                    required
                                     />
                           </Col>
                           <Col sm={3}>
@@ -190,10 +221,12 @@ class StudentSearchStudents extends React.Component {
                                 options={this.state.userOption}
                                 onChange={this.onChangeSelectedOptionHandler}
                                 value={this.state.selectedOption}
+                                placeholder="Given Search's Paramter is ?"
                               />
                           </Col>
                           <Col sm={3}>
-                            <Button color="primary" style={{width:150,height:50}}>Search</Button>
+                            <Button color="primary" style={{width:100,height:40}}>Search</Button>{' '}
+                            <Button color="info" style={{width:100,height:40}} onClick={this.handleSearchReset}>Reset</Button>
                           </Col>
                         </FormGroup>
                       </form>
@@ -218,8 +251,10 @@ class StudentSearchStudents extends React.Component {
                           placeholder='Select Major'
                         />
                       </div>
-                      <Button color="primary" style={{width:100,height:50}} onClick={this.handleApplyFilter}>Filter</Button>{' '}
-                      <Button color="info" style={{width:100,height:50}} onSubmit={this.handleResetFilter}>Reset</Button>
+                      <Col sm={{offset:2}}>
+                        <Button color="primary" style={{width:100,height:50}} onClick={this.handleApplyFilter}>Filter</Button>{' '}
+                        <Button color="info" style={{width:100,height:50}} onSubmit={this.handleResetFilter}>Reset</Button>
+                      </Col>
                     </form>
                   </div>
                   <div className="col-md-8">

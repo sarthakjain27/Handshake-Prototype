@@ -2,7 +2,8 @@ import React from 'react';
 import CustomNavBar from '../../NavBar/CustomNavBar';
 import {serverIp, serverPort} from '../../../config';
 import axios from 'axios';
-import {Row, Col, Button, Form, FormGroup, Label, Input, Media} from 'reactstrap';
+import {Row, Col, Form, FormGroup, Label, Input, Media} from 'reactstrap';
+import {Button} from 'react-bootstrap';
 import Dropdown from 'react-dropdown';
 import '../../../../node_modules/react-dropdown/style.css';
 import EventCard from './EventCard';
@@ -50,16 +51,21 @@ class RegisteredEvents extends React.Component {
           <div className="main-div-studentProfile">
             <div className="main-relative-div-studentProfile">
               <div className="row">
-                <div className="col-md-4">
+                <div className="col-md-4-RegisteredEvents">
                   <div className="experienceHeading">
-                    <h2>Some Random Thing to Add Here Later</h2>
+                    <h2></h2>
                   </div>
                 </div>
-                <div className="col-md-8">
+                <div className="col-md-8-RegisteredEvents">
                   <div className="educationCard">
                     <div className="experienceHeading">
                       {this.returnEventsCards()}
                     </div>
+                  </div>
+                </div>
+                <div className="col-md-4-RegisteredEvents">
+                  <div className="experienceHeading">
+                    <h2></h2>
                   </div>
                 </div>
               </div>

@@ -16,10 +16,10 @@ class StudentHome extends React.Component {
     this.state = {
       searchValue: '',
       selectedOption:'',
-      userOptions:['None','Company Name','Job Title'],
+      userOptions:['Company Name','Job Title'],
       filteredJobs: [],
       allJobs: [],
-      categoryOptions:['All','Full Time','Part Time','On Campus','Internship'],
+      categoryOptions:['Full Time','Part Time','On Campus','Internship'],
       selectedCategoryFilter:'',
       filteredCity:''
     }
@@ -30,6 +30,8 @@ class StudentHome extends React.Component {
     this.cityFilter = this.cityFilter.bind(this);
     this.onChangeSelectedCategoryHandler = this.onChangeSelectedCategoryHandler.bind(this);
     this.handleApplyFilter = this.handleApplyFilter.bind(this);
+    this.handleReset = this.handleReset.bind(this);
+    this.handleSearchReset = this.handleSearchReset.bind(this);
   }
 
   /*
@@ -83,6 +85,24 @@ class StudentHome extends React.Component {
     })
   }
 
+  handleSearchReset(e){
+    e.preventDefault();
+    axios.post(serverIp+':'+serverPort+'/getPostedJobs',{})
+    .then(response => {
+      console.log('handleSearchReset Response');
+      console.log(response.data);
+      this.setState({
+        filteredJobs:response.data,
+        allJobs:response.data,
+        searchValue: '',
+        selectedOption:''
+      });
+    }).catch(err => {
+      console.log('Error in StudentHome componentDidMount axios post call');
+      window.alert('Error in connecting to server');
+    });
+  }
+
   findJobsSearchHandler(e){
     e.preventDefault();
     const data = {};
@@ -105,9 +125,18 @@ class StudentHome extends React.Component {
     })
   }
 
+  handleReset(e){
+    e.preventDefault();
+    this.setState({
+      filteredJobs:this.state.allJobs,
+      selectedCategoryFilter:'',
+      filteredCity:''
+    });
+  }
+
   handleApplyFilter(e){
     e.preventDefault();
-    window.alert(`${this.state.selectedCategoryFilter} | ${this.state.filteredCity}`);
+    console.log(`${this.state.selectedCategoryFilter} | ${this.state.filteredCity}`);
     let category = '';
     if(this.state.selectedCategoryFilter === 'Full Time')
       category = 'full time';
@@ -125,10 +154,10 @@ class StudentHome extends React.Component {
       let filteredJobArray = '';
       if(category === '')
       {
-        filteredJobArray = this.state.allJobs.filter(eachJob => eachJob.city.toUpperCase() === this.state.filteredCity.toUpperCase());
+        filteredJobArray = this.state.allJobs.filter(eachJob => eachJob.city.toUpperCase().includes(this.state.filteredCity.toUpperCase()));
       }
       else {
-        filteredJobArray = this.state.allJobs.filter(eachJob => ((eachJob.city.toUpperCase() === this.state.filteredCity.toUpperCase()) && (eachJob.job_category === category)));
+        filteredJobArray = this.state.allJobs.filter(eachJob => ((eachJob.city.toUpperCase().includes(this.state.filteredCity.toUpperCase())) && (eachJob.job_category === category)));
       }
       this.setState({
         filteredJobs:filteredJobArray
@@ -162,7 +191,7 @@ class StudentHome extends React.Component {
                         <FormGroup row>
                           <Col sm={6}>
                             <Input type="text" name="companyName" id="companyName" 
-                                    placeholder="Company Name or Title" 
+                                    placeholder="Company Name or Job Title ..." 
                                     value={this.state.searchValue} 
                                     onChange={this.searchValueChangeHandler} 
                                     pattern="^[a-zA-Z]+([ .]{1}[a-zA-Z]+)*$"
@@ -179,7 +208,8 @@ class StudentHome extends React.Component {
                             />
                           </Col>
                           <Col sm={3}>
-                            <Button color="primary" style={{width:150,height:50}}>Search</Button>
+                            <Button color="primary" style={{width:100,height:40}}>Search</Button>{' '}
+                            <Button color="info" style={{width:100,height:40}} onClick={this.handleSearchReset}>Reset</Button>
                           </Col>
                         </FormGroup>
                       </form>
@@ -201,13 +231,17 @@ class StudentHome extends React.Component {
                           options={this.state.categoryOptions}
                           onChange={this.onChangeSelectedCategoryHandler}
                           value={this.state.selectedCategoryFilter}
-                          placeholder='Select Category'
+                          placeholder='Select Job Category....'
                         />
                       </div>
                       <div className="educationCard">
                         <Input type="text" name="cityFilter" id="cityFilter" placeholder="City Filter" value={this.state.filteredCity} onChange={this.cityFilter}/>
                       </div>
-                      <Button color="primary" style={{width:150,height:50}}>Filter</Button>
+                      <Col sm={{offset:2}}>
+                        <Button color="primary" style={{width:100,height:50}}>Filter</Button>{' '}
+                        <Button color="info" style={{width:100,height:50}} onClick={this.handleReset}>Reset</Button>
+                      </Col>
+                      
                     </form>
                   </div>
                   <div className="col-md-8">
