@@ -1,6 +1,25 @@
 # Handshake-Prototype
 This represents a working Handshake Prototype Web Application developed in First Lab Assignment of Enterprise Distributed Systems Course (CMPE 273-01) at San Jose State University. The Web Application is a modern 3-tier application built using Javascript and popular frameworks and libraries such as **Nodejs, Reactjs, Express** and the testing of backend servers have been performed using **JMeter and Mocha**. Frontend Testing have been performed using **Jest and Enzyme**. The application is containerized using **Docker** and deployed on Amazon Web Services using its **Elastic Container Service (ECS)**. The application is supported by **AWS RDS MySQL Database**.
 
+# - Steps to Deploy the Application: 
+
+**FrontEnd**
+
+1. Git clone the repository's front-end folder (frontend) into a machine having node.js installed in it.
+2. Open a terminal and change directory (cd) inside the cloned folder.
+3. Execute npm install to install the dependencies in the folder.
+4. Update config.js file inside src/components with the Backend Server IP and Address Port.
+5. Execute npm start to run the front end server of the application.
+
+**BackEnd**
+
+1. Git clone the repository's backend folder (Backend) into a machine having node.js installed in it.
+2. Open a terminal and change directory (cd) inside the cloned folder.
+3. Execute npm install to install the dependencies in the folder.
+4. I have used AWS RDS service where I am hosting my MySql Database. Update the Database.js file inside the cloned folder with the connection string (host, port etc) with the database string of yours.
+5. Update the config.js inside the folder to update the application (frontend) server IP address and Port.
+6. Execute npm start to start the backend server.
+
 There are two personas using the application:
 
 # - Companies
