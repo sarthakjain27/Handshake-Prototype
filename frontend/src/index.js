@@ -50,10 +50,10 @@ class AllRoutesCombined extends React.Component {
         <Route exact path="/newEventPost" component={NewEventPost} />
         <Route exact path="/companyProfile" component={CompanyProfile} />
         <Route exact path="/editCompanyProfile" component={EditCompanyProfile} />
-        <Route exact path="/RegisteredStudentsInEvent" component={EventRegisteredStudents}/>
-        <Route exact path="/StudentProfile/:id"  component={StudentProfile}/>
-        <Route exact path="/AppliedStudentsInJob" component={JobAppliedStudents}/>
-        <Route exact path="/searchStudents" component={SearchStudents}/>
+        <Route exact path="/RegisteredStudentsInEvent" component={EventRegisteredStudents} />
+        <Route exact path="/StudentProfile/:id" component={StudentProfile} />
+        <Route exact path="/AppliedStudentsInJob" component={JobAppliedStudents} />
+        <Route exact path="/searchStudents" component={SearchStudents} />
 
         <Route exact path="/viewPostedJobs" component={StudentHome} />
         <Route exact path="/appliedJobs" component={AppliedJobs} />
@@ -66,7 +66,7 @@ class AllRoutesCombined extends React.Component {
         <Route exact path="/addEducationStudentProfile" component={AddEducationStudent} />
         <Route exact path="/editStudentExperience" component={EditStudentProfessionalExperience} />
         <Route exact path="/addExperienceStudentProfile" component={AddProfessionalExperienceStudent} />
-        <Route exact path="/viewCompanyProfile/:id" component={CompanyProfile}/>
+        <Route exact path="/viewCompanyProfile/:id" component={CompanyProfile} />
       </Router>
     );
   }

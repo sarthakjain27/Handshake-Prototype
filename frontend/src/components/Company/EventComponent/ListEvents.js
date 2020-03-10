@@ -45,19 +45,19 @@ class ListEvents extends React.Component {
               <div className="row">
                 <div className="col-md-4-ListEvents">
                   <div className="experienceHeading">
-                    <h2></h2>
+                    <h2 />
                   </div>
                 </div>
                 <div className="col-md-8-ListEvents">
                   <div className="educationCard">
                     <div className="experienceHeading">
-                    {this.eventList()}
+                      {this.eventList()}
                     </div>
                   </div>
                 </div>
                 <div className="col-md-4-ListEvents">
                   <div className="experienceHeading">
-                    <h2></h2>
+                    <h2 />
                   </div>
                 </div>
               </div>

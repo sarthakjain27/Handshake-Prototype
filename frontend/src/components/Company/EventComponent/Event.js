@@ -13,16 +13,17 @@ class Event extends React.Component {
   showStudents(e) {
     e.preventDefault();
     // window.alert(`${this.props.event.event_id}`);
-    sessionStorage.setItem('EventIdForRegisteredStudents',this.props.event.event_id);
+    sessionStorage.setItem('EventIdForRegisteredStudents', this.props.event.event_id);
     window.location.href = '/RegisteredStudentsInEvent';
   }
 
   capitalize(word, splitParam = ' ') {
-    if(word){
+    if (word) {
       word = word.split(splitParam).map((eachWord) => eachWord.split(' ').map((each) => each.charAt(0).toUpperCase() + each.substring(1)).join(' '));
       word = word.join(splitParam);
       return word;
     }
+    return '';
   }
 
   convertTime(time) {
@@ -61,19 +62,19 @@ class Event extends React.Component {
               <b>Location:</b>
               {' '}
               <i>
-              {this.capitalize(this.props.event.street)}
-              ,
-              {' '}
-              {this.capitalize(this.props.event.city)}
-              ,
-              {' '}
-              {this.capitalize(this.props.event.state)}
-              ,
-              {' '}
-              {this.capitalize(this.props.event.country)}
-              ,
-              {' '}
-              {this.capitalize(this.props.event.zipcode)}
+                {this.capitalize(this.props.event.street)}
+                ,
+                {' '}
+                {this.capitalize(this.props.event.city)}
+                ,
+                {' '}
+                {this.capitalize(this.props.event.state)}
+                ,
+                {' '}
+                {this.capitalize(this.props.event.country)}
+                ,
+                {' '}
+                {this.capitalize(this.props.event.zipcode)}
               </i>
             </Card.Subtitle>
             <Card.Text>

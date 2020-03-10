@@ -8,7 +8,7 @@ const login = (req, res, bcrypt, pool) => {
 
   if (user === 'company') {
     tableName = 'company_information';
-  } else if(user === 'student'){
+  } else if (user === 'student') {
     tableName = 'student_information';
   } else {
     res.send('Wrong UserRole Given');
@@ -28,7 +28,7 @@ const login = (req, res, bcrypt, pool) => {
       console.log(foundUser);
       bcrypt.compare(password, foundUser.password, (pwdCompareError, pwdCompareResult) => {
         if (pwdCompareError) {
-          console.log('Password Compare Error: '+pwdCompareError);
+          console.log(`Password Compare Error: ${pwdCompareError}`);
           res.send('Error in comparing Password');
         }
         if (!pwdCompareResult) {

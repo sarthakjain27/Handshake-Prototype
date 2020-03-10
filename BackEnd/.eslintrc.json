@@ -25,7 +25,8 @@
   ],
   "rules": {
     "no-console":"off",
-    "no-unused-vars":"off"
+    "no-unused-vars":"off",
+    "array-callback-return":"off"
 
   }
 }

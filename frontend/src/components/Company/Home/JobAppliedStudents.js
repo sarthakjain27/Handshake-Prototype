@@ -1,20 +1,22 @@
 import React from 'react';
-import {Card, Button, Modal, Image} from 'react-bootstrap';
+import {
+  Card, Button, Modal, Image,
+} from 'react-bootstrap';
 import axios from 'axios';
-import {serverIp, serverPort} from '../../../config';
+import { serverIp, serverPort } from '../../../config';
 import CustomNavBar from '../../NavBar/CustomNavBar';
 import '../../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './CompanyHome.css';
 
-class JobAppliedStudents extends React.Component{
-  constructor(props){
+class JobAppliedStudents extends React.Component {
+  constructor(props) {
     super(props);
     this.state = {
-      registeredStudents:[],
-      studentResumeUrl:'',
-      studentName:'',
-      show:false
-    }
+      registeredStudents: [],
+      studentResumeUrl: '',
+      studentName: '',
+      show: false,
+    };
     this.returnRegisteredStudents = this.returnRegisteredStudents.bind(this);
     this.capitalize = this.capitalize.bind(this);
     this.showStudentResume = this.showStudentResume.bind(this);
@@ -24,88 +26,89 @@ class JobAppliedStudents extends React.Component{
     this.goBackToListings = this.goBackToListings.bind(this);
   }
 
-  componentDidMount(){
-    axios.post(serverIp+':'+serverPort+'/getStudentsRegisteredInAJob',{jobPostId:sessionStorage.getItem('JobIdForAppliedStudents')})
-    .then(response => {
-      console.log('getStudentsRegisteredInAJob Response data in componentDidMount');
-      console.log(response.data);
-      this.setState({
-        registeredStudents:response.data
-      })
-    }).catch(err => {
-      console.log(`Error in componentDidMount of JobAppliedStudents: ${err}`);
-      window.alert('Error in connecting to server');
-    })
+  componentDidMount() {
+    axios.post(`${serverIp}:${serverPort}/getStudentsRegisteredInAJob`, { jobPostId: sessionStorage.getItem('JobIdForAppliedStudents') })
+      .then((response) => {
+        console.log('getStudentsRegisteredInAJob Response data in componentDidMount');
+        console.log(response.data);
+        this.setState({
+          registeredStudents: response.data,
+        });
+      }).catch((err) => {
+        console.log(`Error in componentDidMount of JobAppliedStudents: ${err}`);
+        window.alert('Error in connecting to server');
+      });
   }
 
-  handleClose(){
+  handleClose() {
     this.setState({
-      show:false,
-      studentResumeUrl:''
-    })
+      show: false,
+      studentResumeUrl: '',
+    });
   }
 
   capitalize(word, splitParam = ' ') {
-    if(word){
+    if (word) {
       word = word.split(splitParam).map((eachWord) => eachWord.split(' ').map((each) => each.charAt(0).toUpperCase() + each.substring(1)).join(' '));
       word = word.join(splitParam);
       return word;
     }
+    return '';
   }
 
-  goBackToListings(e){
+  goBackToListings(e) {
     e.preventDefault();
     window.location.href = '/listPostings';
   }
 
-  showStudentResume(resumeUrl,studentname){
-    //window.alert(resumeUrl);
+  showStudentResume(resumeUrl, studentname) {
+    // window.alert(resumeUrl);
     this.setState({
-      studentResumeUrl:resumeUrl,
-      studentName:studentname,
-      show:true
+      studentResumeUrl: resumeUrl,
+      studentName: studentname,
+      show: true,
     });
   }
 
-  setReviewStatus(applicationId){
-    axios.post(serverIp+':'+serverPort+'/updateAppliedStudentJobStatus',{status:'reviewed',jobApplicationId:applicationId})
-    .then(response => {
-      console.log('setReviewStatus response');
-      console.log(response.data);
-      if(response.data === 'Error'){
-        window.alert('Error in updating student job status');
-      } else {
-        window.alert('Successfully updated student job status');
-        window.location.reload();
-      }
-    }).catch(err => {
-      console.log('Error in setReviewStatus in JobAppliedStudents component: '+err);
-      window.alert('Error in connecting to server');
-    })
+  setReviewStatus(applicationId) {
+    axios.post(`${serverIp}:${serverPort}/updateAppliedStudentJobStatus`, { status: 'reviewed', jobApplicationId: applicationId })
+      .then((response) => {
+        console.log('setReviewStatus response');
+        console.log(response.data);
+        if (response.data === 'Error') {
+          window.alert('Error in updating student job status');
+        } else {
+          window.alert('Successfully updated student job status');
+          window.location.reload();
+        }
+      }).catch((err) => {
+        console.log(`Error in setReviewStatus in JobAppliedStudents component: ${err}`);
+        window.alert('Error in connecting to server');
+      });
   }
 
-  setDeclineStatus(applicationId){
-    axios.post(serverIp+':'+serverPort+'/updateAppliedStudentJobStatus',{status:'declined',jobApplicationId:applicationId})
-    .then(response => {
-      console.log('setDeclineStatus response');
-      console.log(response.data);
-      if(response.data === 'Error'){
-        window.alert('Error in updating student job status');
-      } else {
-        window.alert('Successfully updated student job status');
-        window.location.reload();
-      }
-    }).catch(err => {
-      console.log('Error in setDeclineStatus in JobAppliedStudents component: '+err);
-      window.alert('Error in connecting to server');
-    })
+  setDeclineStatus(applicationId) {
+    axios.post(`${serverIp}:${serverPort}/updateAppliedStudentJobStatus`, { status: 'declined', jobApplicationId: applicationId })
+      .then((response) => {
+        console.log('setDeclineStatus response');
+        console.log(response.data);
+        if (response.data === 'Error') {
+          window.alert('Error in updating student job status');
+        } else {
+          window.alert('Successfully updated student job status');
+          window.location.reload();
+        }
+      }).catch((err) => {
+        console.log(`Error in setDeclineStatus in JobAppliedStudents component: ${err}`);
+        window.alert('Error in connecting to server');
+      });
   }
 
-  returnRegisteredStudents(){
+  returnRegisteredStudents() {
     return this.state.registeredStudents.map((eachStudent) => {
-      let img_src = serverIp+':'+serverPort+'/default.png';
-      if(eachStudent.profile_picture_url!==''){
-        img_src = serverIp+':'+serverPort+'/'+eachStudent.profile_picture_url;
+      let imgSrc = `${serverIp}:${serverPort}/default.png`;
+      if (eachStudent.profile_picture_url !== '') {
+        imgSrc = `${serverIp}:${serverPort}/${eachStudent.profile_picture_url}`;
       }
       return (
         <div>
@@ -113,43 +116,51 @@ class JobAppliedStudents extends React.Component{
             <Card border="primary">
               <Card.Body>
                 <Card.Title>
-                  <Image src={img_src}
-                            alt='Student Profile Picture'
-                            roundedCircle
-                            style={{height:40, width:40}}/> {' '}
-                  <a href={'/StudentProfile/'+eachStudent.student_id}>{this.capitalize(eachStudent.student_name)}</a> 
+                  <Image
+                    src={imgSrc}
+                    alt="Student Profile Picture"
+                    roundedCircle
+                    style={{ height: 40, width: 40 }}
+                  />
                   {' '}
-                  <Button variant="info" name="showStudentResume" onClick={()=>this.showStudentResume(eachStudent.resume_file_url,eachStudent.student_name)}>Resume</Button>
                   {' '}
-                  <Button variant="success" onClick={()=>this.setReviewStatus(eachStudent.jobApplicationId)}>Reviewed</Button>
+                  <a href={`/StudentProfile/${eachStudent.student_id}`}>{this.capitalize(eachStudent.student_name)}</a>
                   {' '}
-                  <Button variant="danger" onClick={()=>this.setDeclineStatus(eachStudent.jobApplicationId)}>Decline</Button>
+                  <Button variant="info" name="showStudentResume" onClick={() => this.showStudentResume(eachStudent.resume_file_url, eachStudent.student_name)}>Resume</Button>
+                  {' '}
+                  <Button variant="success" onClick={() => this.setReviewStatus(eachStudent.jobApplicationId)}>Reviewed</Button>
+                  {' '}
+                  <Button variant="danger" onClick={() => this.setDeclineStatus(eachStudent.jobApplicationId)}>Decline</Button>
                 </Card.Title>
                 <Card.Subtitle className="mb-2 text-muted">
                   {this.capitalize(eachStudent.college_name)}
                 </Card.Subtitle>
                 <Card.Text>
-                  <b>Career Objective</b> <br />
+                  <b>Career Objective</b>
+                  {' '}
+                  <br />
                   {eachStudent.career_objective}
                 </Card.Text>
               </Card.Body>
               <Card.Footer>
-                <b><i>Current Status: </i></b> {this.capitalize(eachStudent.status)}
+                <b><i>Current Status: </i></b>
+                {' '}
+                {this.capitalize(eachStudent.status)}
               </Card.Footer>
             </Card>
             <br />
           </div>
         </div>
       );
-    })
+    });
   }
 
-  render(){
-    let resumeShow = <h3>Student didn't upload any Resume</h3>
-    if(this.state.studentResumeUrl!==''){
-      resumeShow = <iframe src={serverIp+':'+serverPort+'/'+this.state.studentResumeUrl} style={{width:770,height:800}}></iframe>
+  render() {
+    let resumeShow = <h3>Student did not upload any Resume</h3>;
+    if (this.state.studentResumeUrl !== '') {
+      resumeShow = <iframe src={`${serverIp}:${serverPort}/${this.state.studentResumeUrl}`} style={{ width: 770, height: 800 }} />;
     }
-    return(
+    return (
       <div>
         <div>
           <CustomNavBar />
@@ -157,7 +168,10 @@ class JobAppliedStudents extends React.Component{
         <div>
           <Modal size="lg" show={this.state.show} onHide={this.handleClose}>
             <Modal.Header closeButton>
-              <Modal.Title>{this.capitalize(this.state.studentName)}'s Resume</Modal.Title>
+              <Modal.Title>
+                {this.capitalize(this.state.studentName)}
+                's Resume
+              </Modal.Title>
             </Modal.Header>
             <Modal.Body>
               {resumeShow}
@@ -169,7 +183,7 @@ class JobAppliedStudents extends React.Component{
             <div className="row">
               <div className="col-md-4">
                 <div className="experienceHeading">
-                  <h3><Button style={{width:150,height:50}} onClick={this.goBackToListings}>Go Back</Button></h3>
+                  <h3><Button style={{ width: 150, height: 50 }} onClick={this.goBackToListings}>Go Back</Button></h3>
                 </div>
               </div>
               <div className="col-md-8">

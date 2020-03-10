@@ -1,41 +1,36 @@
 import React from 'react';
-import CustomNavBar from '../../NavBar/CustomNavBar';
-import {serverIp, serverPort} from '../../../config';
 import axios from 'axios';
-import {Row, Col, Form, FormGroup, Label, Input, Media} from 'reactstrap';
-import {Button} from 'react-bootstrap';
-import Dropdown from 'react-dropdown';
+import { serverIp, serverPort } from '../../../config';
+import CustomNavBar from '../../NavBar/CustomNavBar';
 import '../../../../node_modules/react-dropdown/style.css';
 import EventCard from './EventCard';
 import './ListEvents.css';
 
 class RegisteredEvents extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-      registeredEvents:[]
-    }
+      registeredEvents: [],
+    };
     this.returnEventsCards = this.returnEventsCards.bind(this);
   }
 
-  componentDidMount(){
-    axios.post(serverIp+':'+serverPort+'/getRegisteredEvents',{studentId:localStorage.getItem('student_id')})
-    .then(response => {
-      console.log('ComponentDidMount of RegisteredEvents response');
-      console.log(response.data);
-      this.setState({
-        registeredEvents:response.data
-      })
-    }).catch(err => {
-      console.log(`Error in RegisteredEvents.js in ComponenDidMount axios call: ${err}`);
-      window.alert('Error in connecting to server');
-    })
+  componentDidMount() {
+    axios.post(`${serverIp}:${serverPort}/getRegisteredEvents`, { studentId: localStorage.getItem('student_id') })
+      .then((response) => {
+        console.log('ComponentDidMount of RegisteredEvents response');
+        console.log(response.data);
+        this.setState({
+          registeredEvents: response.data,
+        });
+      }).catch((err) => {
+        console.log(`Error in RegisteredEvents.js in ComponenDidMount axios call: ${err}`);
+        window.alert('Error in connecting to server');
+      });
   }
 
-  returnEventsCards(){
-    return this.state.registeredEvents.map((eachEvent)=>{
-      return <EventCard event={eachEvent} key={eachEvent.event_id} showRegisterButton={false} />
-    })
+  returnEventsCards() {
+    return this.state.registeredEvents.map((eachEvent) => <EventCard event={eachEvent} key={eachEvent.event_id} showRegisterButton={false} />);
   }
 
   render() {
@@ -53,7 +48,7 @@ class RegisteredEvents extends React.Component {
               <div className="row">
                 <div className="col-md-4-RegisteredEvents">
                   <div className="experienceHeading">
-                    <h2></h2>
+                    <h2 />
                   </div>
                 </div>
                 <div className="col-md-8-RegisteredEvents">
@@ -65,7 +60,7 @@ class RegisteredEvents extends React.Component {
                 </div>
                 <div className="col-md-4-RegisteredEvents">
                   <div className="experienceHeading">
-                    <h2></h2>
+                    <h2 />
                   </div>
                 </div>
               </div>

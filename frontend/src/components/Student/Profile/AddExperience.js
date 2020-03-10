@@ -1,13 +1,15 @@
 import React from 'react';
-import CustomNavBar from '../../NavBar/CustomNavBar';
 import axios from 'axios';
-import {serverIp, serverPort} from '../../../config';
-import {Row, Col, Button, Form, FormGroup, Label, Input, Media, FormText} from 'reactstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import DatePicker from 'react-datepicker';
+import {
+  Col, Button, Form, FormGroup, Label, Input,
+} from 'reactstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { serverIp, serverPort } from '../../../config';
+import CustomNavBar from '../../NavBar/CustomNavBar';
 
 class AddExperience extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       companyName: '',
@@ -18,8 +20,8 @@ class AddExperience extends React.Component {
       startDate: new Date(),
       endDate: new Date(),
       description: '',
-      studentId: localStorage.getItem('student_id')
-    }
+      studentId: localStorage.getItem('student_id'),
+    };
     this.companyNameChangeHandler = this.companyNameChangeHandler.bind(this);
     this.titleChangeHandler = this.titleChangeHandler.bind(this);
     this.cityChangeHandler = this.cityChangeHandler.bind(this);
@@ -31,89 +33,89 @@ class AddExperience extends React.Component {
     this.submitChangeHandler = this.submitChangeHandler.bind(this);
   }
 
-  companyNameChangeHandler(e){
+  companyNameChangeHandler(e) {
     this.setState({
-      companyName:e.target.value
-    })
+      companyName: e.target.value,
+    });
   }
 
-  titleChangeHandler(e){
+  titleChangeHandler(e) {
     this.setState({
-      title:e.target.value
-    })
+      title: e.target.value,
+    });
   }
 
-  cityChangeHandler(e){
+  cityChangeHandler(e) {
     this.setState({
-      city:e.target.value
-    })
+      city: e.target.value,
+    });
   }
 
-  stateChangeHandler(e){
+  stateChangeHandler(e) {
     this.setState({
-      cstate:e.target.value
-    })
+      cstate: e.target.value,
+    });
   }
 
-  countryChangeHandler(e){
+  countryChangeHandler(e) {
     this.setState({
-      country:e.target.value
-    })
+      country: e.target.value,
+    });
   }
 
-  startDateChangeHandler(e){
+  startDateChangeHandler(e) {
     this.setState({
-      startDate:e
-    })
+      startDate: e,
+    });
   }
 
-  endDateChangeHandler(e){
+  endDateChangeHandler(e) {
     this.setState({
-      endDate:e
-    })
+      endDate: e,
+    });
   }
 
-  descriptionChangeHandler(e){
+  descriptionChangeHandler(e) {
     this.setState({
-      description:e.target.value
-    })
+      description: e.target.value,
+    });
   }
 
-  submitChangeHandler(e){
+  submitChangeHandler(e) {
     e.preventDefault();
     // endDate = '' for present job
-    if(this.state.companyName === '' || this.state.title === '' || this.state.city === '' || this.state.cstate === '' || this.state.country === '' || this.state.description === '' || this.state.startDate === ''){
+    if (this.state.companyName === '' || this.state.title === '' || this.state.city === '' || this.state.cstate === '' || this.state.country === '' || this.state.description === '' || this.state.startDate === '') {
       window.alert('Please enter all fields');
     } else {
       const data = {
-        companyName:this.state.companyName,
-        title:this.state.title,
-        city:this.state.city,
-        cstate:this.state.cstate,
-        country:this.state.country,
-        description:this.state.description,
-        startDate:this.state.startDate.getFullYear()+'/'+(this.state.startDate.getMonth()+1)+'/'+this.state.startDate.getDate(),
-        studentId:this.state.studentId
-      }
-      if(this.state.endDate === ''){
+        companyName: this.state.companyName,
+        title: this.state.title,
+        city: this.state.city,
+        cstate: this.state.cstate,
+        country: this.state.country,
+        description: this.state.description,
+        startDate: `${this.state.startDate.getFullYear()}/${this.state.startDate.getMonth() + 1}/${this.state.startDate.getDate()}`,
+        studentId: this.state.studentId,
+      };
+      if (this.state.endDate === '') {
         data.endDate = '';
       } else {
-        data.endDate = this.state.endDate.getFullYear()+'/'+(this.state.endDate.getMonth()+1)+'/'+this.state.endDate.getDate();
+        data.endDate = `${this.state.endDate.getFullYear()}/${this.state.endDate.getMonth() + 1}/${this.state.endDate.getDate()}`;
       }
-      axios.post(serverIp+':'+serverPort+'/createProfessionalExperience',data)
-      .then(response => {
-        console.log('createProfessionalExperience Response Data');
-        console.log(response.data);
-        if (response.data === 'Error') {
-          window.alert('Error in Connecting to Database while creating experience details');
-        } else {
-          window.alert('Experience Created Successfully');
-          window.location.href = '/studentProfile';
-        }
-      }).catch(err => {
-        console.log(`In catch of axios post call to createProfessionalExperience  api ${err}`);
-        window.alert('Error in AddExperience component of Student axios Post call');
-      })
+      axios.post(`${serverIp}:${serverPort}/createProfessionalExperience`, data)
+        .then((response) => {
+          console.log('createProfessionalExperience Response Data');
+          console.log(response.data);
+          if (response.data === 'Error') {
+            window.alert('Error in Connecting to Database while creating experience details');
+          } else {
+            window.alert('Experience Created Successfully');
+            window.location.href = '/studentProfile';
+          }
+        }).catch((err) => {
+          console.log(`In catch of axios post call to createProfessionalExperience  api ${err}`);
+          window.alert('Error in AddExperience component of Student axios Post call');
+        });
     }
   }
 
@@ -126,61 +128,63 @@ class AddExperience extends React.Component {
         <div>
           <CustomNavBar />
         </div>
-        <br/>
+        <br />
         <div>
           <Form onSubmit={this.submitChangeHandler}>
             <FormGroup row>
               <Label for="companyName" sm={2}>Company Name</Label>
               <Col sm={5}>
-                <Input type="text" name="companyName" id="companyName" value={this.state.companyName} onChange={this.companyNameChangeHandler}/>
+                <Input type="text" name="companyName" id="companyName" value={this.state.companyName} onChange={this.companyNameChangeHandler} />
               </Col>
               <Label for="title" sm={1}>Title</Label>
               <Col sm={3}>
-                <Input type="text" name="title" id="title" value={this.state.title} onChange={this.titleChangeHandler}/>
+                <Input type="text" name="title" id="title" value={this.state.title} onChange={this.titleChangeHandler} />
               </Col>
             </FormGroup>
-            <br/>
+            <br />
             <FormGroup row>
               <Label for="city" sm={1}>City</Label>
               <Col sm={2}>
-                <Input type="text" name="city" id="city" value={this.state.city} onChange={this.cityChangeHandler}/>
+                <Input type="text" name="city" id="city" value={this.state.city} onChange={this.cityChangeHandler} />
               </Col>
               <Label for="state" sm={1}>State</Label>
               <Col sm={2}>
-                <Input type="text" name="state" id="state" value={this.state.cstate} onChange={this.stateChangeHandler}/>
+                <Input type="text" name="state" id="state" value={this.state.cstate} onChange={this.stateChangeHandler} />
               </Col>
               <Label for="country" sm={1}>Country</Label>
               <Col sm={2}>
-                <Input type="text" name="country" id="country" value={this.state.country} onChange={this.countryChangeHandler}/>
+                <Input type="text" name="country" id="country" value={this.state.country} onChange={this.countryChangeHandler} />
               </Col>
             </FormGroup>
             <FormGroup row>
               <Label for="startDate" sm={1}>Start Date</Label>
               <Col sm={2}>
-                <DatePicker 
+                <DatePicker
                   className="form-control"
                   selected={this.state.startDate}
                   onChange={this.startDateChangeHandler}
-                  required/>
+                  required
+                />
               </Col>
               <Label for="endDate" sm={1}>End Date</Label>
               <Col sm={2}>
-                <DatePicker 
+                <DatePicker
                   className="form-control"
                   selected={this.state.endDate}
                   onChange={this.endDateChangeHandler}
-                  required/>
+                  required
+                />
               </Col>
             </FormGroup>
             <FormGroup row>
               <Label for="exampleText" sm={2}>Work Description</Label>
               <Col sm={8}>
-                <Input type="textarea" name="text" id="exampleText" rows="7" onChange={this.descriptionChangeHandler} value={this.state.description}/>
+                <Input type="textarea" name="text" id="exampleText" rows="7" onChange={this.descriptionChangeHandler} value={this.state.description} />
               </Col>
             </FormGroup>
             <FormGroup check row>
-              <Col sm={{ size: 4, offset:5 }}>
-                <Button style={{width:150,height:50}}>Update</Button>
+              <Col sm={{ size: 4, offset: 5 }}>
+                <Button style={{ width: 150, height: 50 }}>Update</Button>
               </Col>
             </FormGroup>
           </Form>

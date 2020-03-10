@@ -3,8 +3,10 @@ import DatePicker from 'react-datepicker';
 import axios from 'axios';
 import TimePicker from 'react-time-picker';
 import Select from 'react-select';
+import {
+  Col, FormGroup, Label,
+} from 'reactstrap';
 import CustomNavBar from '../../NavBar/CustomNavBar';
-import {Row, Col, Button, Form, FormGroup, Label, Input, Media, FormText} from 'reactstrap';
 import { serverIp, serverPort } from '../../../config';
 import './NewEventPost.css';
 import '../../../../node_modules/react-datepicker/dist/react-datepicker.css';
@@ -207,13 +209,13 @@ class NewEventPost extends React.Component {
                   <Label sm={2}>Event Details: </Label>
                   <Col sm={8}>
                     <textarea
-                        rows="8"
-                        cols="70"
-                        name="eventDescription"
-                        placeholder="Event Description"
-                        onChange={this.descriptionChangeHandler}
-                        required
-                      />
+                      rows="8"
+                      cols="70"
+                      name="eventDescription"
+                      placeholder="Event Description"
+                      onChange={this.descriptionChangeHandler}
+                      required
+                    />
                   </Col>
                 </FormGroup>
 
@@ -245,7 +247,7 @@ class NewEventPost extends React.Component {
                         className="form-control"
                         name="street"
                         placeholder="Event Street"
-                        pattern="^[a-zA-Z0-9]+([ .,]{1}[a-zA-Z0-9]+)*$"
+                        pattern="^[a-zA-Z0-9]+([ .,]{*}[a-zA-Z0-9]+)*$"
                         title="It can only contain letters, single space character and period. It must start with letter only."
                         onChange={this.streetChangeHandler}
                         required
@@ -281,7 +283,7 @@ class NewEventPost extends React.Component {
                       />
                     </div>
                   </Col>
-                  <Col sm={1}></Col>
+                  <Col sm={1} />
                   <Col sm={3}>
                     <div className="form-group">
                       <input
@@ -296,7 +298,7 @@ class NewEventPost extends React.Component {
                       />
                     </div>
                   </Col>
-                  <Col sm={1}></Col>
+                  <Col sm={1} />
                   <Col sm={3}>
                     <div className="form-group">
                       <input
@@ -311,7 +313,7 @@ class NewEventPost extends React.Component {
                       />
                     </div>
                   </Col>
-                  
+
                 </FormGroup>
                 <FormGroup row>
                   <Label sm={2}>Select Eligibility: </Label>
@@ -322,13 +324,12 @@ class NewEventPost extends React.Component {
                       onChange={this.eligibilityChangeHandler}
                       options={this.state.allMajors}
                       value={this.state.selectedMajors}
-                      required
                     />
                   </Col>
                 </FormGroup>
                 <FormGroup check row>
-                  <Col sm={{ offset:5 }}>
-                    <button type="submit" className="btn btn-primary">Post Job Opening</button>
+                  <Col sm={{ offset: 5 }}>
+                    <button type="submit" className="btn btn-primary">Create Event</button>
                   </Col>
                 </FormGroup>
               </form>
